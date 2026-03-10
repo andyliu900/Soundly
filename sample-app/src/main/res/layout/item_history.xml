@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/history_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="id:1111111"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_play_processed"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/original_filepath"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="原始音频路径"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toBottomOf="@id/history_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_play_processed"/>
+
+    <TextView
+        android:id="@+id/processed_filepath"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="处理后音频文件路径"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toBottomOf="@id/original_filepath"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_play_processed"/>
+
+    <TextView
+        android:id="@+id/preset_option"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="音频处理策略"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintTop_toBottomOf="@id/processed_filepath"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_play_processed"/>
+
+    <Button
+        android:id="@+id/btn_play_original"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="播放原始音频"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_play_processed"/>
+
+    <Button
+        android:id="@+id/btn_play_processed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="播放处理后音频"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_play_original"
+        app:layout_constraintBottom_toTopOf="@id/btn_history_delete"/>
+
+    <Button
+        android:id="@+id/btn_history_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除记录"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_play_processed"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
