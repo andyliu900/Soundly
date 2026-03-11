@@ -94,6 +94,8 @@ dependencies {
 
     implementation(project(":soundly-sdk"))
 
+//    implementation(files("libs/soundly-sdk-debug.aar"))
+
     implementation(libs.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)

@@ -15,7 +15,8 @@ import com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity
         AudioHistoryEntity::class,
         AudioVariantEntity::class
     ],
-    version = 2
+    version = 2,
+    exportSchema = false
 )
 @TypeConverters(PresetOptionConverter::class)
 abstract class AppDatabase : RoomDatabase() {

@@ -64,7 +64,7 @@ afterEvaluate {
                 groupId = "com.ideacode"
                 artifactId = "soundly-sdk"
                 version = "1.0.0"
-//                artifact("$buildDir/outputs/aar/soundly-sdk-release.aar")
+                artifact("$buildDir/outputs/aar/soundly-sdk-release.aar")
             }
         }
     }
