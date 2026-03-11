@@ -128,10 +128,10 @@ Output (Wav / Player)
 欢迎提交 Issue 或 Pull Request 来帮助改进 Soundly。  
 
 贡献方式：  
-Fork 本仓库  
-创建 Feature 分支  
-提交代码  
-提交 Pull Request  
+- Fork 本仓库  
+- 创建 Feature 分支  
+- 提交代码  
+- 提交 Pull Request  
 
 ## ⭐ Support
 如果这个项目对你有帮助，欢迎：  
