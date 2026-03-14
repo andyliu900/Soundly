@@ -93,15 +93,15 @@ android {
 
 dependencies {
 
-//    implementation(project(":soundly-sdk"))
-
-    implementation(files("libs/soundly-sdk-1.0.6.aar"))
+    implementation(project(":soundly-sdk"))
 
     implementation(libs.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.recyclerview)
 
+    // 使用 aar 形式需要配套增加 room、timber 组件
+//    implementation(files("libs/soundly-sdk-1.0.6.aar"))
 //    implementation(libs.room.runtime)
 //    implementation(libs.room.ktx)
 //    kapt(libs.room.compiler)
