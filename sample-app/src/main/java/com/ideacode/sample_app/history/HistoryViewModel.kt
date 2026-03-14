@@ -3,9 +3,9 @@ package com.ideacode.sample_app.history
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ideacode.soundly_model.audio.AudioSource
-import com.ideacode.soundly_model.domain.AudioHistory
-import com.ideacode.soundly_sdk.Soundly
+import com.ideacode.soundly_sdk.api.model.audio.AudioSource
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.Soundly
 import com.ideacode.soundly_sdk.history.repository.RoomAudioHistoryRepository
 import com.ideacode.soundly_sdk.player.SdkAudioPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -57,7 +57,9 @@ class HistoryViewModel(
             source = AudioSource.Original(uri),
             onPrepared = {
                 audioPlayer.play()
-            }
+            },
+            onCompletion = null,
+            onError = null
         )
     }
 
@@ -66,7 +68,9 @@ class HistoryViewModel(
             source = AudioSource.Processed(wavFile),
             onPrepared = {
                 audioPlayer.play()
-            }
+            },
+            onCompletion = null,
+            onError = null
         )
     }
 

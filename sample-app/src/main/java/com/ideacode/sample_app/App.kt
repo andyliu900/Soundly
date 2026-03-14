@@ -4,9 +4,8 @@ import android.app.Application
 import android.util.Log
 import com.ideacode.sample_app.util.AppCrashReportingTree
 import com.ideacode.sample_app.util.AppModuleTagTree
-import com.ideacode.soundly_sdk.BuildConfig
-import com.ideacode.soundly_sdk.Soundly
-import com.ideacode.soundly_sdk.Soundly.TAG
+import com.ideacode.soundly_sdk.api.Soundly
+import com.ideacode.soundly_sdk.api.Soundly.TAG
 import timber.log.Timber
 
 class App : Application() {
@@ -20,7 +19,7 @@ class App : Application() {
     }
 
     fun initLogUtils() {
-        Log.i(TAG,  "App LogUtils init, BuildConfig.DEBUG: ${com.ideacode.soundly_sdk.BuildConfig.DEBUG}")
+        Log.i(TAG,  "App LogUtils init, BuildConfig.DEBUG: ${BuildConfig.DEBUG}")
 
         if (BuildConfig.DEBUG) {
             Timber.plant(AppModuleTagTree())

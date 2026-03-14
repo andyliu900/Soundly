@@ -2,9 +2,9 @@ package com.ideacode.soundly_sdk.history.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_model.domain.AudioHistory
-import com.ideacode.soundly_model.domain.AudioVariant
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 
 @Entity(tableName = "audio_history")
 data class AudioHistoryEntity (

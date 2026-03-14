@@ -20,8 +20,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ideacode.sample_app.R
 import com.ideacode.sample_app.history.HistoryFragment
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_model.audio.processor.ProcessingStage
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage
 import timber.log.Timber
 import java.io.File
 

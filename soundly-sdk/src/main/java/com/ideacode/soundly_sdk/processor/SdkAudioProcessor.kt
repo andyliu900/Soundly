@@ -1,9 +1,9 @@
 package com.ideacode.soundly_sdk.processor
 
 import android.net.Uri
-import com.ideacode.soundly_core.audio.processor.state.ProcessingProcess
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_sdk.Soundly
+import com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.Soundly
 import com.ideacode.soundly_sdk.preset.PresetFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

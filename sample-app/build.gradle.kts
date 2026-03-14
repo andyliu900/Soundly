@@ -11,6 +11,7 @@ if (keystoreFile.exists()) {
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -92,14 +93,19 @@ android {
 
 dependencies {
 
-    implementation(project(":soundly-sdk"))
+//    implementation(project(":soundly-sdk"))
 
-//    implementation(files("libs/soundly-sdk-debug.aar"))
+    implementation(files("libs/soundly-sdk-1.0.6.aar"))
 
     implementation(libs.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.recyclerview)
+
+//    implementation(libs.room.runtime)
+//    implementation(libs.room.ktx)
+//    kapt(libs.room.compiler)
+//    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

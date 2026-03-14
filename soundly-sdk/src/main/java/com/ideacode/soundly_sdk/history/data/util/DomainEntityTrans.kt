@@ -1,7 +1,7 @@
 package com.ideacode.soundly_sdk.history.data.util
 
-import com.ideacode.soundly_model.domain.AudioHistory
-import com.ideacode.soundly_model.domain.AudioVariant
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity
 import com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity
 

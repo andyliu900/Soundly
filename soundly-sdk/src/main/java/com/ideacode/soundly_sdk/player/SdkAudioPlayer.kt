@@ -2,8 +2,8 @@ package com.ideacode.soundly_sdk.player
 
 import android.content.Context
 import android.media.MediaPlayer
-import com.ideacode.soundly_core.media.player.AudioPlayer
-import com.ideacode.soundly_model.audio.AudioSource
+import com.ideacode.soundly_sdk.core.media.player.AudioPlayer
+import com.ideacode.soundly_sdk.api.model.audio.AudioSource
 import java.lang.Exception
 
 class SdkAudioPlayer(

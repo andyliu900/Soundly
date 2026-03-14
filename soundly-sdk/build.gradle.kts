@@ -25,6 +25,11 @@ android {
             isMinifyEnabled = true
 
             isShrinkResources = false
+
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
 
         debug {
@@ -32,21 +37,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
-    api(project(":soundly-core"))
-
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
-    implementation(libs.timber)
+    api(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -63,8 +66,16 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.ideacode"
                 artifactId = "soundly-sdk"
-                version = "1.0.0"
-                artifact("$buildDir/outputs/aar/soundly-sdk-release.aar")
+                version = "1.0.6"
+            }
+        }
+
+
+        repositories {
+            // MavenCentral 发布示例（或私有 Nexus / JFrog）
+            maven {
+                name = "MyRepo"
+                url = uri("file://${rootDir}/repo") // 本地测试
             }
         }
     }

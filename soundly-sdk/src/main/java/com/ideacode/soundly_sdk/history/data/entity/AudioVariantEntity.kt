@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_model.domain.AudioVariant
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 
 @Entity(
     tableName = "audio_variant",

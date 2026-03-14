@@ -31,4 +31,21 @@
 ########################################
 
 # 如果 SDK 通过接口调用，需要保留接口
--keep class com.ideacode.soundly_model.**
+-keep class androidx.room.** { *; }
+-keep @androidx.room.* class * { *; }
+-keepclassmembers class kotlinx.coroutines.** { *; }
+-keepclassmembers class * {
+    @androidx.room.* <methods>;
+}
+-keepclassmembers class * {
+    @androidx.room.* <fields>;
+}
+-dontwarn androidx.room.RoomDatabase_Impl
+
+-keep class com.ideacode.soundly_sdk.api.** { *; }
+-keep class com.ideacode.soundly_sdk.player.** { *; }
+-keep class com.ideacode.soundly_sdk.history.** { *; }
+-keep class com.ideacode.soundly_sdk.util.** { *; }
+-keep class com.ideacode.soundly_sdk.processor.** { *; }
+-keep class com.ideacode.soundly_sdk.core.audio.processor.state.** { *; }
+-keep class kotlin.Metadata { *; }

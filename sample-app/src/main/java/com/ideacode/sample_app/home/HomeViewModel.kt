@@ -3,10 +3,10 @@ package com.ideacode.sample_app.home
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ideacode.soundly_model.audio.AudioSource
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_model.audio.processor.ProcessingStage
-import com.ideacode.soundly_sdk.Soundly
+import com.ideacode.soundly_sdk.api.model.audio.AudioSource
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage
+import com.ideacode.soundly_sdk.api.Soundly
 import com.ideacode.soundly_sdk.player.SdkAudioPlayer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
@@ -102,7 +102,9 @@ class HomeViewModel : ViewModel() {
             source = AudioSource.Original(uri),
             onPrepared = {
                 audioPlayer.play()
-            }
+            },
+            onCompletion = null,
+            onError = null
         )
     }
 
@@ -111,7 +113,9 @@ class HomeViewModel : ViewModel() {
             source = AudioSource.Processed(wavFile),
             onPrepared = {
                 audioPlayer.play()
-            }
+            },
+            onCompletion = null,
+            onError = null
         )
     }
 

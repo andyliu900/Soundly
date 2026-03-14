@@ -1,7 +1,7 @@
 package com.ideacode.soundly_sdk.history.data.converter
 
 import androidx.room.TypeConverter
-import com.ideacode.soundly_model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
 
 class PresetOptionConverter {
 

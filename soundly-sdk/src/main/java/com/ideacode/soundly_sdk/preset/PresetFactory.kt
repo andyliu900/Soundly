@@ -1,9 +1,9 @@
 package com.ideacode.soundly_sdk.preset
 
-import com.ideacode.soundly_core.audio.analyze.AudioFeatures
-import com.ideacode.soundly_core.audio.dsp.model.DspPreset
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_sdk.Soundly
+import com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures
+import com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.Soundly
 import timber.log.Timber
 
 object PresetFactory {

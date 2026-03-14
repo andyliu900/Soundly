@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ideacode.sample_app.R
-import com.ideacode.soundly_sdk.Soundly
+import com.ideacode.soundly_sdk.api.Soundly
 import timber.log.Timber
 import kotlin.getValue
 import androidx.core.net.toUri
-import com.ideacode.soundly_model.domain.AudioHistory
-import com.ideacode.soundly_model.domain.AudioVariant
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import java.io.File
 
 class HistoryFragment: Fragment(R.layout.fragment_history) {

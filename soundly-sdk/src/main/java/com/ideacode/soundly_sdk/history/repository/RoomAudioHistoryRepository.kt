@@ -1,8 +1,8 @@
 package com.ideacode.soundly_sdk.history.repository
 
-import com.ideacode.soundly_core.history.repository.AudioHistoryRepository
-import com.ideacode.soundly_model.domain.AudioHistory
-import com.ideacode.soundly_model.domain.AudioVariant
+import com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao
 import com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity
 import com.ideacode.soundly_sdk.history.data.entity.toDomain

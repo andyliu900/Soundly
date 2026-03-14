@@ -30,7 +30,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Soundly"
-include(":soundly-core")
 include(":soundly-sdk")
 include(":sample-app")
-include(":soundly_model")

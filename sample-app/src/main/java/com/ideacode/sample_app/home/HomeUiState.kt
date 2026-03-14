@@ -1,6 +1,6 @@
 package com.ideacode.sample_app.home
 
-import com.ideacode.soundly_model.audio.processor.ProcessingStage
+import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage
 
 data class HomeUiState(
     val isProcessing: Boolean = false,

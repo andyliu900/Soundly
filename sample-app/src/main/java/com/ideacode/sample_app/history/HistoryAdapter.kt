@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ideacode.sample_app.R
-import com.ideacode.soundly_model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
 import timber.log.Timber
 
 class HistoryAdapter(

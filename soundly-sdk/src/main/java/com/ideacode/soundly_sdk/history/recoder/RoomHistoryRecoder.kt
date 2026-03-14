@@ -1,10 +1,10 @@
 package com.ideacode.soundly_sdk.history.recoder
 
-import com.ideacode.soundly_core.history.recorder.HistoryRecorder
-import com.ideacode.soundly_core.history.repository.AudioHistoryRepository
-import com.ideacode.soundly_model.audio.dsp.PresetOption
-import com.ideacode.soundly_model.domain.AudioHistory
-import com.ideacode.soundly_model.domain.AudioVariant
+import com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder
+import com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository
+import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import java.util.UUID
 
 class RoomHistoryRecoder(

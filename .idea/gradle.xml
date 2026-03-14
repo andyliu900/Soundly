@@ -11,9 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/sample-app" />
-            <option value="$PROJECT_DIR$/soundly-core" />
             <option value="$PROJECT_DIR$/soundly-sdk" />
-            <option value="$PROJECT_DIR$/soundly_model" />
           </set>
         </option>
       </GradleProjectSettings>
