@@ -64,12 +64,34 @@ git clone https://github.com/andyliu900/Soundly.git
 
 ### 2 添加依赖
 
-如果通过 module 引入：
+（1）如果通过 module 引入：
 
 ```gradle
 dependencies {
     implementation(project(":soundly-sdk"))
 }
+```
+
+（2）构建 aar ，通过 aar 进行引入：
+如果是希望通过 aar 方式进行引入，需要按照以下步骤进行集成
+
+在 app 层根目录新增 libs 文件夹
+
+运行 gradle 脚本，生成 aar 文件
+```Gradle
+./gradle publishReleasePublicationToMyRepoRepository
+```
+生成的 aar 文件会存放在根目录 /repo 目录下，将 aar 文件复制到 libs 目录下
+
+app 层 gradle 配置增加以下内容
+由于脚本构建的 aar 包不会携带第三方组件，需要在 app 层的 gradle 配置增加 room、timber 配置
+```Gradle
+    // 使用 aar 形式需要配套增加 room、timber 组件
+    implementation(files("libs/soundly-sdk-1.0.6.aar"))
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
+    implementation(libs.timber)
 ```
 
 ### 3 初始化SDK

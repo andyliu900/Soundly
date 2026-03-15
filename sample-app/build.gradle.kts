@@ -101,11 +101,11 @@ dependencies {
     implementation(libs.recyclerview)
 
     // 使用 aar 形式需要配套增加 room、timber 组件
-//    implementation(files("libs/soundly-sdk-1.0.6.aar"))
-//    implementation(libs.room.runtime)
-//    implementation(libs.room.ktx)
-//    kapt(libs.room.compiler)
-//    implementation(libs.timber)
+    implementation(files("libs/soundly-sdk-1.0.6.aar"))
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    kapt(libs.room.compiler)
+    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
