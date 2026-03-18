@@ -4,6 +4,9 @@
 
 Soundly 的设计目标是：**让复杂的音频处理流程变得简单、清晰、可扩展**。
 
+
+一文了解 Soundly-SDK 运行机制：https://juejin.cn/post/7616666565057478671
+
 ---
 
 ## 📱 sample-app 运行截图
