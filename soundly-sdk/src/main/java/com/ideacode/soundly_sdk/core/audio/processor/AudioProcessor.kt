@@ -7,7 +7,12 @@ import com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess
 import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
 import java.io.File
 
-interface AudioProcessor {
+internal data class CoreProcessingResult(
+    val outputFile: File,
+    val historyId: String?
+)
+
+internal interface AudioProcessor {
 
     /**
      * 音频处理（DSP Pipeline）
@@ -21,6 +26,6 @@ interface AudioProcessor {
         presetOption: PresetOption,
         presetBuilder: (AudioFeatures?) -> DspPreset,
         onProcess: (ProcessingProcess) -> Unit
-    ): File
+    ): CoreProcessingResult
 
 }

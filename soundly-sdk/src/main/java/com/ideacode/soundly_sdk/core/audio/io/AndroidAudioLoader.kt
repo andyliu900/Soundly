@@ -5,7 +5,7 @@ import com.ideacode.soundly_sdk.core.audio.decode.MediaCodecDecoder
 import com.ideacode.soundly_sdk.core.audio.model.PcmData
 import timber.log.Timber
 
-class AndroidAudioLoader(
+internal class AndroidAudioLoader(
     private val decoder: MediaCodecDecoder,
 ): AudioLoader {
 

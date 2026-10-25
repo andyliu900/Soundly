@@ -3,11 +3,12 @@ package com.ideacode.sample_app.home
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ideacode.soundly_sdk.api.model.audio.AudioSource
+import com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef
 import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest
 import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage
 import com.ideacode.soundly_sdk.api.Soundly
-import com.ideacode.soundly_sdk.player.SdkAudioPlayer
+import com.ideacode.soundly_sdk.api.result.SoundlyResult
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,7 @@ import java.io.File
 
 class HomeViewModel : ViewModel() {
 
-    private val audioPlayer: SdkAudioPlayer = Soundly.container().audioPlayer
+    private val audioPlayer = Soundly.sdk().playback
 
 
     /**
@@ -59,23 +60,40 @@ class HomeViewModel : ViewModel() {
                     message = "正在加载音频"
                 )
 
-                Soundly.container().sdkAudioProcessor.process(
-                    uri = uri,
-                    presetOption = _presetOption.value,
-                    outputFileName = "enhanced_${_presetOption.value}_${System.currentTimeMillis()}"
-                ) { process ->
+                val result = Soundly.sdk().processor.process(
+                    request = ProcessingRequest(
+                        source = AudioSourceRef.ContentUri(uri),
+                        presetOption = _presetOption.value,
+                        outputFileName = "enhanced_${_presetOption.value}_${System.currentTimeMillis()}"
+                    )
+                ) { progress ->
                     _uiState.value = _uiState.value.copy(
-                        stage = process.stage,
-                        process = process.percent,
-                        message = process.message,
-                        wavFilePath = process.wavFilePath
+                        stage = progress.stage,
+                        process = progress.percent,
+                        message = progress.stage.toDisplayMessage()
+                    )
+                }
+
+                _uiState.value = when (result) {
+                    is SoundlyResult.Success -> _uiState.value.copy(
+                        isProcessing = false,
+                        stage = ProcessingStage.COMPLETED,
+                        process = 100,
+                        message = "处理完成",
+                        wavFilePath = result.value.outputFilePath
+                    )
+
+                    is SoundlyResult.Failure -> HomeUiState(
+                        isProcessing = false,
+                        stage = ProcessingStage.ERROR,
+                        message = "处理失败：${result.error.code}"
                     )
                 }
             }  catch (e: CancellationException) {
                 _uiState.value = HomeUiState(
                     isProcessing = false,
                     stage = ProcessingStage.CANCELLED,
-                    message = "处理已取消, ${e.message}"
+                    message = "处理已取消"
                 )
 
                 e.printStackTrace()
@@ -83,7 +101,7 @@ class HomeViewModel : ViewModel() {
                 _uiState.value = HomeUiState(
                     isProcessing = false,
                     stage = ProcessingStage.ERROR,
-                    message = "处理失败：${e.message}"
+                    message = "处理失败"
                 )
 
                 e.printStackTrace()
@@ -98,33 +116,38 @@ class HomeViewModel : ViewModel() {
 
     // 播放音频逻辑
     fun playOriginalAudio(uri: Uri) {
-        audioPlayer.prepare(
-            source = AudioSource.Original(uri),
-            onPrepared = {
-                audioPlayer.play()
-            },
-            onCompletion = null,
-            onError = null
-        )
+        prepareAndPlay(AudioSourceRef.ContentUri(uri))
     }
 
     fun playProcessedAudio(wavFile: File) {
-        audioPlayer.prepare(
-            source = AudioSource.Processed(wavFile),
-            onPrepared = {
-                audioPlayer.play()
-            },
-            onCompletion = null,
-            onError = null
-        )
+        prepareAndPlay(AudioSourceRef.LocalFile(wavFile))
     }
 
     fun audioPause() {
         audioPlayer.pause()
     }
 
+    private fun prepareAndPlay(source: AudioSourceRef) {
+        viewModelScope.launch {
+            if (audioPlayer.prepare(source) is SoundlyResult.Success) {
+                audioPlayer.play()
+            }
+        }
+    }
+
     override fun onCleared() {
         audioPlayer.release()
+    }
+
+    private fun ProcessingStage.toDisplayMessage(): String = when (this) {
+        ProcessingStage.IDLE -> "等待处理"
+        ProcessingStage.LOADING -> "正在加载音频"
+        ProcessingStage.ANALYZING -> "正在分析音频"
+        ProcessingStage.DSP_PROCESSING -> "正在增强音频"
+        ProcessingStage.WRITING_WAV -> "正在生成文件"
+        ProcessingStage.COMPLETED -> "处理完成"
+        ProcessingStage.CANCELLED -> "处理已取消"
+        ProcessingStage.ERROR -> "处理失败"
     }
 
 }

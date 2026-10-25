@@ -5,15 +5,32 @@ import android.util.Log
 import com.ideacode.sample_app.util.AppCrashReportingTree
 import com.ideacode.sample_app.util.AppModuleTagTree
 import com.ideacode.soundly_sdk.api.Soundly
-import com.ideacode.soundly_sdk.api.Soundly.TAG
+import com.ideacode.soundly_sdk.api.SoundlyConfig
+import com.ideacode.soundly_sdk.api.result.SoundlyResult
 import timber.log.Timber
 
 class App : Application() {
 
+    private companion object {
+        const val TAG = "SampleApp"
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        Soundly.init(this)
+        when (
+            val result = Soundly.initialize(
+                context = this,
+                config = SoundlyConfig(enableDebugLogging = false)
+            )
+        ) {
+            is SoundlyResult.Success -> Unit
+            is SoundlyResult.Failure -> {
+                throw IllegalStateException(
+                    "Soundly initialization failed: ${result.error.code}"
+                )
+            }
+        }
 
         initLogUtils()
     }

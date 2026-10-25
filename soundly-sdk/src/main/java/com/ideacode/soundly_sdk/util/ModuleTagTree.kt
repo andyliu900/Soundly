@@ -2,7 +2,7 @@ package com.ideacode.soundly_sdk.util
 
 import timber.log.Timber
 
-open class ModuleTagTree: Timber.DebugTree() {
+internal open class ModuleTagTree : Timber.DebugTree() {
 
     override fun createStackElementTag(element: StackTraceElement): String? {
         val className = element.className

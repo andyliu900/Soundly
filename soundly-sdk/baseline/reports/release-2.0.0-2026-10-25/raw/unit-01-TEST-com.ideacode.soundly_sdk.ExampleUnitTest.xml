@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ideacode.soundly_sdk.ExampleUnitTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-25T10:22:30" hostname="MacBook-Pro-2.local" time="0.001">
+  <properties/>
+  <testcase name="addition_isCorrect" classname="com.ideacode.soundly_sdk.ExampleUnitTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

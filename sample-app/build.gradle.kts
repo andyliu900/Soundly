@@ -1,6 +1,13 @@
 import java.util.Properties
 import java.io.FileInputStream
 
+val usePublishedSoundlySdk = providers.gradleProperty("soundlyUsePublishedSdk")
+    .map { it.toBoolean() }
+    .getOrElse(false)
+
+val publishedSoundlySdkVersion = providers.gradleProperty("soundlySdkVersion")
+    .getOrElse("2.0.0")
+
 val keystoreProperties = Properties()
 val keystoreFile = rootProject.file("keystore.properties")
 
@@ -11,7 +18,6 @@ if (keystoreFile.exists()) {
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -92,20 +98,17 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":soundly-sdk"))
+//    if (usePublishedSoundlySdk) {
+//        implementation("com.ideacode:soundly-sdk:$publishedSoundlySdkVersion")
+//    } else {
+        implementation(project(":soundly-sdk"))
+//    }
 
     implementation(libs.fragment.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.recyclerview)
-
-    // 使用 aar 形式需要配套增加 room、timber 组件
-//    implementation(files("libs/soundly-sdk-1.0.6.aar"))
-//    implementation(libs.room.runtime)
-//    implementation(libs.room.ktx)
-//    kapt(libs.room.compiler)
-//    implementation(libs.timber)
+    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

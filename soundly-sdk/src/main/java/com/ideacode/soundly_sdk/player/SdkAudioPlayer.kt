@@ -6,7 +6,7 @@ import com.ideacode.soundly_sdk.core.media.player.AudioPlayer
 import com.ideacode.soundly_sdk.api.model.audio.AudioSource
 import java.lang.Exception
 
-class SdkAudioPlayer(
+private class SdkAudioPlayer(
     private val context: Context
 ): AudioPlayer {
 
@@ -19,38 +19,43 @@ class SdkAudioPlayer(
         onError: ((Throwable) -> Unit)?
     ) {
         release()
-
-        mediaPlayer = MediaPlayer().apply {
-            try {
-                when (source) {
-                    is AudioSource.Original -> {
-                        setDataSource(context, source.uri)
-                    }
-
-                    is AudioSource.Processed -> {
-                        setDataSource(source.wavFile.absolutePath)
-                    }
+        val player = MediaPlayer()
+        mediaPlayer = player
+        try {
+            when (source) {
+                is AudioSource.Original -> {
+                    player.setDataSource(context, source.uri)
                 }
 
-                setOnPreparedListener {
-                    onPrepared?.invoke()
+                is AudioSource.Processed -> {
+                    player.setDataSource(source.wavFile.absolutePath)
                 }
-
-                setOnCompletionListener {
-                    onCompletion?.invoke()
-                }
-
-                setOnErrorListener { _, what, extra ->
-                    onError?.invoke(
-                        RuntimeException("MediaPlayer error: what=$what extra=$extra")
-                    )
-                    true
-                }
-
-                prepareAsync()
-            } catch (e: Exception) {
-                onError?.invoke(e)
             }
+
+            player.setOnPreparedListener {
+                onPrepared?.invoke()
+            }
+
+            player.setOnCompletionListener {
+                onCompletion?.invoke()
+            }
+
+            player.setOnErrorListener { failedPlayer, what, extra ->
+                if (mediaPlayer === failedPlayer) {
+                    mediaPlayer = null
+                }
+                runCatching { failedPlayer.release() }
+                onError?.invoke(MediaPlayerFailure(what, extra))
+                true
+            }
+
+            player.prepareAsync()
+        } catch (error: Exception) {
+            if (mediaPlayer === player) {
+                mediaPlayer = null
+            }
+            runCatching { player.release() }
+            onError?.invoke(error)
         }
     }
 
@@ -59,21 +64,24 @@ class SdkAudioPlayer(
     }
 
     override fun pause() {
-        mediaPlayer?.takeIf { !it.isPlaying }?.pause()
+        mediaPlayer?.takeIf { it.isPlaying }?.pause()
     }
 
     override fun stop() {
-        mediaPlayer?.stop()
+        runCatching { mediaPlayer?.stop() }
     }
 
     override fun release() {
-        mediaPlayer?.release()
+        runCatching { mediaPlayer?.release() }
         mediaPlayer = null
     }
 
     override fun isPlaying(): Boolean {
-        return mediaPlayer?.isPlaying ?: false
+        return runCatching { mediaPlayer?.isPlaying ?: false }.getOrDefault(false)
     }
 
-
+    private class MediaPlayerFailure(
+        val what: Int,
+        val extra: Int
+    ) : IllegalStateException("MediaPlayer playback failed")
 }

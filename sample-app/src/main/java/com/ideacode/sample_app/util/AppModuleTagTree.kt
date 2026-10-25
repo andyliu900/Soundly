@@ -1,9 +1,8 @@
 package com.ideacode.sample_app.util
 
-import com.ideacode.soundly_sdk.util.ModuleTagTree
 import timber.log.Timber
 
-class AppModuleTagTree: ModuleTagTree() {
+class AppModuleTagTree : Timber.DebugTree() {
 
     override fun createStackElementTag(element: StackTraceElement): String? {
         super.createStackElementTag(element)

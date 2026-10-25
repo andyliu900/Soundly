@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "captured_at_utc": "2026-10-25T04:46:19.001853+00:00",
+  "git_head": "5f3b8cf75522ef925a0f9195d7e55101f0fbd908",
+  "git_worktree_dirty": true,
+  "host": {
+    "system": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "python": "3.13.3"
+  },
+  "device": {
+    "serial": "38a3e1da",
+    "manufacturer": "OPPO",
+    "model": "PHY110",
+    "android_api": "36"
+  },
+  "unit_tests": {
+    "tests": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "time_seconds": 0.451,
+    "reports": [
+      "unit-01-TEST-com.ideacode.soundly_sdk.ExampleUnitTest.xml",
+      "unit-02-TEST-com.ideacode.soundly_sdk.api.SoundlyFacadeTest.xml",
+      "unit-03-TEST-com.ideacode.soundly_sdk.api.error.SoundlyErrorMapperTest.xml",
+      "unit-04-TEST-com.ideacode.soundly_sdk.api.model.DomainModelTest.xml",
+      "unit-05-TEST-com.ideacode.soundly_sdk.api.result.SoundlyResultTest.xml",
+      "unit-06-TEST-com.ideacode.soundly_sdk.core.audio.dsp.RawPipelineTest.xml",
+      "unit-07-TEST-com.ideacode.soundly_sdk.editing.WavTrimmerTest.xml",
+      "unit-08-TEST-com.ideacode.soundly_sdk.importer.AudioFormatDetectorTest.xml",
+      "unit-09-TEST-com.ideacode.soundly_sdk.processor.SdkAudioProcessorValidationTest.xml",
+      "unit-10-TEST-com.ideacode.soundly_sdk.storage.DefaultAudioFileStoreTest.xml"
+    ]
+  },
+  "instrumented_tests": {
+    "tests": 24,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "time_seconds": 3.689,
+    "reports": [
+      "instrumented-01-TEST-PHY110 - 16-_soundly-sdk-.xml"
+    ]
+  }
+}

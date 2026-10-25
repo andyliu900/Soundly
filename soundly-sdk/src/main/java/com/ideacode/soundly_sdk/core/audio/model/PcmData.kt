@@ -1,6 +1,6 @@
 package com.ideacode.soundly_sdk.core.audio.model
 
-data class PcmData(
+internal data class PcmData(
     val pcm: FloatArray,
     val sampleRate: Int,
     val channels: Int

@@ -3,7 +3,7 @@ package com.ideacode.soundly_sdk.core.audio.dsp.pipeline
 import com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset
 
 
-interface DspPipeline {
+internal interface DspPipeline {
 
     /**
      * 根据 AI 决策结果配置 Pipeline
@@ -15,6 +15,7 @@ interface DspPipeline {
      */
     fun process(
         input: FloatArray,
-        sampleRate: Int
+        sampleRate: Int,
+        channels: Int = 1
     ): FloatArray
 }

@@ -4,7 +4,7 @@ import java.io.File
 import java.io.FileOutputStream
 import kotlin.math.roundToInt
 
-object FileUtils {
+internal object FileUtils {
 
     /**
      * 将 Float PCM 写成 16bit PCM文件

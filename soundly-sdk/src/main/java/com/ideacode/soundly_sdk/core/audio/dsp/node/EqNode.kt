@@ -3,7 +3,7 @@ package com.ideacode.soundly_sdk.core.audio.dsp.node
 import com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset
 
 
-class EqNode: DspNodeInterface<EqPreset> {
+internal class EqNode: DspNodeInterface<EqPreset> {
 
     private var preset: EqPreset? = null
 
@@ -11,7 +11,7 @@ class EqNode: DspNodeInterface<EqPreset> {
         this.preset = preset
     }
 
-    override fun process(input: FloatArray, sampleRate: Int): FloatArray {
+    override fun process(input: FloatArray, sampleRate: Int, channels: Int): FloatArray {
         val p = preset ?: return input
 
         val low = p.lowGain ?: 1.0f

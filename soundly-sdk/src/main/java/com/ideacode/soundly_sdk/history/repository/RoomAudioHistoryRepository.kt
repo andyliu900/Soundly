@@ -9,7 +9,7 @@ import com.ideacode.soundly_sdk.history.data.entity.toDomain
 import com.ideacode.soundly_sdk.history.data.util.DomainEntityTrans
 import timber.log.Timber
 
-class RoomAudioHistoryRepository(
+internal class RoomAudioHistoryRepository(
     private val dao: AudioHistoryDao
 ) : AudioHistoryRepository {
 

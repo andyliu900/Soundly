@@ -1,6 +1,6 @@
 package com.ideacode.sample_app.history
 
-import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioProject
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 
 
@@ -9,7 +9,7 @@ interface HistoryItemListener {
     /**
      *播放原始音频
      */
-    fun onPlayOriginal(history: AudioHistory)
+    fun onPlayOriginal(history: AudioProject)
 
     /**
      * 播放处理后音频
@@ -19,6 +19,6 @@ interface HistoryItemListener {
     /**
      * 删除历史记录
      */
-    fun onDelete(history: AudioHistory)
+    fun onDelete(history: AudioProject)
 
 }

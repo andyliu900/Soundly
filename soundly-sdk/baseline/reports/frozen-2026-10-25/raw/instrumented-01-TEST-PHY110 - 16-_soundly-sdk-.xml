@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.ideacode.soundly_sdk.ExampleInstrumentedTest" tests="24" failures="0" errors="0" skipped="0" time="3.689" timestamp="2026-10-25T04:46:18" hostname="localhost">
+  <properties>
+    <property name="device" value="PHY110 - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":soundly-sdk" />
+  </properties>
+  <testcase name="useAppContext" classname="com.ideacode.soundly_sdk.ExampleInstrumentedTest" time="0.011" />
+  <testcase name="repeatedInitializationIsIdempotent" classname="com.ideacode.soundly_sdk.SoundlyInitializationTest" time="0.003" />
+  <testcase name="wavTrimCreatesProjectVariant" classname="com.ideacode.soundly_sdk.editing.AudioEditingTest" time="0.378" />
+  <testcase name="enhancementOutputIsAddedToProject" classname="com.ideacode.soundly_sdk.editing.AudioEditingTest" time="0.502" />
+  <testcase name="prepareShareCreatesReadableContentUriAndGrantIntent" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.093" />
+  <testcase name="downloadsExportPublishesReadableMediaStoreItem" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.269" />
+  <testcase name="exportRejectsPretendTranscoding" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.065" />
+  <testcase name="exportUsingDefaultsUsesPersistedFormatAndProjectTitle" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.067" />
+  <testcase name="mediaStoreRenameAndReplaceStrategiesPreserveExpectedContent" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.153" />
+  <testcase name="createDocumentIntentKeepsUnicodeNameAndCorrectMimeType" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.002" />
+  <testcase name="compressedM4aIsStreamDecodedAndExportedAsWav" classname="com.ideacode.soundly_sdk.editing.AudioExporterTest" time="0.287" />
+  <testcase name="snapshotClassifiesUsageAndClearCachePreservesProjectFiles" classname="com.ideacode.soundly_sdk.editing.StorageManagerTest" time="0.033" />
+  <testcase name="deleteAllLocalDataClearsProjectsRecoveryHistoryFilesAndSettings" classname="com.ideacode.soundly_sdk.editing.StorageManagerTest" time="0.067" />
+  <testcase name="migrate2To4PreservesLegacyHistoryAsProject" classname="com.ideacode.soundly_sdk.history.data.db.AppDatabaseMigrationTest" time="0.07" />
+  <testcase name="migrate3To4AddsNullableVariantLineageWithoutLosingData" classname="com.ideacode.soundly_sdk.history.data.db.AppDatabaseMigrationTest" time="0.003" />
+  <testcase name="wavImportCopiesFileReadsMetadataAndCreatesProject" classname="com.ideacode.soundly_sdk.importer.AudioImporterTest" time="0.214" />
+  <testcase name="switchSourceKeepsPausedPosition" classname="com.ideacode.soundly_sdk.playback.AudioPlaybackControllerTest" time="0.521" />
+  <testcase name="saveObserveRenameAndDeleteProject" classname="com.ideacode.soundly_sdk.project.AudioProjectRepositoryTest" time="0.102" />
+  <testcase name="sourceVariantCannotBeDeletedWhileTrimDependsOnIt" classname="com.ideacode.soundly_sdk.project.AudioProjectRepositoryTest" time="0.062" />
+  <testcase name="prepareUsingDefaultsAppliesPersistedNamingStrategy" classname="com.ideacode.soundly_sdk.recording.RecordingManagerTest" time="0.072" />
+  <testcase name="recordingCreatesProjectOriginalAndMarker" classname="com.ideacode.soundly_sdk.recording.RecordingManagerTest" time="0.037" />
+  <testcase name="recoverableSessionIsFinalizedIntoProject" classname="com.ideacode.soundly_sdk.recording.RecordingManagerTest" time="0.039" />
+  <testcase name="updateSurvivesRepositoryRecreationAndReset" classname="com.ideacode.soundly_sdk.settings.SoundlySettingsRepositoryTest" time="0.035" />
+  <testcase name="unknownOutputAndUnsupportedRecordingFormatsAreRejected" classname="com.ideacode.soundly_sdk.settings.SoundlySettingsRepositoryTest" time="0.002" />
+</testsuite>

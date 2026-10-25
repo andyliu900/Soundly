@@ -1,6 +1,6 @@
 package com.ideacode.soundly_sdk.core.audio.dsp.model
 
-data class CompressorPreset(
+internal data class CompressorPreset(
 
     /**
      * 启动压缩的能量阈值

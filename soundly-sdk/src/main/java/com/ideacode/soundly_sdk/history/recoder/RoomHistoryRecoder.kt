@@ -7,7 +7,7 @@ import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import java.util.UUID
 
-class RoomHistoryRecoder(
+internal class RoomHistoryRecoder(
     private val repository: AudioHistoryRepository
 ) : HistoryRecorder {
 

@@ -3,7 +3,7 @@ package com.ideacode.soundly_sdk.core.audio.dsp.node
 import com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset
 
 
-class LimiterNode: DspNodeInterface<LimiterPreset> {
+internal class LimiterNode: DspNodeInterface<LimiterPreset> {
 
     private var preset: LimiterPreset? = null
 
@@ -11,8 +11,9 @@ class LimiterNode: DspNodeInterface<LimiterPreset> {
         this.preset = preset
     }
 
-    override fun process(input: FloatArray, sampleRate: Int): FloatArray {
-        val limit = preset?.limit ?: 0.95f
+    override fun process(input: FloatArray, sampleRate: Int, channels: Int): FloatArray {
+        val configuredPreset = preset ?: return input
+        val limit = configuredPreset.limit ?: 1.0f
 
         return FloatArray(input.size) {
             input[it].coerceIn(-limit, limit)

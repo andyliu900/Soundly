@@ -1,6 +1,6 @@
 package com.ideacode.soundly_sdk.core.audio.dsp.model
 
-data class EqPreset(
+internal data class EqPreset(
 
     /**
      * 低频增益（<200Hz）

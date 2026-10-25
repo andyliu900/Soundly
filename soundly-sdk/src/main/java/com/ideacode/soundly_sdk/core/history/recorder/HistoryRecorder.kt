@@ -3,7 +3,7 @@ package com.ideacode.soundly_sdk.core.history.recorder
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 
 
-interface HistoryRecorder {
+internal interface HistoryRecorder {
 
     /**
      * 在一次音频处理开始时调用

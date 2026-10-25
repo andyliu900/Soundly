@@ -18,7 +18,7 @@ import com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity
  * @UpdateRemark:
  * @Version:        1.0
  */
-object DomainEntityTrans {
+internal object DomainEntityTrans {
 
     fun historyDomainToEntity(history: AudioHistory): AudioHistoryEntity {
         val originalVariant = history.original

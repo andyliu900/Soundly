@@ -19,6 +19,9 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        // Local publication used by the release gate to verify the generated
+        // AAR/POM as an external dependency rather than a project dependency.
+        maven { url = uri("$rootDir/repo") }
         maven { url = uri("https://maven.aliyun.com/repository/public/") }
         maven { url = uri("https://maven.aliyun.com/repository/google/") }
         maven { url = uri("https://maven.aliyun.com/repository/jcenter/") }
@@ -32,3 +35,4 @@ dependencyResolutionManagement {
 rootProject.name = "Soundly"
 include(":soundly-sdk")
 include(":sample-app")
+include(":soundly-app")

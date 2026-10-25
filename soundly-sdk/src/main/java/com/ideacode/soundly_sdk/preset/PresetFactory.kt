@@ -3,10 +3,12 @@ package com.ideacode.soundly_sdk.preset
 import com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures
 import com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset
 import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
-import com.ideacode.soundly_sdk.api.Soundly
+import com.ideacode.soundly_sdk.core.ai.decision.DefaultPresetDecisionEngine
 import timber.log.Timber
 
-object PresetFactory {
+internal object PresetFactory {
+
+    private val decisionEngine by lazy { DefaultPresetDecisionEngine() }
     
     fun build(
         option: PresetOption,
@@ -15,7 +17,6 @@ object PresetFactory {
 
         Timber.i(option?.let { "buildPreset option_title: ${option.title}" } ?: "option is null")
 
-        val decisionEngine = Soundly.container().presetDecisionEngine
         Timber.i("decisionEngine: $decisionEngine")
 
         return when (option) {

@@ -4,7 +4,7 @@ import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 
 
-interface AudioHistoryRepository {
+internal interface AudioHistoryRepository {
 
     suspend fun loadAll(): List<AudioHistory>
 

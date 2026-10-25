@@ -7,7 +7,7 @@ import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 
 @Entity(tableName = "audio_history")
-data class AudioHistoryEntity (
+internal data class AudioHistoryEntity (
 
     @PrimaryKey
     val id: String,
@@ -24,7 +24,7 @@ data class AudioHistoryEntity (
     val createAt: Long
 )
 
-fun AudioHistoryEntity.toDomain(
+internal fun AudioHistoryEntity.toDomain(
     variants: List<AudioVariantEntity>
 ): AudioHistory =
     AudioHistory(

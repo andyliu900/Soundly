@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="soundly_recording_channel_name">Soundly recording</string>
+    <string name="soundly_recording_channel_description">Shows controls while Soundly records audio</string>
+    <string name="soundly_recording_notification_title">Recording audio</string>
+    <string name="soundly_recording_pause">Pause</string>
+    <string name="soundly_recording_resume">Resume</string>
+    <string name="soundly_recording_stop">Stop</string>
+</resources>

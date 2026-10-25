@@ -4,7 +4,7 @@ import com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures
 import com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset
 
 
-class DefaultPresetDecisionEngine: PresetDecisionEngine {
+internal class DefaultPresetDecisionEngine: PresetDecisionEngine {
 
     /**
      * 根据音频特征选择策略

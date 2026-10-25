@@ -11,8 +11,8 @@ import com.ideacode.soundly_sdk.core.util.WavWriter
 import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
 import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
+import com.ideacode.soundly_sdk.internal.SoundlyDispatchers
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -20,11 +20,12 @@ import java.io.File
 import kotlin.math.min
 import kotlin.coroutines.coroutineContext
 
-class DefaultAudioProcessor(
+internal class DefaultAudioProcessor(
     private val analyzer: AudioAnalyzer,
     private val dspPipeline: DspPipeline,
     private val wavWriter: WavWriter,
-    private val historyRecorder: HistoryRecorder? = null
+    private val historyRecorder: HistoryRecorder? = null,
+    private val dispatchers: SoundlyDispatchers = SoundlyDispatchers.Default
 ): AudioProcessor {
 
     override suspend fun process(
@@ -36,7 +37,7 @@ class DefaultAudioProcessor(
         presetOption: PresetOption,
         presetBuilder: (AudioFeatures?) -> DspPreset,
         onProcess: (ProcessingProcess) -> Unit
-    ): File = withContext(Dispatchers.Default) {
+    ): CoreProcessingResult = withContext(dispatchers.computation) {
         try {
 
             val historyId = historyRecorder?.onProcessStart(
@@ -74,6 +75,7 @@ class DefaultAudioProcessor(
             val putputPcm = processByFrame(
                 inputPcm = inputPcm,
                 sampleRate = sampleRate,
+                channels = channels,
                 onProcess = onProcess
             )
 
@@ -96,7 +98,7 @@ class DefaultAudioProcessor(
                 )
             )
 
-            val wavFile = withContext(Dispatchers.IO) {
+            val wavFile = withContext(dispatchers.io) {
                 wavWriter.write(
                     pcm = putputPcm,
                     sampleRate = sampleRate,
@@ -134,7 +136,10 @@ class DefaultAudioProcessor(
                 )
             )
 
-            wavFile
+            CoreProcessingResult(
+                outputFile = wavFile,
+                historyId = historyId
+            )
         } catch (e: CancellationException) {
             onProcess(
                 ProcessingProcess(
@@ -148,7 +153,7 @@ class DefaultAudioProcessor(
             onProcess(
                 ProcessingProcess(
                     stage = ProcessingStage.ERROR,
-                    message = "处理异常：${e.message}"
+                    message = "处理失败"
                 )
             )
 
@@ -165,6 +170,7 @@ class DefaultAudioProcessor(
     private suspend fun processByFrame(
         inputPcm: FloatArray,
         sampleRate: Int,
+        channels: Int,
         onProcess: (ProcessingProcess) -> Unit
     ) : FloatArray {
 
@@ -192,7 +198,8 @@ class DefaultAudioProcessor(
             val inputFrame = inputPcm.copyOfRange(offset, offset + size)
             val processedFrame = dspPipeline.process(
                 inputFrame,
-                sampleRate
+                sampleRate,
+                channels
             )
 
             System.arraycopy(

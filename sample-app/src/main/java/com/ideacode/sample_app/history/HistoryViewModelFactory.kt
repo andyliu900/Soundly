@@ -2,10 +2,10 @@ package com.ideacode.sample_app.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ideacode.soundly_sdk.history.repository.RoomAudioHistoryRepository
+import com.ideacode.soundly_sdk.api.capability.AudioProjectRepository
 
 class HistoryViewModelFactory(
-    private val repository: RoomAudioHistoryRepository
+    private val repository: AudioProjectRepository
 ): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

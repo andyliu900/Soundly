@@ -9,19 +9,29 @@ import com.ideacode.soundly_sdk.history.data.converter.PresetOptionConverter
 import com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao
 import com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity
 import com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity
+import com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao
+import com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity
+import com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity
+import com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity
+import com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity
 
 @Database(
     entities = [
         AudioHistoryEntity::class,
-        AudioVariantEntity::class
+        AudioVariantEntity::class,
+        AudioProjectEntity::class,
+        ProjectAudioVariantEntity::class,
+        AudioMarkerEntity::class,
+        RecoverySessionEntity::class
     ],
-    version = 2,
-    exportSchema = false
+    version = 4,
+    exportSchema = true
 )
 @TypeConverters(PresetOptionConverter::class)
-abstract class AppDatabase : RoomDatabase() {
+internal abstract class AppDatabase : RoomDatabase() {
 
     abstract fun audioHistoryDao(): AudioHistoryDao
+    internal abstract fun audioProjectDao(): AudioProjectDao
 
     companion object {
 
@@ -47,7 +57,9 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 "soundly.db"
             )
-                .fallbackToDestructiveMigration()
+                .addMigrations(Migrations.MIGRATION_2_3)
+                .addMigrations(Migrations.MIGRATION_3_4)
+                .fallbackToDestructiveMigrationFrom(1)
                 .build().also { INSTANCE = it }
         }
     }

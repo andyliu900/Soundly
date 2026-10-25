@@ -13,7 +13,7 @@ package com.ideacode.soundly_sdk.core.audio.dsp.model
  *
  * Limiter.limit              0.985 ~ 1.000   过低 → 人声闷；过高 → 不保护
  */
-data class DspPreset(
+internal data class DspPreset(
     val noiseReductionPreset: NoiseReductionPreset? = null,
     val eqPreset: EqPreset? = null,
     val compressorPreset: CompressorPreset? = null,

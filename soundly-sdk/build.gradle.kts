@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.ksp)
     id("maven-publish")
 }
 
@@ -16,6 +16,10 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    sourceSets {
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
+
     buildFeatures {
         buildConfig = true
     }
@@ -27,7 +31,9 @@ android {
             isShrinkResources = false
 
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
+                // The optimize profile contains -allowaccessmodification,
+                // which can leak Kotlin backing fields into a published AAR.
+                getDefaultProguardFile("proguard-android.txt"),
                 "proguard-rules.pro"
             )
         }
@@ -45,11 +51,17 @@ android {
     }
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+}
+
 dependencies {
+    api(libs.kotlinx.coroutines.core)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
-    api(libs.timber)
+    ksp(libs.room.compiler)
+    implementation(libs.timber)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -57,6 +69,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.room.testing)
 }
 
 afterEvaluate {
@@ -66,7 +79,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.ideacode"
                 artifactId = "soundly-sdk"
-                version = "1.0.6"
+                version = "2.0.0"
             }
         }
 

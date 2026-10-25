@@ -1,6 +1,6 @@
 package com.ideacode.soundly_sdk.core.audio.dsp.node
 
-interface DspNodeInterface<T> {
+internal interface DspNodeInterface<T> {
 
     /**
      * 配置参数
@@ -12,7 +12,8 @@ interface DspNodeInterface<T> {
      */
     fun process(
         input: FloatArray,
-        sampleRate: Int
+        sampleRate: Int,
+        channels: Int = 1
     ): FloatArray
 
 

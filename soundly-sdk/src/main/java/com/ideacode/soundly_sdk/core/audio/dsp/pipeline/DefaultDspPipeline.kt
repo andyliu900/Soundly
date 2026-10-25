@@ -7,7 +7,7 @@ import com.ideacode.soundly_sdk.core.audio.dsp.node.LimiterNode
 import com.ideacode.soundly_sdk.core.audio.dsp.node.NoiseReductionNode
 
 
-class DefaultDspPipeline: DspPipeline {
+internal class DefaultDspPipeline: DspPipeline {
 
     private val noiseReductionNode = NoiseReductionNode()
     private val eqNode = EqNode()
@@ -31,10 +31,10 @@ class DefaultDspPipeline: DspPipeline {
         limiterNote.configure(preset.limiterPreset)
     }
 
-    override fun process(input: FloatArray, sampleRate: Int): FloatArray {
+    override fun process(input: FloatArray, sampleRate: Int, channels: Int): FloatArray {
         var buffer = input
         for (node in chain) {
-            buffer = node.process(buffer, sampleRate)
+            buffer = node.process(buffer, sampleRate, channels)
         }
 
         return buffer

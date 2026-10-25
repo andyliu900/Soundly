@@ -7,7 +7,7 @@ import com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity
 import com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity
 
 @Dao
-interface AudioHistoryDao {
+internal interface AudioHistoryDao {
 
     @Query("SELECT * FROM audio_history ORDER BY createAt DESC")
     suspend fun getAllHistory(): List<AudioHistoryEntity>
@@ -23,5 +23,8 @@ interface AudioHistoryDao {
 
     @Query("DELETE FROM audio_history WHERE id = :id")
     suspend fun deleteHistory(id: String)
+
+    @Query("DELETE FROM audio_history")
+    suspend fun clearAllHistory()
 
 }

@@ -1,6 +1,5 @@
 package com.ideacode.sample_app.history
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
@@ -14,8 +13,7 @@ import com.ideacode.sample_app.R
 import com.ideacode.soundly_sdk.api.Soundly
 import timber.log.Timber
 import kotlin.getValue
-import androidx.core.net.toUri
-import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioProject
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import java.io.File
 
@@ -23,7 +21,7 @@ class HistoryFragment: Fragment(R.layout.fragment_history) {
     
     private val viewModel: HistoryViewModel by viewModels() {
         HistoryViewModelFactory(
-            repository = Soundly.container().historyRepository
+            repository = Soundly.sdk().projects
         )
     }
 
@@ -33,11 +31,10 @@ class HistoryFragment: Fragment(R.layout.fragment_history) {
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_history)
         val adapter = HistoryAdapter(listener = object :
             HistoryItemListener {
-            override fun onPlayOriginal(history: AudioHistory) {
+            override fun onPlayOriginal(history: AudioProject) {
                 if (history.original.isOriginal) {
                     val filePath = history.original.filePath
-                    val uri = filePath.toUri()
-                    viewModel.playOriginalAudio(uri)
+                    viewModel.playOriginalAudio(File(filePath))
                     Timber.i("original filePath: $filePath")
                 }
             }
@@ -51,7 +48,7 @@ class HistoryFragment: Fragment(R.layout.fragment_history) {
                 }
             }
 
-            override fun onDelete(history: AudioHistory) {
+            override fun onDelete(history: AudioProject) {
                 confirmDelete(history)
             }
 
@@ -75,7 +72,7 @@ class HistoryFragment: Fragment(R.layout.fragment_history) {
         viewModel.loadHistory()
     }
 
-    private fun confirmDelete(history: AudioHistory) {
+    private fun confirmDelete(history: AudioProject) {
         AlertDialog.Builder(requireContext())
             .setTitle("删除记录")
             .setMessage("确定删除该记录？")

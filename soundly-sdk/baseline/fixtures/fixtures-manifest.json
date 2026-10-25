@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "generator_version": 1,
+  "format": "PCM signed 16-bit little-endian WAV",
+  "fixtures": [
+    {
+      "name": "short_mono.wav",
+      "description": "3 second mono voice-like deterministic signal",
+      "duration_seconds": 3,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "signal": "voice_like",
+      "relative_path": "generated/short_mono.wav",
+      "size_bytes": 96044,
+      "sha256": "abb26d826ab540a75f333fcc5749f98fcbc51dd176eb3d7ad5784df697d0cc02",
+      "benchmark_asset": "generated/short_mono.wav.fixture",
+      "benchmark_asset_size_bytes": 95667,
+      "benchmark_asset_sha256": "3ce181af6ec0e855466e0578e23e434f2f86245e098e472e2e5933af4736277c"
+    },
+    {
+      "name": "silence_mono.wav",
+      "description": "3 second digital silence",
+      "duration_seconds": 3,
+      "sample_rate_hz": 16000,
+      "channels": 1,
+      "signal": "silence",
+      "relative_path": "generated/silence_mono.wav",
+      "size_bytes": 96044,
+      "sha256": "d303811b8c84619667cd0501342f84ec6cbe69f7aa3856dcf52fabda374c92b8",
+      "benchmark_asset": "generated/silence_mono.wav.fixture",
+      "benchmark_asset_size_bytes": 178,
+      "benchmark_asset_sha256": "5054aa680816806c6ec75b1150c7ed1aa179466bb73727774565af18a106752a"
+    },
+    {
+      "name": "stereo.wav",
+      "description": "3 second stereo signal with distinct left and right tones",
+      "duration_seconds": 3,
+      "sample_rate_hz": 44100,
+      "channels": 2,
+      "signal": "stereo_tones",
+      "relative_path": "generated/stereo.wav",
+      "size_bytes": 529244,
+      "sha256": "126585d78d622c9dfe33ba5f480c2ca28a38af8b087aebf931055f1820d298d9",
+      "benchmark_asset": "generated/stereo.wav.fixture",
+      "benchmark_asset_size_bytes": 18304,
+      "benchmark_asset_sha256": "c3e74dc8b1dbeb48a1951e0728026e6e2501473708b0d87ae921918137225188"
+    },
+    {
+      "name": "five_minutes_mono.wav",
+      "description": "5 minute mono deterministic stress signal",
+      "duration_seconds": 300,
+      "sample_rate_hz": 8000,
+      "channels": 1,
+      "signal": "stress",
+      "relative_path": "generated/five_minutes_mono.wav",
+      "size_bytes": 4800044,
+      "sha256": "7bf2aae0ed45988880244ae7d1fffe40319841a5eb225215b4043b9e76796baf",
+      "benchmark_asset": "generated/five_minutes_mono.wav.fixture",
+      "benchmark_asset_size_bytes": 48655,
+      "benchmark_asset_sha256": "9fb863c9e25f95687b91084619ebaaf1014366e03bbfaa99e59869c0cd1c9f3e"
+    },
+    {
+      "name": "thirty_minutes_mono.wav",
+      "description": "30 minute mono deterministic long-audio stress signal",
+      "duration_seconds": 1800,
+      "sample_rate_hz": 8000,
+      "channels": 1,
+      "signal": "stress",
+      "relative_path": "generated/thirty_minutes_mono.wav",
+      "size_bytes": 28800044,
+      "sha256": "a6986cd41c62b51428d3c0001d6afe4bfce70ad8562fe508a11e00e4022d8a6d",
+      "benchmark_asset": "generated/thirty_minutes_mono.wav.fixture",
+      "benchmark_asset_size_bytes": 211511,
+      "benchmark_asset_sha256": "6296ca2c9e581edcfc483a35140527dcca603459f8649d2467fc041a6173662b"
+    },
+    {
+      "name": "corrupt_audio.wav",
+      "description": "Invalid bytes with a WAV extension",
+      "duration_seconds": null,
+      "sample_rate_hz": null,
+      "channels": null,
+      "signal": "corrupt",
+      "relative_path": "generated/corrupt_audio.wav",
+      "size_bytes": 52,
+      "sha256": "c03b21c6324c680bab489adccfebbec55b5ef7438e899a3e906e4b6f4f3936c9",
+      "benchmark_asset": "generated/corrupt_audio.wav.fixture",
+      "benchmark_asset_size_bytes": 72,
+      "benchmark_asset_sha256": "6b6a56c948ed676a05d07a266dcbc675eeb49fcdd890140f476769627c8b4488"
+    }
+  ]
+}

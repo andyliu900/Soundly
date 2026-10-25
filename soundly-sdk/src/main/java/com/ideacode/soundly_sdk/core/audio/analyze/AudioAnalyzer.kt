@@ -1,7 +1,7 @@
 package com.ideacode.soundly_sdk.core.audio.analyze
 
 
-interface AudioAnalyzer {
+internal interface AudioAnalyzer {
 
     /**
      * 分析 PCM 音频特征

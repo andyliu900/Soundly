@@ -9,25 +9,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ideacode.sample_app.R
-import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.model.domain.AudioProject
 import timber.log.Timber
 
 class HistoryAdapter(
     private val listener: HistoryItemListener
-): ListAdapter<AudioHistory, HistoryAdapter.VH>(DiffCallback) {
+): ListAdapter<AudioProject, HistoryAdapter.VH>(DiffCallback) {
 
     companion object {
-        val DiffCallback = object : DiffUtil.ItemCallback<AudioHistory>() {
+        val DiffCallback = object : DiffUtil.ItemCallback<AudioProject>() {
             override fun areItemsTheSame(
-                oldItem: AudioHistory,
-                newItem: AudioHistory
+                oldItem: AudioProject,
+                newItem: AudioProject
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: AudioHistory,
-                newItem: AudioHistory
+                oldItem: AudioProject,
+                newItem: AudioProject
             ): Boolean {
                 return oldItem == newItem
             }
@@ -60,7 +60,7 @@ class HistoryAdapter(
         private val btnPlayProcessed = itemView.findViewById<Button>(R.id.btn_play_processed)
         private val btnHistoryDelete = itemView.findViewById<Button>(R.id.btn_history_delete)
 
-        fun bind(history: AudioHistory, listener: HistoryItemListener) {
+        fun bind(history: AudioProject, listener: HistoryItemListener) {
             historyId.text = "id: ${history.id}"
             originalFilePath.text = "原始音频路径: ${history.original.filePath}"
 

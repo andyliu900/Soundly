@@ -19,7 +19,7 @@ import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
     ],
     indices = [Index("historyId")]
 )
-data class AudioVariantEntity(
+internal data class AudioVariantEntity(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
@@ -36,7 +36,7 @@ data class AudioVariantEntity(
 
 )
 
-fun AudioVariantEntity.toDomain():
+internal fun AudioVariantEntity.toDomain():
         AudioVariant = AudioVariant(
     filePath = filePath,
     presetOption = presetOption,

@@ -1,10 +1,9 @@
 package com.ideacode.sample_app.util
 
 import android.util.Log
-import com.ideacode.soundly_sdk.util.CrashReportingTree
 import timber.log.Timber
 
-class AppCrashReportingTree: CrashReportingTree() {
+class AppCrashReportingTree : Timber.Tree() {
 
     companion object {
         private const val TAG = "CrashReportingTree"

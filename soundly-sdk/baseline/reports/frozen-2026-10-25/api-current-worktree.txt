@@ -1,0 +1,2110 @@
+# Soundly packaged public bytecode API: current-worktree
+# AAR: /Users/randysu/GitLab/IdeacodeStudy/PersonalProject/Soundly/soundly-sdk/build/outputs/aar/soundly-sdk-debug.aar
+# Generated with: javap -public -constants
+
+Compiled from "BuildConfig.java"
+public final class com.ideacode.soundly_sdk.BuildConfig {
+  public static final boolean DEBUG;
+  public static final java.lang.String LIBRARY_PACKAGE_NAME = "com.ideacode.soundly_sdk";
+  public static final java.lang.String BUILD_TYPE = "debug";
+  public com.ideacode.soundly_sdk.BuildConfig();
+}
+
+Compiled from "SoundlySdk.kt"
+public final class com.ideacode.soundly_sdk.api.DefaultSoundlySdk implements com.ideacode.soundly_sdk.api.SoundlySdk {
+  public com.ideacode.soundly_sdk.api.DefaultSoundlySdk(com.ideacode.soundly_sdk.api.SdkContainer);
+  public com.ideacode.soundly_sdk.processor.AudioProcessingService getProcessor();
+  public com.ideacode.soundly_sdk.core.media.player.AudioPlayer getPlayer();
+  public com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository getHistory();
+  public com.ideacode.soundly_sdk.api.capability.AudioProjectRepository getProjects();
+  public com.ideacode.soundly_sdk.api.capability.AudioImporter getImporter();
+  public com.ideacode.soundly_sdk.api.capability.AudioMetadataReader getMetadata();
+  public com.ideacode.soundly_sdk.api.capability.RecordingManager getRecorder();
+  public com.ideacode.soundly_sdk.api.capability.AudioPlaybackController getPlayback();
+  public com.ideacode.soundly_sdk.api.capability.AudioTrimmer getTrimmer();
+  public com.ideacode.soundly_sdk.api.capability.AudioExporter getExporter();
+  public com.ideacode.soundly_sdk.api.capability.StorageManager getStorage();
+  public com.ideacode.soundly_sdk.api.capability.AudioEnhancer getEnhancer();
+  public com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository getSettings();
+}
+
+Compiled from "ExperimentalSoundlyApi.kt"
+public interface com.ideacode.soundly_sdk.api.ExperimentalSoundlyApi extends java.lang.annotation.Annotation {
+}
+
+Compiled from "SdkContainer.kt"
+public final class com.ideacode.soundly_sdk.api.SdkContainer {
+  public static final com.ideacode.soundly_sdk.api.SdkContainer$Companion Companion;
+  public static final java.lang.String TAG = "SdkContainer";
+  public com.ideacode.soundly_sdk.api.SdkContainer();
+  public final void init(android.content.Context);
+  public final com.ideacode.soundly_sdk.core.audio.io.AndroidAudioLoader getAudioLoader();
+  public final com.ideacode.soundly_sdk.core.audio.processor.AudioProcessor getAudioProcessor();
+  public final com.ideacode.soundly_sdk.processor.SdkAudioProcessor getSdkAudioProcessor();
+  public final com.ideacode.soundly_sdk.core.util.WavWriter getWavWriter();
+  public final com.ideacode.soundly_sdk.player.SdkAudioPlayer getAudioPlayer();
+  public final com.ideacode.soundly_sdk.history.repository.RoomAudioHistoryRepository getHistoryRepository();
+  public final com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder getHistoryRecorder();
+  public final com.ideacode.soundly_sdk.storage.DefaultAudioFileStore getAudioFileStore$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.project.repository.RoomAudioProjectRepository getProjectRepository$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.importer.AndroidAudioMetadataReader getAudioMetadataReader$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.importer.DefaultAudioImporter getAudioImporter$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.recording.AndroidRecordingManager getRecordingManager$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController getPlaybackController$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer getAudioTrimmer$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.editing.AndroidAudioExporter getAudioExporter$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.editing.DefaultStorageManager getStorageManager$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer getProjectAudioEnhancer$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository getSettingsRepository$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.core.ai.decision.PresetDecisionEngine getPresetDecisionEngine();
+}
+
+Compiled from "Soundly.kt"
+public final class com.ideacode.soundly_sdk.api.Soundly {
+  public static final com.ideacode.soundly_sdk.api.Soundly INSTANCE;
+  public static final java.lang.String TAG = "Soundly";
+  public final void init(android.content.Context);
+  public final com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> initialize(android.content.Context, com.ideacode.soundly_sdk.api.SoundlyConfig);
+  public static com.ideacode.soundly_sdk.api.result.SoundlyResult initialize$default(com.ideacode.soundly_sdk.api.Soundly, android.content.Context, com.ideacode.soundly_sdk.api.SoundlyConfig, int, java.lang.Object);
+  public final boolean isInitialized();
+  public final com.ideacode.soundly_sdk.api.SoundlySdk sdk();
+  public final com.ideacode.soundly_sdk.api.SdkContainer container();
+  public final com.ideacode.soundly_sdk.api.SdkContainer internalContainer$soundly_sdk_debug();
+  public final com.ideacode.soundly_sdk.api.SoundlyConfig config$soundly_sdk_debug();
+}
+
+Compiled from "SoundlyConfig.kt"
+public final class com.ideacode.soundly_sdk.api.SoundlyConfig {
+  public com.ideacode.soundly_sdk.api.SoundlyConfig(boolean);
+  public com.ideacode.soundly_sdk.api.SoundlyConfig(boolean, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final boolean getEnableDebugLogging();
+  public final boolean component1();
+  public final com.ideacode.soundly_sdk.api.SoundlyConfig copy(boolean);
+  public static com.ideacode.soundly_sdk.api.SoundlyConfig copy$default(com.ideacode.soundly_sdk.api.SoundlyConfig, boolean, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.api.SoundlyConfig();
+}
+
+Compiled from "SoundlySdk.kt"
+public interface com.ideacode.soundly_sdk.api.SoundlySdk {
+  public abstract com.ideacode.soundly_sdk.processor.AudioProcessingService getProcessor();
+  public abstract com.ideacode.soundly_sdk.core.media.player.AudioPlayer getPlayer();
+  public abstract com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository getHistory();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioProjectRepository getProjects();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioImporter getImporter();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioMetadataReader getMetadata();
+  public abstract com.ideacode.soundly_sdk.api.capability.RecordingManager getRecorder();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioPlaybackController getPlayback();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioTrimmer getTrimmer();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioExporter getExporter();
+  public abstract com.ideacode.soundly_sdk.api.capability.StorageManager getStorage();
+  public abstract com.ideacode.soundly_sdk.api.capability.AudioEnhancer getEnhancer();
+  public abstract com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository getSettings();
+}
+
+Compiled from "AudioEditingServices.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioEnhancer {
+  public abstract java.lang.Object enhance(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.EnhancementResult>>);
+}
+
+Compiled from "AudioEditingServices.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioExporter {
+  public abstract java.lang.Object export(com.ideacode.soundly_sdk.api.model.export.ExportRequest, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.export.ExportProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.export.ExportResult>>);
+  public abstract java.lang.Object exportUsingDefaults(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.export.ExportDestination, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.export.ExportProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.export.ExportResult>>);
+  public abstract java.lang.Object prepareShare(com.ideacode.soundly_sdk.api.model.export.ShareRequest, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.export.ShareResult>>);
+  public abstract com.ideacode.soundly_sdk.api.result.SoundlyResult<android.content.Intent> createDocumentIntent(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+}
+
+Compiled from "AudioImporter.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioImporter {
+  public abstract java.lang.Object importAudio(com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.importer.AudioImportResult>>);
+}
+
+Compiled from "AudioImporter.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioMetadataReader {
+  public abstract java.lang.Object read(android.net.Uri, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.importer.AudioMetadata>>);
+}
+
+Compiled from "AudioPlaybackController.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioPlaybackController {
+  public abstract kotlinx.coroutines.flow.StateFlow<com.ideacode.soundly_sdk.api.model.playback.PlaybackState> getState();
+  public abstract java.lang.Object prepare(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> play();
+  public abstract com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> pause();
+  public abstract com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> stop();
+  public abstract com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> seekTo(long);
+  public abstract java.lang.Object switchSourceKeepingPosition(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract void release();
+}
+
+Compiled from "AudioProjectRepository.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioProjectRepository {
+  public abstract kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioProject>> observeProjects();
+  public abstract kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.domain.AudioProject> observeProject(java.lang.String);
+  public abstract kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioProject>> searchProjects(java.lang.String);
+  public abstract java.lang.Object getProject(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.domain.AudioProject>>);
+  public abstract java.lang.Object saveProject(com.ideacode.soundly_sdk.api.model.domain.AudioProject, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object renameProject(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object addVariant(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object deleteVariant(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object addMarker(com.ideacode.soundly_sdk.api.model.domain.AudioMarker, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object deleteMarker(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object deleteProject(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+}
+
+Compiled from "AudioEditingServices.kt"
+public interface com.ideacode.soundly_sdk.api.capability.AudioTrimmer {
+  public abstract java.lang.Object previewTrim(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.capability.TrimRange, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.TrimPreview>>);
+  public abstract java.lang.Object applyTrim(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.capability.TrimRange, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.TrimResult>>);
+}
+
+Compiled from "AudioEditingServices.kt"
+public final class com.ideacode.soundly_sdk.api.capability.EnhancementResult {
+  public com.ideacode.soundly_sdk.api.capability.EnhancementResult(java.lang.String, java.lang.String, long, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption);
+  public final java.lang.String getProjectId();
+  public final java.lang.String getVariantId();
+  public final long getDurationMs();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption getPreset();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final long component3();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption component4();
+  public final com.ideacode.soundly_sdk.api.capability.EnhancementResult copy(java.lang.String, java.lang.String, long, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption);
+  public static com.ideacode.soundly_sdk.api.capability.EnhancementResult copy$default(com.ideacode.soundly_sdk.api.capability.EnhancementResult, java.lang.String, java.lang.String, long, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecordingManager.kt"
+public interface com.ideacode.soundly_sdk.api.capability.RecordingManager {
+  public abstract kotlinx.coroutines.flow.StateFlow<com.ideacode.soundly_sdk.api.model.recording.RecordingState> getState();
+  public abstract kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.recording.AudioMeter> getMeter();
+  public abstract kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.recording.WaveformFrame> getWaveform();
+  public abstract java.lang.Object prepare(com.ideacode.soundly_sdk.api.model.recording.RecordingConfig, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object prepareUsingDefaults(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object start(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.recording.RecordingSession>>);
+  public abstract java.lang.Object pause(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object resume(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object addMarker(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.domain.AudioMarker>>);
+  public abstract java.lang.Object stopAndSave(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.recording.RecordingResult>>);
+  public abstract java.lang.Object discard(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object getRecoverableRecordings(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<? extends java.util.List<com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording>>>);
+  public abstract java.lang.Object recover(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.recording.RecordingResult>>);
+}
+
+Compiled from "AudioEditingServices.kt"
+public interface com.ideacode.soundly_sdk.api.capability.StorageManager {
+  public abstract java.lang.Object snapshot(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.StorageSnapshot>>);
+  public abstract java.lang.Object clearCache(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object deleteAllLocalData(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+}
+
+Compiled from "AudioEditingServices.kt"
+public final class com.ideacode.soundly_sdk.api.capability.StorageSnapshot {
+  public com.ideacode.soundly_sdk.api.capability.StorageSnapshot(long, long, long, long, long, long);
+  public com.ideacode.soundly_sdk.api.capability.StorageSnapshot(long, long, long, long, long, long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final long getOriginalsBytes();
+  public final long getVariantsBytes();
+  public final long getCacheBytes();
+  public final long getAvailableBytes();
+  public final long getRecoveryBytes();
+  public final long getAuxiliaryBytes();
+  public final long component1();
+  public final long component2();
+  public final long component3();
+  public final long component4();
+  public final long component5();
+  public final long component6();
+  public final com.ideacode.soundly_sdk.api.capability.StorageSnapshot copy(long, long, long, long, long, long);
+  public static com.ideacode.soundly_sdk.api.capability.StorageSnapshot copy$default(com.ideacode.soundly_sdk.api.capability.StorageSnapshot, long, long, long, long, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioEditingServices.kt"
+public final class com.ideacode.soundly_sdk.api.capability.TrimPreview {
+  public com.ideacode.soundly_sdk.api.capability.TrimPreview(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, com.ideacode.soundly_sdk.api.capability.TrimRange, long, java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker>);
+  public final java.lang.String getProjectId();
+  public final java.lang.String getSourceVariantId();
+  public final com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef getSource();
+  public final com.ideacode.soundly_sdk.api.capability.TrimRange getRange();
+  public final long getDurationMs();
+  public final java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker> getMarkers();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef component3();
+  public final com.ideacode.soundly_sdk.api.capability.TrimRange component4();
+  public final long component5();
+  public final java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker> component6();
+  public final com.ideacode.soundly_sdk.api.capability.TrimPreview copy(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, com.ideacode.soundly_sdk.api.capability.TrimRange, long, java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker>);
+  public static com.ideacode.soundly_sdk.api.capability.TrimPreview copy$default(com.ideacode.soundly_sdk.api.capability.TrimPreview, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, com.ideacode.soundly_sdk.api.capability.TrimRange, long, java.util.List, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioEditingServices.kt"
+public final class com.ideacode.soundly_sdk.api.capability.TrimRange {
+  public com.ideacode.soundly_sdk.api.capability.TrimRange(long, long);
+  public final long getStartMs();
+  public final long getEndMs();
+  public final long component1();
+  public final long component2();
+  public final com.ideacode.soundly_sdk.api.capability.TrimRange copy(long, long);
+  public static com.ideacode.soundly_sdk.api.capability.TrimRange copy$default(com.ideacode.soundly_sdk.api.capability.TrimRange, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioEditingServices.kt"
+public final class com.ideacode.soundly_sdk.api.capability.TrimResult {
+  public com.ideacode.soundly_sdk.api.capability.TrimResult(java.lang.String, java.lang.String, long, java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker>);
+  public com.ideacode.soundly_sdk.api.capability.TrimResult(java.lang.String, java.lang.String, long, java.util.List, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getProjectId();
+  public final java.lang.String getVariantId();
+  public final long getDurationMs();
+  public final java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker> getMarkers();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final long component3();
+  public final java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker> component4();
+  public final com.ideacode.soundly_sdk.api.capability.TrimResult copy(java.lang.String, java.lang.String, long, java.util.List<com.ideacode.soundly_sdk.api.capability.TrimmedMarker>);
+  public static com.ideacode.soundly_sdk.api.capability.TrimResult copy$default(com.ideacode.soundly_sdk.api.capability.TrimResult, java.lang.String, java.lang.String, long, java.util.List, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioEditingServices.kt"
+public final class com.ideacode.soundly_sdk.api.capability.TrimmedMarker {
+  public com.ideacode.soundly_sdk.api.capability.TrimmedMarker(com.ideacode.soundly_sdk.api.model.domain.AudioMarker, long, long);
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioMarker getMarker();
+  public final long getSourcePositionMs();
+  public final long getTrimmedPositionMs();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioMarker component1();
+  public final long component2();
+  public final long component3();
+  public final com.ideacode.soundly_sdk.api.capability.TrimmedMarker copy(com.ideacode.soundly_sdk.api.model.domain.AudioMarker, long, long);
+  public static com.ideacode.soundly_sdk.api.capability.TrimmedMarker copy$default(com.ideacode.soundly_sdk.api.capability.TrimmedMarker, com.ideacode.soundly_sdk.api.model.domain.AudioMarker, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "SoundlyError.kt"
+public abstract class com.ideacode.soundly_sdk.api.error.SoundlyError {
+  public com.ideacode.soundly_sdk.api.error.SoundlyError(java.lang.String, boolean, java.lang.Throwable, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.String getCode();
+  public boolean getRetryable();
+  public java.lang.Throwable getCause();
+  public com.ideacode.soundly_sdk.api.error.SoundlyError(java.lang.String, boolean, java.lang.Throwable, kotlin.jvm.internal.DefaultConstructorMarker);
+}
+
+Compiled from "SoundlyErrorMapper.kt"
+public final class com.ideacode.soundly_sdk.api.error.SoundlyErrorMapper {
+  public static final com.ideacode.soundly_sdk.api.error.SoundlyErrorMapper INSTANCE;
+  public final com.ideacode.soundly_sdk.api.error.SoundlyError processing(java.lang.Exception);
+  public final com.ideacode.soundly_sdk.api.error.SoundlyError recording(java.lang.Exception);
+  public final com.ideacode.soundly_sdk.api.error.SoundlyError playback(java.lang.Exception);
+}
+
+Compiled from "SoundlySdkException.kt"
+public final class com.ideacode.soundly_sdk.api.exception.SoundlySdkException extends java.lang.IllegalStateException {
+  public com.ideacode.soundly_sdk.api.exception.SoundlySdkException(com.ideacode.soundly_sdk.api.error.SoundlyError);
+  public final com.ideacode.soundly_sdk.api.error.SoundlyError getError();
+}
+
+Compiled from "AudioSource.kt"
+public class com.ideacode.soundly_sdk.api.model.audio.AudioSource {
+  public com.ideacode.soundly_sdk.api.model.audio.AudioSource();
+}
+
+Compiled from "AudioSourceRef.kt"
+public interface com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef {
+}
+
+Compiled from "AudioSourceRef.kt"
+public final class com.ideacode.soundly_sdk.api.model.audio.AudioSourceRefKt {
+  public static final android.net.Uri toUri(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef);
+}
+
+Compiled from "PresetOption.kt"
+public final class com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption> {
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption RAW;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption DEFAULT;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption AI;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption VOICE_STABLE;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption SPEECH_FOCUS;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption NATURAL_SMOOTH;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption PODCAST;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption MEETING;
+  public static final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption MUSIC;
+  public final java.lang.String getTitle();
+  public static com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption[] values();
+  public static com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption> getEntries();
+}
+
+Compiled from "ProcessingRequest.kt"
+public final class com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress {
+  public com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int);
+  public com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage getStage();
+  public final int getPercent();
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage component1();
+  public final int component2();
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress copy(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int);
+  public static com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress copy$default(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress, com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ProcessingRequest.kt"
+public final class com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest {
+  public com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, java.lang.String);
+  public final com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef getSource();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption getPresetOption();
+  public final java.lang.String getOutputFileName();
+  public final com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef component1();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption component2();
+  public final java.lang.String component3();
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest copy(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, java.lang.String);
+  public static com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest copy$default(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest, com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, java.lang.String, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ProcessingRequest.kt"
+public final class com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult {
+  public com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long);
+  public final java.lang.String getOutputFilePath();
+  public final java.lang.String getHistoryId();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption getPresetOption();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final long getDurationMs();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption component3();
+  public final int component4();
+  public final int component5();
+  public final long component6();
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult copy(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long);
+  public static com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult copy$default(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ProcessingStage.kt"
+public final class com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage> {
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage IDLE;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage LOADING;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage ANALYZING;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage DSP_PROCESSING;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage WRITING_WAV;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage COMPLETED;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage CANCELLED;
+  public static final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage ERROR;
+  public static com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage[] values();
+  public static com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage> getEntries();
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.AudioFormat extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.domain.AudioFormat> {
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioFormat WAV;
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioFormat M4A;
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioFormat AAC;
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioFormat MP3;
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioFormat UNKNOWN;
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioFormat[] values();
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioFormat valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.domain.AudioFormat> getEntries();
+}
+
+Compiled from "AudioHistory.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.AudioHistory {
+  public com.ideacode.soundly_sdk.api.model.domain.AudioHistory(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant>, long);
+  public final java.lang.String getId();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioVariant getOriginal();
+  public final java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant> getVariants();
+  public final long getCreateAt();
+  public final java.lang.String component1();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioVariant component2();
+  public final java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant> component3();
+  public final long component4();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioHistory copy(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant>, long);
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioHistory copy$default(com.ideacode.soundly_sdk.api.model.domain.AudioHistory, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.AudioMarker {
+  public com.ideacode.soundly_sdk.api.model.domain.AudioMarker(java.lang.String, java.lang.String, long, java.lang.String, long);
+  public com.ideacode.soundly_sdk.api.model.domain.AudioMarker(java.lang.String, java.lang.String, long, java.lang.String, long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getId();
+  public final java.lang.String getProjectId();
+  public final long getPositionMs();
+  public final java.lang.String getLabel();
+  public final long getCreatedAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final long component3();
+  public final java.lang.String component4();
+  public final long component5();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioMarker copy(java.lang.String, java.lang.String, long, java.lang.String, long);
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioMarker copy$default(com.ideacode.soundly_sdk.api.model.domain.AudioMarker, java.lang.String, java.lang.String, long, java.lang.String, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.AudioProject {
+  public com.ideacode.soundly_sdk.api.model.domain.AudioProject(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioSourceType, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant>, java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioMarker>, com.ideacode.soundly_sdk.api.model.domain.ProjectStatus, long, long);
+  public com.ideacode.soundly_sdk.api.model.domain.AudioProject(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioSourceType, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List, java.util.List, com.ideacode.soundly_sdk.api.model.domain.ProjectStatus, long, long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getId();
+  public final java.lang.String getTitle();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioSourceType getSourceType();
+  public final com.ideacode.soundly_sdk.api.model.domain.RecordingScene getScene();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioVariant getOriginal();
+  public final java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant> getVariants();
+  public final java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioMarker> getMarkers();
+  public final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus getStatus();
+  public final long getCreatedAt();
+  public final long getUpdatedAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioSourceType component3();
+  public final com.ideacode.soundly_sdk.api.model.domain.RecordingScene component4();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioVariant component5();
+  public final java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant> component6();
+  public final java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioMarker> component7();
+  public final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus component8();
+  public final long component9();
+  public final long component10();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioProject copy(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioSourceType, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant>, java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioMarker>, com.ideacode.soundly_sdk.api.model.domain.ProjectStatus, long, long);
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioProject copy$default(com.ideacode.soundly_sdk.api.model.domain.AudioProject, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioSourceType, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.util.List, java.util.List, com.ideacode.soundly_sdk.api.model.domain.ProjectStatus, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.AudioSourceType extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.domain.AudioSourceType> {
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioSourceType RECORDED;
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioSourceType IMPORTED;
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioSourceType[] values();
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioSourceType valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.domain.AudioSourceType> getEntries();
+}
+
+Compiled from "AudioVariant.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.AudioVariant {
+  public com.ideacode.soundly_sdk.api.model.domain.AudioVariant(java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, boolean, int, int, long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, com.ideacode.soundly_sdk.api.model.domain.VariantType, java.lang.String, java.lang.Long, java.lang.Long);
+  public com.ideacode.soundly_sdk.api.model.domain.AudioVariant(java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, boolean, int, int, long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, com.ideacode.soundly_sdk.api.model.domain.VariantType, java.lang.String, java.lang.Long, java.lang.Long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getFilePath();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption getPresetOption();
+  public final boolean isOriginal();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final long getDurationMs();
+  public final java.lang.String getId();
+  public final java.lang.String getProjectId();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getFormat();
+  public final java.lang.String getMimeType();
+  public final long getFileSizeBytes();
+  public final long getCreatedAt();
+  public final com.ideacode.soundly_sdk.api.model.domain.VariantType getVariantType();
+  public final java.lang.String getSourceVariantId();
+  public final java.lang.Long getTrimStartMs();
+  public final java.lang.Long getTrimEndMs();
+  public final java.lang.String component1();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption component2();
+  public final boolean component3();
+  public final int component4();
+  public final int component5();
+  public final long component6();
+  public final java.lang.String component7();
+  public final java.lang.String component8();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component9();
+  public final java.lang.String component10();
+  public final long component11();
+  public final long component12();
+  public final com.ideacode.soundly_sdk.api.model.domain.VariantType component13();
+  public final java.lang.String component14();
+  public final java.lang.Long component15();
+  public final java.lang.Long component16();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioVariant copy(java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, boolean, int, int, long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, com.ideacode.soundly_sdk.api.model.domain.VariantType, java.lang.String, java.lang.Long, java.lang.Long);
+  public static com.ideacode.soundly_sdk.api.model.domain.AudioVariant copy$default(com.ideacode.soundly_sdk.api.model.domain.AudioVariant, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, boolean, int, int, long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, com.ideacode.soundly_sdk.api.model.domain.VariantType, java.lang.String, java.lang.Long, java.lang.Long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.ProjectStatus extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.domain.ProjectStatus> {
+  public static final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus RECORDING;
+  public static final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus RECOVERY_REQUIRED;
+  public static final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus AVAILABLE;
+  public static final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus PROCESSING;
+  public static final com.ideacode.soundly_sdk.api.model.domain.ProjectStatus FAILED;
+  public static com.ideacode.soundly_sdk.api.model.domain.ProjectStatus[] values();
+  public static com.ideacode.soundly_sdk.api.model.domain.ProjectStatus valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.domain.ProjectStatus> getEntries();
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.RecordingScene extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.domain.RecordingScene> {
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene AUTO;
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene MEETING;
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene INTERVIEW;
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene CLASSROOM;
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene PODCAST;
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene OUTDOOR;
+  public static final com.ideacode.soundly_sdk.api.model.domain.RecordingScene OTHER;
+  public static com.ideacode.soundly_sdk.api.model.domain.RecordingScene[] values();
+  public static com.ideacode.soundly_sdk.api.model.domain.RecordingScene valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.domain.RecordingScene> getEntries();
+}
+
+Compiled from "AudioProject.kt"
+public final class com.ideacode.soundly_sdk.api.model.domain.VariantType extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.domain.VariantType> {
+  public static final com.ideacode.soundly_sdk.api.model.domain.VariantType ORIGINAL;
+  public static final com.ideacode.soundly_sdk.api.model.domain.VariantType ENHANCED;
+  public static final com.ideacode.soundly_sdk.api.model.domain.VariantType TRIMMED;
+  public static com.ideacode.soundly_sdk.api.model.domain.VariantType[] values();
+  public static com.ideacode.soundly_sdk.api.model.domain.VariantType valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.domain.VariantType> getEntries();
+}
+
+Compiled from "ExportModels.kt"
+public interface com.ideacode.soundly_sdk.api.model.export.ExportDestination {
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ExportProgress {
+  public com.ideacode.soundly_sdk.api.model.export.ExportProgress(com.ideacode.soundly_sdk.api.model.export.ExportStage, int, long, long);
+  public com.ideacode.soundly_sdk.api.model.export.ExportProgress(com.ideacode.soundly_sdk.api.model.export.ExportStage, int, long, long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final com.ideacode.soundly_sdk.api.model.export.ExportStage getStage();
+  public final int getPercent();
+  public final long getBytesWritten();
+  public final long getTotalBytes();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportStage component1();
+  public final int component2();
+  public final long component3();
+  public final long component4();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportProgress copy(com.ideacode.soundly_sdk.api.model.export.ExportStage, int, long, long);
+  public static com.ideacode.soundly_sdk.api.model.export.ExportProgress copy$default(com.ideacode.soundly_sdk.api.model.export.ExportProgress, com.ideacode.soundly_sdk.api.model.export.ExportStage, int, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ExportQuality extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.export.ExportQuality> {
+  public static final com.ideacode.soundly_sdk.api.model.export.ExportQuality PRESERVE_SOURCE;
+  public static com.ideacode.soundly_sdk.api.model.export.ExportQuality[] values();
+  public static com.ideacode.soundly_sdk.api.model.export.ExportQuality valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.export.ExportQuality> getEntries();
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ExportRequest {
+  public com.ideacode.soundly_sdk.api.model.export.ExportRequest(java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.export.ExportDestination, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, com.ideacode.soundly_sdk.api.model.export.ExportQuality);
+  public com.ideacode.soundly_sdk.api.model.export.ExportRequest(java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.export.ExportDestination, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, com.ideacode.soundly_sdk.api.model.export.ExportQuality, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getProjectId();
+  public final java.lang.String getVariantId();
+  public final java.lang.String getDisplayName();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getFormat();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportDestination getDestination();
+  public final com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy getConflictStrategy();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportQuality getQuality();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component4();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportDestination component5();
+  public final com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy component6();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportQuality component7();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportRequest copy(java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.export.ExportDestination, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, com.ideacode.soundly_sdk.api.model.export.ExportQuality);
+  public static com.ideacode.soundly_sdk.api.model.export.ExportRequest copy$default(com.ideacode.soundly_sdk.api.model.export.ExportRequest, java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.export.ExportDestination, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, com.ideacode.soundly_sdk.api.model.export.ExportQuality, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ExportResult {
+  public com.ideacode.soundly_sdk.api.model.export.ExportResult(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long, com.ideacode.soundly_sdk.api.model.export.ExportQuality);
+  public com.ideacode.soundly_sdk.api.model.export.ExportResult(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long, com.ideacode.soundly_sdk.api.model.export.ExportQuality, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getDestinationUri();
+  public final java.lang.String getDisplayName();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getFormat();
+  public final long getFileSizeBytes();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportQuality getQuality();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component3();
+  public final long component4();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportQuality component5();
+  public final com.ideacode.soundly_sdk.api.model.export.ExportResult copy(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long, com.ideacode.soundly_sdk.api.model.export.ExportQuality);
+  public static com.ideacode.soundly_sdk.api.model.export.ExportResult copy$default(com.ideacode.soundly_sdk.api.model.export.ExportResult, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long, com.ideacode.soundly_sdk.api.model.export.ExportQuality, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ExportStage extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.export.ExportStage> {
+  public static final com.ideacode.soundly_sdk.api.model.export.ExportStage PREPARING;
+  public static final com.ideacode.soundly_sdk.api.model.export.ExportStage ENCODING;
+  public static final com.ideacode.soundly_sdk.api.model.export.ExportStage WRITING;
+  public static final com.ideacode.soundly_sdk.api.model.export.ExportStage COMPLETED;
+  public static com.ideacode.soundly_sdk.api.model.export.ExportStage[] values();
+  public static com.ideacode.soundly_sdk.api.model.export.ExportStage valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.export.ExportStage> getEntries();
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy> {
+  public static final com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy RENAME;
+  public static final com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy REPLACE;
+  public static final com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy FAIL;
+  public static com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy[] values();
+  public static com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy> getEntries();
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ShareRequest {
+  public com.ideacode.soundly_sdk.api.model.export.ShareRequest(java.lang.String, java.lang.String, java.lang.String);
+  public com.ideacode.soundly_sdk.api.model.export.ShareRequest(java.lang.String, java.lang.String, java.lang.String, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getProjectId();
+  public final java.lang.String getVariantId();
+  public final java.lang.String getDisplayName();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final com.ideacode.soundly_sdk.api.model.export.ShareRequest copy(java.lang.String, java.lang.String, java.lang.String);
+  public static com.ideacode.soundly_sdk.api.model.export.ShareRequest copy$default(com.ideacode.soundly_sdk.api.model.export.ShareRequest, java.lang.String, java.lang.String, java.lang.String, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ExportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.export.ShareResult {
+  public com.ideacode.soundly_sdk.api.model.export.ShareResult(android.content.Intent, java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long);
+  public final android.content.Intent getSendIntent();
+  public final java.lang.String getContentUri();
+  public final java.lang.String getDisplayName();
+  public final java.lang.String getMimeType();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getFormat();
+  public final long getFileSizeBytes();
+  public final android.content.Intent component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final java.lang.String component4();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component5();
+  public final long component6();
+  public final com.ideacode.soundly_sdk.api.model.export.ShareResult copy(android.content.Intent, java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long);
+  public static com.ideacode.soundly_sdk.api.model.export.ShareResult copy$default(com.ideacode.soundly_sdk.api.model.export.ShareResult, android.content.Intent, java.lang.String, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioImportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest {
+  public com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest(android.net.Uri, java.lang.String);
+  public com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest(android.net.Uri, java.lang.String, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final android.net.Uri getSource();
+  public final java.lang.String getTitle();
+  public final android.net.Uri component1();
+  public final java.lang.String component2();
+  public final com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest copy(android.net.Uri, java.lang.String);
+  public static com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest copy$default(com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest, android.net.Uri, java.lang.String, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioImportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.importer.AudioImportResult {
+  public com.ideacode.soundly_sdk.api.model.importer.AudioImportResult(com.ideacode.soundly_sdk.api.model.domain.AudioProject, long);
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioProject getProject();
+  public final long getCopiedBytes();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioProject component1();
+  public final long component2();
+  public final com.ideacode.soundly_sdk.api.model.importer.AudioImportResult copy(com.ideacode.soundly_sdk.api.model.domain.AudioProject, long);
+  public static com.ideacode.soundly_sdk.api.model.importer.AudioImportResult copy$default(com.ideacode.soundly_sdk.api.model.importer.AudioImportResult, com.ideacode.soundly_sdk.api.model.domain.AudioProject, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioImportModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.importer.AudioMetadata {
+  public com.ideacode.soundly_sdk.api.model.importer.AudioMetadata(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, int, int, java.lang.Integer);
+  public com.ideacode.soundly_sdk.api.model.importer.AudioMetadata(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, int, int, java.lang.Integer, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getDisplayName();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getFormat();
+  public final java.lang.String getMimeType();
+  public final long getDurationMs();
+  public final long getFileSizeBytes();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final java.lang.Integer getBitRate();
+  public final java.lang.String component1();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component2();
+  public final java.lang.String component3();
+  public final long component4();
+  public final long component5();
+  public final int component6();
+  public final int component7();
+  public final java.lang.Integer component8();
+  public final com.ideacode.soundly_sdk.api.model.importer.AudioMetadata copy(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, int, int, java.lang.Integer);
+  public static com.ideacode.soundly_sdk.api.model.importer.AudioMetadata copy$default(com.ideacode.soundly_sdk.api.model.importer.AudioMetadata, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, long, long, int, int, java.lang.Integer, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "PlaybackModels.kt"
+public interface com.ideacode.soundly_sdk.api.model.playback.PlaybackState {
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.AudioMeter {
+  public com.ideacode.soundly_sdk.api.model.recording.AudioMeter(float, float, long);
+  public final float getPeak();
+  public final float getRms();
+  public final long getMeasuredAtMs();
+  public final float component1();
+  public final float component2();
+  public final long component3();
+  public final com.ideacode.soundly_sdk.api.model.recording.AudioMeter copy(float, float, long);
+  public static com.ideacode.soundly_sdk.api.model.recording.AudioMeter copy$default(com.ideacode.soundly_sdk.api.model.recording.AudioMeter, float, float, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.MarkerResult {
+  public com.ideacode.soundly_sdk.api.model.recording.MarkerResult(com.ideacode.soundly_sdk.api.model.domain.AudioMarker);
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioMarker getMarker();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioMarker component1();
+  public final com.ideacode.soundly_sdk.api.model.recording.MarkerResult copy(com.ideacode.soundly_sdk.api.model.domain.AudioMarker);
+  public static com.ideacode.soundly_sdk.api.model.recording.MarkerResult copy$default(com.ideacode.soundly_sdk.api.model.recording.MarkerResult, com.ideacode.soundly_sdk.api.model.domain.AudioMarker, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.RecordingConfig {
+  public com.ideacode.soundly_sdk.api.model.recording.RecordingConfig(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, int, int, boolean);
+  public com.ideacode.soundly_sdk.api.model.recording.RecordingConfig(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, int, int, boolean, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.String getTitle();
+  public final com.ideacode.soundly_sdk.api.model.domain.RecordingScene getScene();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getFormat();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingQuality getQuality();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final boolean getEnableBackgroundNotification();
+  public final java.lang.String component1();
+  public final com.ideacode.soundly_sdk.api.model.domain.RecordingScene component2();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component3();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingQuality component4();
+  public final int component5();
+  public final int component6();
+  public final boolean component7();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingConfig copy(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, int, int, boolean);
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingConfig copy$default(com.ideacode.soundly_sdk.api.model.recording.RecordingConfig, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, int, int, boolean, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.api.model.recording.RecordingConfig();
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason> {
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason AUDIO_FOCUS_LOST;
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason PHONE_CALL;
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason INPUT_DEVICE_DISCONNECTED;
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason MICROPHONE_UNAVAILABLE;
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason INSUFFICIENT_STORAGE;
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason UNKNOWN;
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason[] values();
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.recording.RecordingInterruptionReason> getEntries();
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.RecordingQuality extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.recording.RecordingQuality> {
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingQuality STANDARD;
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingQuality HIGH;
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingQuality[] values();
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingQuality valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.recording.RecordingQuality> getEntries();
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.RecordingResult {
+  public com.ideacode.soundly_sdk.api.model.recording.RecordingResult(java.lang.String, java.lang.String, java.lang.String, long, long);
+  public final java.lang.String getSessionId();
+  public final java.lang.String getProjectId();
+  public final java.lang.String getOriginalVariantId();
+  public final long getDurationMs();
+  public final long getFileSizeBytes();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final long component4();
+  public final long component5();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingResult copy(java.lang.String, java.lang.String, java.lang.String, long, long);
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingResult copy$default(com.ideacode.soundly_sdk.api.model.recording.RecordingResult, java.lang.String, java.lang.String, java.lang.String, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.RecordingSession {
+  public com.ideacode.soundly_sdk.api.model.recording.RecordingSession(java.lang.String, java.lang.String, long, com.ideacode.soundly_sdk.api.model.recording.RecordingConfig);
+  public final java.lang.String getId();
+  public final java.lang.String getProjectId();
+  public final long getStartedAt();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingConfig getConfig();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final long component3();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingConfig component4();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingSession copy(java.lang.String, java.lang.String, long, com.ideacode.soundly_sdk.api.model.recording.RecordingConfig);
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingSession copy$default(com.ideacode.soundly_sdk.api.model.recording.RecordingSession, java.lang.String, java.lang.String, long, com.ideacode.soundly_sdk.api.model.recording.RecordingConfig, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecordingModels.kt"
+public interface com.ideacode.soundly_sdk.api.model.recording.RecordingState {
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording {
+  public com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording(java.lang.String, java.lang.String, long, long, long);
+  public final java.lang.String getSessionId();
+  public final java.lang.String getProjectId();
+  public final long getRecordedDurationMs();
+  public final long getRecordedBytes();
+  public final long getUpdatedAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final long component3();
+  public final long component4();
+  public final long component5();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording copy(java.lang.String, java.lang.String, long, long, long);
+  public static com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording copy$default(com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording, java.lang.String, java.lang.String, long, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecordingModels.kt"
+public final class com.ideacode.soundly_sdk.api.model.recording.WaveformFrame {
+  public com.ideacode.soundly_sdk.api.model.recording.WaveformFrame(java.util.List<java.lang.Float>, long, long);
+  public final java.util.List<java.lang.Float> getAmplitudes();
+  public final long getStartPositionMs();
+  public final long getEndPositionMs();
+  public final java.util.List<java.lang.Float> component1();
+  public final long component2();
+  public final long component3();
+  public final com.ideacode.soundly_sdk.api.model.recording.WaveformFrame copy(java.util.List<java.lang.Float>, long, long);
+  public static com.ideacode.soundly_sdk.api.model.recording.WaveformFrame copy$default(com.ideacode.soundly_sdk.api.model.recording.WaveformFrame, java.util.List, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "SoundlySettings.kt"
+public final class com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy extends java.lang.Enum<com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy> {
+  public static final com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy DATE_TIME;
+  public static final com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy TIMESTAMP;
+  public static com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy[] values();
+  public static com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy valueOf(java.lang.String);
+  public static kotlin.enums.EnumEntries<com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy> getEntries();
+}
+
+Compiled from "SoundlySettings.kt"
+public final class com.ideacode.soundly_sdk.api.model.settings.SoundlySettings {
+  public com.ideacode.soundly_sdk.api.model.settings.SoundlySettings(com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, boolean, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy);
+  public com.ideacode.soundly_sdk.api.model.settings.SoundlySettings(com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, boolean, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final com.ideacode.soundly_sdk.api.model.domain.RecordingScene getDefaultScene();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingQuality getRecordingQuality();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getOutputFormat();
+  public final boolean getRecordInBackground();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat getRecordingFormat();
+  public final com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy getNamingStrategy();
+  public final com.ideacode.soundly_sdk.api.model.domain.RecordingScene component1();
+  public final com.ideacode.soundly_sdk.api.model.recording.RecordingQuality component2();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component3();
+  public final boolean component4();
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat component5();
+  public final com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy component6();
+  public final com.ideacode.soundly_sdk.api.model.settings.SoundlySettings copy(com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, boolean, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy);
+  public static com.ideacode.soundly_sdk.api.model.settings.SoundlySettings copy$default(com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, com.ideacode.soundly_sdk.api.model.domain.RecordingScene, com.ideacode.soundly_sdk.api.model.recording.RecordingQuality, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, boolean, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.settings.RecordingNamingStrategy, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.api.model.settings.SoundlySettings();
+}
+
+Compiled from "SoundlySettings.kt"
+public final class com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsKt {
+  public static final com.ideacode.soundly_sdk.api.model.recording.RecordingConfig toRecordingConfig(com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, java.lang.String);
+  public static com.ideacode.soundly_sdk.api.model.recording.RecordingConfig toRecordingConfig$default(com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, java.lang.String, int, java.lang.Object);
+  public static final java.lang.String createRecordingTitle(com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, long);
+}
+
+Compiled from "SoundlySettings.kt"
+public interface com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository {
+  public abstract kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.settings.SoundlySettings> observe();
+  public abstract java.lang.Object get(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.settings.SoundlySettings>>);
+  public abstract java.lang.Object update(com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public abstract java.lang.Object reset(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+}
+
+Compiled from "SoundlyResult.kt"
+public interface com.ideacode.soundly_sdk.api.result.SoundlyResult<T> {
+}
+
+Compiled from "SoundlyResult.kt"
+public final class com.ideacode.soundly_sdk.api.result.SoundlyResultKt {
+  public static final <T, R> R fold(com.ideacode.soundly_sdk.api.result.SoundlyResult<? extends T>, kotlin.jvm.functions.Function1<? super T, ? extends R>, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.error.SoundlyError, ? extends R>);
+  public static final <T> T getOrNull(com.ideacode.soundly_sdk.api.result.SoundlyResult<? extends T>);
+}
+
+Compiled from "DefaultPresetDecisionEngine.kt"
+public final class com.ideacode.soundly_sdk.core.ai.decision.DefaultPresetDecisionEngine implements com.ideacode.soundly_sdk.core.ai.decision.PresetDecisionEngine {
+  public com.ideacode.soundly_sdk.core.ai.decision.DefaultPresetDecisionEngine();
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset decide(com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures);
+}
+
+Compiled from "PresetDecisionEngine.kt"
+public interface com.ideacode.soundly_sdk.core.ai.decision.PresetDecisionEngine {
+  public abstract com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset decide(com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures);
+}
+
+Compiled from "AudioAnalyzer.kt"
+public interface com.ideacode.soundly_sdk.core.audio.analyze.AudioAnalyzer {
+  public abstract com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures analyze(float[], int);
+}
+
+Compiled from "AudioFeatures.kt"
+public final class com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures {
+  public com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures(float, float, float, float, boolean);
+  public final float getRms();
+  public final float getSpectralFlatness();
+  public final float getZeroCrossingRate();
+  public final float getSpeechConfidence();
+  public final boolean isValid();
+  public java.lang.String toString();
+  public final float component1();
+  public final float component2();
+  public final float component3();
+  public final float component4();
+  public final boolean component5();
+  public final com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures copy(float, float, float, float, boolean);
+  public static com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures copy$default(com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures, float, float, float, float, boolean, int, java.lang.Object);
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "DefaultAudioAnalyzer.kt"
+public final class com.ideacode.soundly_sdk.core.audio.analyze.DefaultAudioAnalyzer implements com.ideacode.soundly_sdk.core.audio.analyze.AudioAnalyzer {
+  public com.ideacode.soundly_sdk.core.audio.analyze.DefaultAudioAnalyzer();
+  public com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures analyze(float[], int);
+}
+
+Compiled from "MediaCodecDecoder.kt"
+public final class com.ideacode.soundly_sdk.core.audio.decode.MediaCodecDecoder {
+  public static final long DEQUEUE_TIMEOUT_US = 10000l;
+  public com.ideacode.soundly_sdk.core.audio.decode.MediaCodecDecoder(android.content.Context);
+  public final com.ideacode.soundly_sdk.core.audio.model.PcmData decode(android.net.Uri);
+}
+
+Compiled from "CompressorPreset.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset {
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset(java.lang.Float, java.lang.Float);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset(java.lang.Float, java.lang.Float, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.Float getThreshold();
+  public final java.lang.Float getRatio();
+  public final java.lang.Float component1();
+  public final java.lang.Float component2();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset copy(java.lang.Float, java.lang.Float);
+  public static com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset copy$default(com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset, java.lang.Float, java.lang.Float, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset();
+}
+
+Compiled from "DspPreset.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset {
+  public static final com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset$Companion Companion;
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset(com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset(com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset getNoiseReductionPreset();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset getEqPreset();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset getCompressorPreset();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset getLimiterPreset();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset component1();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset component2();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset component3();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset component4();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset copy(com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset);
+  public static com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset copy$default(com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset, com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset();
+}
+
+Compiled from "EqPreset.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset {
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset(java.lang.Float, java.lang.Float, java.lang.Float);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset(java.lang.Float, java.lang.Float, java.lang.Float, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.Float getLowGain();
+  public final java.lang.Float getMidGain();
+  public final java.lang.Float getHighGain();
+  public final java.lang.Float component1();
+  public final java.lang.Float component2();
+  public final java.lang.Float component3();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset copy(java.lang.Float, java.lang.Float, java.lang.Float);
+  public static com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset copy$default(com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset, java.lang.Float, java.lang.Float, java.lang.Float, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset();
+}
+
+Compiled from "LimiterPreset.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset {
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset(java.lang.Float);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset(java.lang.Float, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.Float getLimit();
+  public final java.lang.Float component1();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset copy(java.lang.Float);
+  public static com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset copy$default(com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset, java.lang.Float, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset();
+}
+
+Compiled from "NoiseReductionPreset.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset {
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset(java.lang.Float, java.lang.Float);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset(java.lang.Float, java.lang.Float, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final java.lang.Float getStrength();
+  public final java.lang.Float getNoiseFloor();
+  public final java.lang.Float component1();
+  public final java.lang.Float component2();
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset copy(java.lang.Float, java.lang.Float);
+  public static com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset copy$default(com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset, java.lang.Float, java.lang.Float, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+  public com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset();
+}
+
+Compiled from "CompressorNode.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.node.CompressorNode implements com.ideacode.soundly_sdk.core.audio.dsp.node.DspNodeInterface<com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset> {
+  public com.ideacode.soundly_sdk.core.audio.dsp.node.CompressorNode();
+  public void configure(com.ideacode.soundly_sdk.core.audio.dsp.model.CompressorPreset);
+  public float[] process(float[], int);
+  public void configure(java.lang.Object);
+}
+
+Compiled from "DspNodeInterface.kt"
+public interface com.ideacode.soundly_sdk.core.audio.dsp.node.DspNodeInterface<T> {
+  public abstract void configure(T);
+  public abstract float[] process(float[], int);
+}
+
+Compiled from "EqNode.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.node.EqNode implements com.ideacode.soundly_sdk.core.audio.dsp.node.DspNodeInterface<com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset> {
+  public com.ideacode.soundly_sdk.core.audio.dsp.node.EqNode();
+  public void configure(com.ideacode.soundly_sdk.core.audio.dsp.model.EqPreset);
+  public float[] process(float[], int);
+  public void configure(java.lang.Object);
+}
+
+Compiled from "LimiterNode.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.node.LimiterNode implements com.ideacode.soundly_sdk.core.audio.dsp.node.DspNodeInterface<com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset> {
+  public com.ideacode.soundly_sdk.core.audio.dsp.node.LimiterNode();
+  public void configure(com.ideacode.soundly_sdk.core.audio.dsp.model.LimiterPreset);
+  public float[] process(float[], int);
+  public void configure(java.lang.Object);
+}
+
+Compiled from "NoiseReductionNode.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.node.NoiseReductionNode implements com.ideacode.soundly_sdk.core.audio.dsp.node.DspNodeInterface<com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset> {
+  public com.ideacode.soundly_sdk.core.audio.dsp.node.NoiseReductionNode();
+  public void configure(com.ideacode.soundly_sdk.core.audio.dsp.model.NoiseReductionPreset);
+  public float[] process(float[], int);
+  public void configure(java.lang.Object);
+}
+
+Compiled from "DefaultDspPipeline.kt"
+public final class com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DefaultDspPipeline implements com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DspPipeline {
+  public com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DefaultDspPipeline();
+  public void configure(com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset);
+  public float[] process(float[], int);
+}
+
+Compiled from "DspPipeline.kt"
+public interface com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DspPipeline {
+  public abstract void configure(com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset);
+  public abstract float[] process(float[], int);
+}
+
+Compiled from "AndroidAudioLoader.kt"
+public final class com.ideacode.soundly_sdk.core.audio.io.AndroidAudioLoader implements com.ideacode.soundly_sdk.core.audio.io.AudioLoader {
+  public com.ideacode.soundly_sdk.core.audio.io.AndroidAudioLoader(com.ideacode.soundly_sdk.core.audio.decode.MediaCodecDecoder);
+  public com.ideacode.soundly_sdk.core.audio.model.PcmData load(android.net.Uri);
+}
+
+Compiled from "AudioLoader.kt"
+public interface com.ideacode.soundly_sdk.core.audio.io.AudioLoader {
+  public abstract com.ideacode.soundly_sdk.core.audio.model.PcmData load(android.net.Uri);
+}
+
+Compiled from "PcmData.kt"
+public final class com.ideacode.soundly_sdk.core.audio.model.PcmData {
+  public com.ideacode.soundly_sdk.core.audio.model.PcmData(float[], int, int);
+  public final float[] getPcm();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final float[] component1();
+  public final int component2();
+  public final int component3();
+  public final com.ideacode.soundly_sdk.core.audio.model.PcmData copy(float[], int, int);
+  public static com.ideacode.soundly_sdk.core.audio.model.PcmData copy$default(com.ideacode.soundly_sdk.core.audio.model.PcmData, float[], int, int, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProcessor.kt"
+public interface com.ideacode.soundly_sdk.core.audio.processor.AudioProcessor {
+  public abstract java.lang.Object process(android.net.Uri, float[], int, int, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures, com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset>, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult>);
+}
+
+Compiled from "AudioProcessor.kt"
+public final class com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult {
+  public com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult(java.io.File, java.lang.String);
+  public final java.io.File getOutputFile();
+  public final java.lang.String getHistoryId();
+  public final java.io.File component1();
+  public final java.lang.String component2();
+  public final com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult copy(java.io.File, java.lang.String);
+  public static com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult copy$default(com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult, java.io.File, java.lang.String, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "DefaultAudioProcessor.kt"
+public final class com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor implements com.ideacode.soundly_sdk.core.audio.processor.AudioProcessor {
+  public com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor(com.ideacode.soundly_sdk.core.audio.analyze.AudioAnalyzer, com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DspPipeline, com.ideacode.soundly_sdk.core.util.WavWriter, com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder);
+  public com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor(com.ideacode.soundly_sdk.core.audio.analyze.AudioAnalyzer, com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DspPipeline, com.ideacode.soundly_sdk.core.util.WavWriter, com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.Object process(android.net.Uri, float[], int, int, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures, com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset>, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.core.audio.processor.CoreProcessingResult>);
+  public static final com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder access$getHistoryRecorder$p(com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor);
+  public static final long access$calculateDuration(com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor, float[], int, int);
+  public static final com.ideacode.soundly_sdk.core.audio.analyze.AudioAnalyzer access$getAnalyzer$p(com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor);
+  public static final com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DspPipeline access$getDspPipeline$p(com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor);
+  public static final java.lang.Object access$processByFrame(com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor, float[], int, kotlin.jvm.functions.Function1, kotlin.coroutines.Continuation);
+  public static final com.ideacode.soundly_sdk.core.util.WavWriter access$getWavWriter$p(com.ideacode.soundly_sdk.core.audio.processor.DefaultAudioProcessor);
+}
+
+Compiled from "ProcessingProcess.kt"
+public final class com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess {
+  public com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int, java.lang.String, java.lang.String);
+  public com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int, java.lang.String, java.lang.String, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage getStage();
+  public final int getPercent();
+  public final java.lang.String getMessage();
+  public final java.lang.String getWavFilePath();
+  public final com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage component1();
+  public final int component2();
+  public final java.lang.String component3();
+  public final java.lang.String component4();
+  public final com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess copy(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int, java.lang.String, java.lang.String);
+  public static com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess copy$default(com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess, com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingStage, int, java.lang.String, java.lang.String, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "HistoryRecorder.kt"
+public interface com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder {
+  public abstract java.lang.Object onProcessStart(java.lang.String, int, int, long, kotlin.coroutines.Continuation<? super java.lang.String>);
+  public abstract java.lang.Object onVariantGenerated(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+}
+
+Compiled from "AudioHistoryRepository.kt"
+public interface com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository {
+  public abstract java.lang.Object loadAll(kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioHistory>>);
+  public abstract java.lang.Object save(com.ideacode.soundly_sdk.api.model.domain.AudioHistory, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object addVariant(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object getVariantList(java.lang.String, kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant>>);
+  public abstract java.lang.Object delete(java.lang.String, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+}
+
+Compiled from "AudioPlayer.kt"
+public interface com.ideacode.soundly_sdk.core.media.player.AudioPlayer {
+  public abstract void prepare(com.ideacode.soundly_sdk.api.model.audio.AudioSource, kotlin.jvm.functions.Function0<kotlin.Unit>, kotlin.jvm.functions.Function0<kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Throwable, kotlin.Unit>);
+  public abstract void play();
+  public abstract void pause();
+  public abstract void stop();
+  public abstract void release();
+  public abstract boolean isPlaying();
+}
+
+Compiled from "FileUtils.kt"
+public final class com.ideacode.soundly_sdk.core.util.FileUtils {
+  public static final com.ideacode.soundly_sdk.core.util.FileUtils INSTANCE;
+  public final java.io.File writePcmToFile(float[], int);
+  public final short[] floatToPcm16(float[]);
+}
+
+Compiled from "WavWriter.kt"
+public final class com.ideacode.soundly_sdk.core.util.WavWriter {
+  public com.ideacode.soundly_sdk.core.util.WavWriter(java.io.File);
+  public final java.io.File write(float[], int, int, java.lang.String);
+}
+
+Compiled from "AndroidAudioExporter.kt"
+public final class com.ideacode.soundly_sdk.editing.AndroidAudioExporter implements com.ideacode.soundly_sdk.api.capability.AudioExporter {
+  public static final java.lang.String FILE_PROVIDER_SUFFIX = "soundly.fileprovider";
+  public static final java.lang.String EXPORT_DIRECTORY_NAME = "Soundly";
+  public static final int MAX_FILE_NAME_LENGTH = 120;
+  public static final int MAX_RENAME_ATTEMPTS = 10000;
+  public static final long PCM16_BYTES_PER_SAMPLE = 2l;
+  public static final long WAV_HEADER_BYTES = 44l;
+  public static final long MINIMUM_FREE_BYTES = 16777216l;
+  public com.ideacode.soundly_sdk.editing.AndroidAudioExporter(android.content.Context, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.storage.AudioFileStore, com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository, com.ideacode.soundly_sdk.editing.StreamingWavEncoder);
+  public com.ideacode.soundly_sdk.editing.AndroidAudioExporter(android.content.Context, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.storage.AudioFileStore, com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository, com.ideacode.soundly_sdk.editing.StreamingWavEncoder, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.Object export(com.ideacode.soundly_sdk.api.model.export.ExportRequest, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.export.ExportProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.export.ExportResult>>);
+  public java.lang.Object exportUsingDefaults(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.export.ExportDestination, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.export.ExportProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.export.ExportResult>>);
+  public java.lang.Object prepareShare(com.ideacode.soundly_sdk.api.model.export.ShareRequest, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.export.ShareResult>>);
+  public com.ideacode.soundly_sdk.api.result.SoundlyResult<android.content.Intent> createDocumentIntent(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public static final java.lang.String access$normalizeDisplayName(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public static final java.lang.Object access$resolveSource(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.lang.String, java.lang.String, kotlin.coroutines.Continuation);
+  public static final com.ideacode.soundly_sdk.editing.AndroidAudioExporter$Companion access$getCompanion$p();
+  public static final long access$estimateWavBytes(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, com.ideacode.soundly_sdk.api.model.domain.AudioVariant);
+  public static final com.ideacode.soundly_sdk.storage.AudioFileStore access$getFileStore$p(com.ideacode.soundly_sdk.editing.AndroidAudioExporter);
+  public static final java.lang.Object access$exportToMediaStore(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.io.File, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, kotlin.jvm.functions.Function1, int, kotlin.coroutines.Continuation);
+  public static final java.lang.Object access$exportToDocument(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.io.File, android.net.Uri, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, kotlin.jvm.functions.Function1, int, kotlin.coroutines.Continuation);
+  public static final com.ideacode.soundly_sdk.editing.StreamingWavEncoder access$getWavEncoder$p(com.ideacode.soundly_sdk.editing.AndroidAudioExporter);
+  public static final android.content.Context access$getContext$p(com.ideacode.soundly_sdk.editing.AndroidAudioExporter);
+  public static final java.lang.String access$mimeType(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public static final void access$deleteShareCopy(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.io.File);
+  public static final java.lang.Object access$exportToLegacyDirectory(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.io.File, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String, com.ideacode.soundly_sdk.api.model.export.FileConflictStrategy, kotlin.jvm.functions.Function1, int, kotlin.coroutines.Continuation);
+  public static final java.lang.Object access$copyWithCancellation(com.ideacode.soundly_sdk.editing.AndroidAudioExporter, java.io.File, java.io.OutputStream, kotlin.jvm.functions.Function1, int, kotlin.coroutines.Continuation);
+  public static final java.util.Set access$getWAV_TRANSCODE_INPUTS$cp();
+  public static final kotlin.text.Regex access$getCONTROL_FILE_NAME_CHARS$cp();
+  public static final kotlin.text.Regex access$getUNSAFE_FILE_NAME_CHARS$cp();
+}
+
+Compiled from "AndroidAudioTrimmer.kt"
+public final class com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer implements com.ideacode.soundly_sdk.api.capability.AudioTrimmer {
+  public static final int DEFAULT_BUFFER_SIZE = 1048576;
+  public static final long MINIMUM_FREE_BYTES = 16777216l;
+  public com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer(com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0<java.lang.String>, kotlin.jvm.functions.Function0<java.lang.Long>);
+  public com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer(com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.Object previewTrim(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.capability.TrimRange, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.TrimPreview>>);
+  public java.lang.Object applyTrim(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.capability.TrimRange, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.TrimResult>>);
+  public static final java.lang.Object access$resolveTrim(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.capability.TrimRange, kotlin.coroutines.Continuation);
+  public static final java.util.List access$mapMarkers(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer, com.ideacode.soundly_sdk.api.model.domain.AudioProject, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, com.ideacode.soundly_sdk.api.capability.TrimRange);
+  public static final com.ideacode.soundly_sdk.storage.AudioFileStore access$getFileStore$p(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer);
+  public static final kotlin.jvm.functions.Function0 access$getIdGenerator$p(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer);
+  public static final java.lang.String access$extension(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public static final void access$trimM4a(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer, java.io.File, java.io.File, long, long);
+  public static final com.ideacode.soundly_sdk.api.capability.AudioMetadataReader access$getMetadataReader$p(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer);
+  public static final kotlin.jvm.functions.Function0 access$getClock$p(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer);
+  public static final com.ideacode.soundly_sdk.api.capability.AudioProjectRepository access$getProjects$p(com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer);
+  public static final java.util.Set access$getSUPPORTED_FORMATS$cp();
+}
+
+Compiled from "DefaultStorageManager.kt"
+public final class com.ideacode.soundly_sdk.editing.DefaultStorageManager implements com.ideacode.soundly_sdk.api.capability.StorageManager {
+  public com.ideacode.soundly_sdk.editing.DefaultStorageManager(com.ideacode.soundly_sdk.storage.AudioFileStore, com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao, com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao, com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository, kotlin.jvm.functions.Function0<java.lang.Boolean>, kotlin.jvm.functions.Function1<? super kotlin.coroutines.Continuation<? super kotlin.Unit>, ? extends java.lang.Object>);
+  public com.ideacode.soundly_sdk.editing.DefaultStorageManager(com.ideacode.soundly_sdk.storage.AudioFileStore, com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao, com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao, com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function1, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.Object snapshot(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.StorageSnapshot>>);
+  public java.lang.Object clearCache(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object deleteAllLocalData(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public static final com.ideacode.soundly_sdk.storage.AudioFileStore access$getFileStore$p(com.ideacode.soundly_sdk.editing.DefaultStorageManager);
+  public static final kotlin.jvm.functions.Function0 access$getCanDeleteAllData$p(com.ideacode.soundly_sdk.editing.DefaultStorageManager);
+  public static final kotlin.jvm.functions.Function1 access$getBeforeDeleteAllData$p(com.ideacode.soundly_sdk.editing.DefaultStorageManager);
+  public static final com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao access$getProjectDao$p(com.ideacode.soundly_sdk.editing.DefaultStorageManager);
+  public static final com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao access$getHistoryDao$p(com.ideacode.soundly_sdk.editing.DefaultStorageManager);
+  public static final com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository access$getSettings$p(com.ideacode.soundly_sdk.editing.DefaultStorageManager);
+}
+
+Compiled from "ProjectAudioEnhancer.kt"
+public final class com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer implements com.ideacode.soundly_sdk.api.capability.AudioEnhancer {
+  public com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer(com.ideacode.soundly_sdk.processor.AudioProcessingService, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0<java.lang.String>, kotlin.jvm.functions.Function0<java.lang.Long>);
+  public com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer(com.ideacode.soundly_sdk.processor.AudioProcessingService, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.Object enhance(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.capability.EnhancementResult>>);
+  public static final com.ideacode.soundly_sdk.api.capability.AudioProjectRepository access$getProjects$p(com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer);
+  public static final kotlin.jvm.functions.Function0 access$getIdGenerator$p(com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer);
+  public static final com.ideacode.soundly_sdk.storage.AudioFileStore access$getFileStore$p(com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer);
+  public static final com.ideacode.soundly_sdk.processor.AudioProcessingService access$getProcessor$p(com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer);
+  public static final com.ideacode.soundly_sdk.api.capability.AudioMetadataReader access$getMetadataReader$p(com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer);
+  public static final kotlin.jvm.functions.Function0 access$getClock$p(com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer);
+}
+
+Compiled from "StreamingWavEncoder.kt"
+public final class com.ideacode.soundly_sdk.editing.StreamingWavEncoder {
+  public static final long DEQUEUE_TIMEOUT_US = 10000l;
+  public static final int WAV_HEADER_BYTES = 44;
+  public static final int PCM_BYTES_PER_SAMPLE = 2;
+  public static final int PCM_BITS_PER_SAMPLE = 16;
+  public static final long MAX_WAV_DATA_BYTES = 4294967259l;
+  public com.ideacode.soundly_sdk.editing.StreamingWavEncoder();
+  public final java.lang.Object encode(java.io.File, java.io.File, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.export.ExportProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.editing.WavEncodingResult>);
+}
+
+Compiled from "StreamingWavEncoder.kt"
+public final class com.ideacode.soundly_sdk.editing.WavEncodingResult {
+  public com.ideacode.soundly_sdk.editing.WavEncodingResult(int, int, long);
+  public final int getSampleRate();
+  public final int getChannels();
+  public final long getFileSizeBytes();
+  public final int component1();
+  public final int component2();
+  public final long component3();
+  public final com.ideacode.soundly_sdk.editing.WavEncodingResult copy(int, int, long);
+  public static com.ideacode.soundly_sdk.editing.WavEncodingResult copy$default(com.ideacode.soundly_sdk.editing.WavEncodingResult, int, int, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "WavTrimmer.kt"
+public final class com.ideacode.soundly_sdk.editing.WavTrimmer {
+  public static final com.ideacode.soundly_sdk.editing.WavTrimmer INSTANCE;
+  public final void trim(java.io.File, java.io.File, long, long);
+}
+
+Compiled from "PresetOptionConverter.kt"
+public final class com.ideacode.soundly_sdk.history.data.converter.PresetOptionConverter {
+  public com.ideacode.soundly_sdk.history.data.converter.PresetOptionConverter();
+  public final java.lang.String fromPreset(com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption);
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption toPreset(java.lang.String);
+}
+
+Compiled from "AudioHistoryDao.kt"
+public interface com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao {
+  public abstract java.lang.Object getAllHistory(kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity>>);
+  public abstract java.lang.Object getVariants(java.lang.String, kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity>>);
+  public abstract java.lang.Object insertHistory(com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object insertVariant(com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object deleteHistory(java.lang.String, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object clearAllHistory(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+}
+
+Compiled from "AudioHistoryDao_Impl.java"
+public final class com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao_Impl implements com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao {
+  public com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao_Impl(androidx.room.RoomDatabase);
+  public java.lang.Object insertHistory(com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object insertVariant(com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object deleteHistory(java.lang.String, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object clearAllHistory(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object getAllHistory(kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity>>);
+  public java.lang.Object getVariants(java.lang.String, kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity>>);
+  public static java.util.List<java.lang.Class<?>> getRequiredConverters();
+}
+
+Compiled from "AppDatabase.kt"
+public abstract class com.ideacode.soundly_sdk.history.data.db.AppDatabase extends androidx.room.RoomDatabase {
+  public static final com.ideacode.soundly_sdk.history.data.db.AppDatabase$Companion Companion;
+  public com.ideacode.soundly_sdk.history.data.db.AppDatabase();
+  public abstract com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao audioHistoryDao();
+  public abstract com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao audioProjectDao$soundly_sdk_debug();
+  public static final com.ideacode.soundly_sdk.history.data.db.AppDatabase access$getINSTANCE$cp();
+  public static final void access$setINSTANCE$cp(com.ideacode.soundly_sdk.history.data.db.AppDatabase);
+}
+
+Compiled from "AppDatabase_Impl.java"
+public final class com.ideacode.soundly_sdk.history.data.db.AppDatabase_Impl extends com.ideacode.soundly_sdk.history.data.db.AppDatabase {
+  public com.ideacode.soundly_sdk.history.data.db.AppDatabase_Impl();
+  public void clearAllTables();
+  public java.util.Set<java.lang.Class<? extends androidx.room.migration.AutoMigrationSpec>> getRequiredAutoMigrationSpecs();
+  public java.util.List<androidx.room.migration.Migration> getAutoMigrations(java.util.Map<java.lang.Class<? extends androidx.room.migration.AutoMigrationSpec>, androidx.room.migration.AutoMigrationSpec>);
+  public com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao audioHistoryDao();
+  public com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao audioProjectDao$soundly_sdk_debug();
+}
+
+Compiled from "Migrations.kt"
+public final class com.ideacode.soundly_sdk.history.data.db.Migrations {
+  public static final com.ideacode.soundly_sdk.history.data.db.Migrations INSTANCE;
+  public final androidx.room.migration.Migration getMIGRATION_2_3();
+  public final androidx.room.migration.Migration getMIGRATION_3_4();
+  public static final void access$migrateLegacyHistory(com.ideacode.soundly_sdk.history.data.db.Migrations, androidx.sqlite.db.SupportSQLiteDatabase);
+}
+
+Compiled from "AudioHistoryEntity.kt"
+public final class com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity {
+  public com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity(java.lang.String, java.lang.String, int, int, long, long);
+  public final java.lang.String getId();
+  public final java.lang.String getOriginalPath();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final long getDurationMs();
+  public final long getCreateAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final int component3();
+  public final int component4();
+  public final long component5();
+  public final long component6();
+  public final com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity copy(java.lang.String, java.lang.String, int, int, long, long);
+  public static com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity copy$default(com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity, java.lang.String, java.lang.String, int, int, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioHistoryEntity.kt"
+public final class com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntityKt {
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioHistory toDomain(com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity, java.util.List<com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity>);
+}
+
+Compiled from "AudioVariantEntity.kt"
+public final class com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity {
+  public com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity(long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long);
+  public com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity(long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public final long getId();
+  public final java.lang.String getHistoryId();
+  public final java.lang.String getFilePath();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption getPresetOption();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final long getDurationMs();
+  public final long component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption component4();
+  public final int component5();
+  public final int component6();
+  public final long component7();
+  public final com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity copy(long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long);
+  public static com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity copy$default(com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity, long, java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, int, int, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioVariantEntity.kt"
+public final class com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntityKt {
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioVariant toDomain(com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity);
+}
+
+Compiled from "DomainEntityTrans.kt"
+public final class com.ideacode.soundly_sdk.history.data.util.DomainEntityTrans {
+  public static final com.ideacode.soundly_sdk.history.data.util.DomainEntityTrans INSTANCE;
+  public final com.ideacode.soundly_sdk.history.data.entity.AudioHistoryEntity historyDomainToEntity(com.ideacode.soundly_sdk.api.model.domain.AudioHistory);
+  public final com.ideacode.soundly_sdk.history.data.entity.AudioVariantEntity variantDomainToEntity(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant);
+}
+
+Compiled from "RoomHistoryRecoder.kt"
+public final class com.ideacode.soundly_sdk.history.recoder.RoomHistoryRecoder implements com.ideacode.soundly_sdk.core.history.recorder.HistoryRecorder {
+  public com.ideacode.soundly_sdk.history.recoder.RoomHistoryRecoder(com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository);
+  public java.lang.Object onProcessStart(java.lang.String, int, int, long, kotlin.coroutines.Continuation<? super java.lang.String>);
+  public java.lang.Object onVariantGenerated(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+}
+
+Compiled from "RoomAudioHistoryRepository.kt"
+public final class com.ideacode.soundly_sdk.history.repository.RoomAudioHistoryRepository implements com.ideacode.soundly_sdk.core.history.repository.AudioHistoryRepository {
+  public com.ideacode.soundly_sdk.history.repository.RoomAudioHistoryRepository(com.ideacode.soundly_sdk.history.data.dao.AudioHistoryDao);
+  public java.lang.Object loadAll(kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioHistory>>);
+  public java.lang.Object save(com.ideacode.soundly_sdk.api.model.domain.AudioHistory, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object addVariant(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object getVariantList(java.lang.String, kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioVariant>>);
+  public java.lang.Object delete(java.lang.String, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+}
+
+Compiled from "AndroidAudioMetadataReader.kt"
+public final class com.ideacode.soundly_sdk.importer.AndroidAudioMetadataReader implements com.ideacode.soundly_sdk.api.capability.AudioMetadataReader {
+  public static final java.lang.String DEFAULT_DISPLAY_NAME = "Imported audio";
+  public static final java.lang.String DEFAULT_MIME = "application/octet-stream";
+  public static final long UNKNOWN_SIZE = 0l;
+  public com.ideacode.soundly_sdk.importer.AndroidAudioMetadataReader(android.content.Context);
+  public java.lang.Object read(android.net.Uri, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.importer.AudioMetadata>>);
+  public static final com.ideacode.soundly_sdk.api.result.SoundlyResult access$readOnIo(com.ideacode.soundly_sdk.importer.AndroidAudioMetadataReader, android.net.Uri);
+  public static final java.util.Set access$getSUPPORTED_SCHEMES$cp();
+}
+
+Compiled from "AudioFormatDetector.kt"
+public final class com.ideacode.soundly_sdk.importer.AudioFormatDetector {
+  public static final com.ideacode.soundly_sdk.importer.AudioFormatDetector INSTANCE;
+  public final com.ideacode.soundly_sdk.api.model.domain.AudioFormat detect(java.lang.String, java.lang.String);
+  public final java.lang.String canonicalMimeType(com.ideacode.soundly_sdk.api.model.domain.AudioFormat, java.lang.String);
+}
+
+Compiled from "DefaultAudioImporter.kt"
+public final class com.ideacode.soundly_sdk.importer.DefaultAudioImporter implements com.ideacode.soundly_sdk.api.capability.AudioImporter {
+  public static final int MAX_TITLE_LENGTH = 120;
+  public static final java.lang.String DEFAULT_TITLE = "Imported audio";
+  public static final long MINIMUM_FREE_BYTES = 16777216l;
+  public com.ideacode.soundly_sdk.importer.DefaultAudioImporter(android.content.ContentResolver, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0<java.lang.String>, kotlin.jvm.functions.Function0<java.lang.Long>);
+  public com.ideacode.soundly_sdk.importer.DefaultAudioImporter(android.content.ContentResolver, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.lang.Object importAudio(com.ideacode.soundly_sdk.api.model.importer.AudioImportRequest, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.importer.AudioImportResult>>);
+  public static final com.ideacode.soundly_sdk.api.capability.AudioMetadataReader access$getMetadataReader$p(com.ideacode.soundly_sdk.importer.DefaultAudioImporter);
+  public static final com.ideacode.soundly_sdk.storage.AudioFileStore access$getFileStore$p(com.ideacode.soundly_sdk.importer.DefaultAudioImporter);
+  public static final kotlin.jvm.functions.Function0 access$getIdGenerator$p(com.ideacode.soundly_sdk.importer.DefaultAudioImporter);
+  public static final android.content.ContentResolver access$getContentResolver$p(com.ideacode.soundly_sdk.importer.DefaultAudioImporter);
+  public static final kotlin.jvm.functions.Function0 access$getClock$p(com.ideacode.soundly_sdk.importer.DefaultAudioImporter);
+  public static final java.lang.String access$normalizeTitle(com.ideacode.soundly_sdk.importer.DefaultAudioImporter, java.lang.String);
+  public static final com.ideacode.soundly_sdk.api.capability.AudioProjectRepository access$getProjects$p(com.ideacode.soundly_sdk.importer.DefaultAudioImporter);
+  public static final java.util.Set access$getAUDIO_EXTENSIONS$cp();
+}
+
+Compiled from "AndroidAudioPlaybackController.kt"
+public final class com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController implements com.ideacode.soundly_sdk.api.capability.AudioPlaybackController {
+  public static final long POSITION_UPDATE_INTERVAL_MS = 200l;
+  public com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController(android.content.Context);
+  public kotlinx.coroutines.flow.StateFlow<com.ideacode.soundly_sdk.api.model.playback.PlaybackState> getState();
+  public java.lang.Object prepare(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> play();
+  public com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> pause();
+  public com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> stop();
+  public com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit> seekTo(long);
+  public java.lang.Object switchSourceKeepingPosition(com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public void release();
+  public static final java.lang.Object access$getLock$p(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final kotlinx.coroutines.flow.MutableStateFlow access$getMutableState$p(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final android.media.MediaPlayer access$getMediaPlayer$p(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final int access$getGeneration$p(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final void access$stopTicker(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final void access$abandonAudioFocus(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final void access$prepare$lambda$3$fail(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController, kotlin.jvm.internal.Ref$IntRef, kotlinx.coroutines.CancellableContinuation, java.lang.Exception);
+  public static final android.content.Context access$getContext$p(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController);
+  public static final void access$releasePlayer(com.ideacode.soundly_sdk.playback.AndroidAudioPlaybackController, boolean);
+}
+
+Compiled from "SdkAudioPlayer.kt"
+public final class com.ideacode.soundly_sdk.player.SdkAudioPlayer implements com.ideacode.soundly_sdk.core.media.player.AudioPlayer {
+  public com.ideacode.soundly_sdk.player.SdkAudioPlayer(android.content.Context);
+  public void prepare(com.ideacode.soundly_sdk.api.model.audio.AudioSource, kotlin.jvm.functions.Function0<kotlin.Unit>, kotlin.jvm.functions.Function0<kotlin.Unit>, kotlin.jvm.functions.Function1<? super java.lang.Throwable, kotlin.Unit>);
+  public void play();
+  public void pause();
+  public void stop();
+  public void release();
+  public boolean isPlaying();
+}
+
+Compiled from "PresetFactory.kt"
+public final class com.ideacode.soundly_sdk.preset.PresetFactory {
+  public static final com.ideacode.soundly_sdk.preset.PresetFactory INSTANCE;
+  public final com.ideacode.soundly_sdk.core.audio.dsp.model.DspPreset build(com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatures);
+}
+
+Compiled from "AudioProcessingService.kt"
+public interface com.ideacode.soundly_sdk.processor.AudioProcessingService {
+  public abstract java.lang.Object process(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult>>);
+}
+
+Compiled from "SdkAudioProcessor.kt"
+public final class com.ideacode.soundly_sdk.processor.SdkAudioProcessor implements com.ideacode.soundly_sdk.processor.AudioProcessingService {
+  public static final int MAX_OUTPUT_NAME_LENGTH = 120;
+  public com.ideacode.soundly_sdk.processor.SdkAudioProcessor(com.ideacode.soundly_sdk.core.audio.io.AudioLoader, com.ideacode.soundly_sdk.core.audio.processor.AudioProcessor);
+  public com.ideacode.soundly_sdk.processor.SdkAudioProcessor();
+  public java.lang.Object process(com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress, kotlin.Unit>, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingResult>>);
+  public final java.lang.Object process(android.net.Uri, com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption, java.lang.String, kotlin.jvm.functions.Function1<? super com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess, kotlin.Unit>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public static final java.lang.Object access$processInternal(com.ideacode.soundly_sdk.processor.SdkAudioProcessor, com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingRequest, kotlin.jvm.functions.Function1, kotlin.coroutines.Continuation);
+  public static final com.ideacode.soundly_sdk.core.audio.io.AudioLoader access$audioLoader(com.ideacode.soundly_sdk.processor.SdkAudioProcessor);
+  public static final com.ideacode.soundly_sdk.core.audio.processor.AudioProcessor access$audioProcessor(com.ideacode.soundly_sdk.processor.SdkAudioProcessor);
+  public static final kotlin.text.Regex access$getSAFE_OUTPUT_NAME$cp();
+}
+
+Compiled from "AudioProjectDao.kt"
+public interface com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao {
+  public abstract kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate>> observeProjects();
+  public abstract kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate> observeProject(java.lang.String);
+  public abstract java.lang.Object getProject(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate>);
+  public abstract kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate>> searchProjects(java.lang.String);
+  public abstract java.lang.Object getVariant(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>);
+  public abstract java.lang.Object countDerivedVariants(java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object upsertProject(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object upsertVariants(java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object upsertMarkers(java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object insertVariant(com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object insertMarker(com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object touchProject(java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object insertVariantAndTouch(com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity, long, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object insertMarkerAndTouch(com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity, long, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object saveProject(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>, java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object renameProject(java.lang.String, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object deleteVariant(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object deleteVariantAndTouch(java.lang.String, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object deleteMarker(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object deleteMarkerAndTouch(java.lang.String, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object deleteProject(java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object upsertRecoverySession(com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object getRecoverySessions(kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity>>);
+  public abstract java.lang.Object getRecoverySession(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity>);
+  public abstract java.lang.Object updateRecoverySession(java.lang.String, long, long, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public abstract java.lang.Object deleteRecoverySession(java.lang.String, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object clearProjects(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object clearRecoverySessions(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public abstract java.lang.Object clearAllProjectData(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+}
+
+Compiled from "AudioProjectDao_Impl.java"
+public final class com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao_Impl implements com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao {
+  public com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao_Impl(androidx.room.RoomDatabase);
+  public java.lang.Object insertVariant(com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object insertMarker(com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object insertVariantAndTouch(com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity, long, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object insertMarkerAndTouch(com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity, long, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object saveProject(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>, java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object deleteVariantAndTouch(java.lang.String, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object deleteMarkerAndTouch(java.lang.String, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object clearAllProjectData(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object touchProject(java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object renameProject(java.lang.String, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object deleteVariant(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object deleteMarker(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object deleteProject(java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object updateRecoverySession(java.lang.String, long, long, java.lang.String, long, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object deleteRecoverySession(java.lang.String, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object clearProjects(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object clearRecoverySessions(kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object upsertProject(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object upsertVariants(java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object upsertMarkers(java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity>, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public java.lang.Object upsertRecoverySession(com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+  public kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate>> observeProjects();
+  public kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate> observeProject(java.lang.String);
+  public java.lang.Object getProject(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate>);
+  public kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate>> searchProjects(java.lang.String);
+  public java.lang.Object getVariant(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>);
+  public java.lang.Object countDerivedVariants(java.lang.String, kotlin.coroutines.Continuation<? super java.lang.Integer>);
+  public java.lang.Object getRecoverySessions(kotlin.coroutines.Continuation<? super java.util.List<com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity>>);
+  public java.lang.Object getRecoverySession(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity>);
+  public static java.util.List<java.lang.Class<?>> getRequiredConverters();
+}
+
+Compiled from "AudioMarkerEntity.kt"
+public final class com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity {
+  public com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity(java.lang.String, java.lang.String, long, java.lang.String, long);
+  public final java.lang.String getId();
+  public final java.lang.String getProjectId();
+  public final long getPositionMs();
+  public final java.lang.String getLabel();
+  public final long getCreatedAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final long component3();
+  public final java.lang.String component4();
+  public final long component5();
+  public final com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity copy(java.lang.String, java.lang.String, long, java.lang.String, long);
+  public static com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity copy$default(com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity, java.lang.String, java.lang.String, long, java.lang.String, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProjectAggregate.kt"
+public final class com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate {
+  public com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>, java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity>);
+  public final com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity getProject();
+  public final java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity> getVariants();
+  public final java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity> getMarkers();
+  public final com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity component1();
+  public final java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity> component2();
+  public final java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity> component3();
+  public final com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate copy(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, java.util.List<com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity>, java.util.List<com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity>);
+  public static com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate copy$default(com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate, com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, java.util.List, java.util.List, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "AudioProjectAggregate.kt"
+public final class com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregateKt {
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioProject toDomain(com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate);
+  public static final com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity toEntity(com.ideacode.soundly_sdk.api.model.domain.AudioProject);
+  public static final com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity toEntity(com.ideacode.soundly_sdk.api.model.domain.AudioVariant);
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioVariant toDomain(com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity);
+  public static final com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity toEntity(com.ideacode.soundly_sdk.api.model.domain.AudioMarker);
+  public static final com.ideacode.soundly_sdk.api.model.domain.AudioMarker toDomain(com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity);
+}
+
+Compiled from "AudioProjectEntity.kt"
+public final class com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity {
+  public com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, long, long);
+  public final java.lang.String getId();
+  public final java.lang.String getTitle();
+  public final java.lang.String getSourceType();
+  public final java.lang.String getRecordingScene();
+  public final java.lang.String getStatus();
+  public final java.lang.String getOriginalVariantId();
+  public final long getCreatedAt();
+  public final long getUpdatedAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final java.lang.String component4();
+  public final java.lang.String component5();
+  public final java.lang.String component6();
+  public final long component7();
+  public final long component8();
+  public final com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity copy(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, long, long);
+  public static com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity copy$default(com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "ProjectAudioVariantEntity.kt"
+public final class com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity {
+  public com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int, long, long, long, java.lang.String, java.lang.Long, java.lang.Long);
+  public final java.lang.String getId();
+  public final java.lang.String getProjectId();
+  public final java.lang.String getVariantType();
+  public final java.lang.String getPresetOption();
+  public final java.lang.String getFilePath();
+  public final java.lang.String getFormat();
+  public final java.lang.String getMimeType();
+  public final int getSampleRate();
+  public final int getChannels();
+  public final long getDurationMs();
+  public final long getFileSizeBytes();
+  public final long getCreatedAt();
+  public final java.lang.String getSourceVariantId();
+  public final java.lang.Long getTrimStartMs();
+  public final java.lang.Long getTrimEndMs();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final java.lang.String component4();
+  public final java.lang.String component5();
+  public final java.lang.String component6();
+  public final java.lang.String component7();
+  public final int component8();
+  public final int component9();
+  public final long component10();
+  public final long component11();
+  public final long component12();
+  public final java.lang.String component13();
+  public final java.lang.Long component14();
+  public final java.lang.Long component15();
+  public final com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity copy(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int, long, long, long, java.lang.String, java.lang.Long, java.lang.Long);
+  public static com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity copy$default(com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, int, long, long, long, java.lang.String, java.lang.Long, java.lang.Long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RecoverySessionEntity.kt"
+public final class com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity {
+  public com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity(java.lang.String, java.lang.String, java.lang.String, long, long, java.lang.String, long);
+  public final java.lang.String getId();
+  public final java.lang.String getProjectId();
+  public final java.lang.String getTempFilePath();
+  public final long getRecordedDurationMs();
+  public final long getRecordedBytes();
+  public final java.lang.String getStatus();
+  public final long getUpdatedAt();
+  public final java.lang.String component1();
+  public final java.lang.String component2();
+  public final java.lang.String component3();
+  public final long component4();
+  public final long component5();
+  public final java.lang.String component6();
+  public final long component7();
+  public final com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity copy(java.lang.String, java.lang.String, java.lang.String, long, long, java.lang.String, long);
+  public static com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity copy$default(com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity, java.lang.String, java.lang.String, java.lang.String, long, long, java.lang.String, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "RoomAudioProjectRepository.kt"
+public final class com.ideacode.soundly_sdk.project.repository.RoomAudioProjectRepository implements com.ideacode.soundly_sdk.api.capability.AudioProjectRepository {
+  public static final int MAX_TITLE_LENGTH = 120;
+  public com.ideacode.soundly_sdk.project.repository.RoomAudioProjectRepository(com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0<java.lang.Long>);
+  public com.ideacode.soundly_sdk.project.repository.RoomAudioProjectRepository(com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao, com.ideacode.soundly_sdk.storage.AudioFileStore, kotlin.jvm.functions.Function0, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioProject>> observeProjects();
+  public kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.domain.AudioProject> observeProject(java.lang.String);
+  public kotlinx.coroutines.flow.Flow<java.util.List<com.ideacode.soundly_sdk.api.model.domain.AudioProject>> searchProjects(java.lang.String);
+  public java.lang.Object getProject(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.domain.AudioProject>>);
+  public java.lang.Object saveProject(com.ideacode.soundly_sdk.api.model.domain.AudioProject, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object renameProject(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object addVariant(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioVariant, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object deleteVariant(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object addMarker(com.ideacode.soundly_sdk.api.model.domain.AudioMarker, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object deleteMarker(java.lang.String, java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object deleteProject(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public static final kotlin.text.Regex access$getSAFE_IDENTIFIER$cp();
+  public static final com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao access$getDao$p(com.ideacode.soundly_sdk.project.repository.RoomAudioProjectRepository);
+}
+
+Compiled from "RecordingFocusController.kt"
+public final class com.ideacode.soundly_sdk.recording.AndroidRecordingFocusController implements com.ideacode.soundly_sdk.recording.RecordingFocusController {
+  public com.ideacode.soundly_sdk.recording.AndroidRecordingFocusController(android.content.Context);
+  public boolean request(kotlin.jvm.functions.Function0<kotlin.Unit>);
+  public void abandon();
+}
+
+Compiled from "AndroidRecordingManager.kt"
+public final class com.ideacode.soundly_sdk.recording.AndroidRecordingManager implements com.ideacode.soundly_sdk.api.capability.RecordingManager {
+  public static final long MINIMUM_FREE_BYTES = 16777216l;
+  public static final float MAX_AMPLITUDE = 32767.0f;
+  public static final long METER_INTERVAL_MS = 50l;
+  public static final long RECOVERY_UPDATE_INTERVAL_MS = 1000l;
+  public static final int WAVEFORM_SAMPLES_PER_FRAME = 10;
+  public static final int MAX_TITLE_LENGTH = 120;
+  public static final int MAX_MARKER_LABEL_LENGTH = 80;
+  public static final java.lang.String STATUS_RECORDING = "RECORDING";
+  public static final java.lang.String STATUS_PAUSED = "PAUSED";
+  public static final java.lang.String STATUS_INTERRUPTED = "INTERRUPTED";
+  public static final java.lang.String STATUS_RECOVERY_REQUIRED = "RECOVERY_REQUIRED";
+  public static final java.lang.String RECOVERY_METADATA_FILE = "recovery.properties";
+  public static final java.lang.String KEY_ORIGINAL_VARIANT_ID = "originalVariantId";
+  public static final java.lang.String KEY_TITLE = "title";
+  public static final java.lang.String KEY_SCENE = "scene";
+  public static final java.lang.String KEY_FORMAT = "format";
+  public static final java.lang.String KEY_MARKER_COUNT = "markerCount";
+  public com.ideacode.soundly_sdk.recording.AndroidRecordingManager(android.content.Context, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.storage.AudioFileStore, com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao, com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository, kotlin.jvm.functions.Function0<? extends com.ideacode.soundly_sdk.recording.RecorderEngine>, kotlin.jvm.functions.Function0<java.lang.Boolean>, com.ideacode.soundly_sdk.recording.RecordingFocusController, kotlin.jvm.functions.Function0<java.lang.Long>, kotlin.jvm.functions.Function0<java.lang.Long>, kotlin.jvm.functions.Function0<java.lang.String>);
+  public com.ideacode.soundly_sdk.recording.AndroidRecordingManager(android.content.Context, com.ideacode.soundly_sdk.api.capability.AudioProjectRepository, com.ideacode.soundly_sdk.api.capability.AudioMetadataReader, com.ideacode.soundly_sdk.storage.AudioFileStore, com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao, com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, com.ideacode.soundly_sdk.recording.RecordingFocusController, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, kotlin.jvm.functions.Function0, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public kotlinx.coroutines.flow.StateFlow<com.ideacode.soundly_sdk.api.model.recording.RecordingState> getState();
+  public kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.recording.AudioMeter> getMeter();
+  public kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.recording.WaveformFrame> getWaveform();
+  public java.lang.Object prepareUsingDefaults(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object prepare(com.ideacode.soundly_sdk.api.model.recording.RecordingConfig, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object start(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.recording.RecordingSession>>);
+  public java.lang.Object pause(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object resume(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object addMarker(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.domain.AudioMarker>>);
+  public java.lang.Object stopAndSave(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.recording.RecordingResult>>);
+  public java.lang.Object discard(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object getRecoverableRecordings(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<? extends java.util.List<com.ideacode.soundly_sdk.api.model.recording.RecoverableRecording>>>);
+  public java.lang.Object recover(java.lang.String, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.recording.RecordingResult>>);
+  public static final com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao access$getDao$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final com.ideacode.soundly_sdk.storage.AudioFileStore access$getFileStore$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final java.lang.Object access$finalizeRecording(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, com.ideacode.soundly_sdk.recording.AndroidRecordingManager$PreparedRecording, long, java.util.List, kotlin.coroutines.Continuation);
+  public static final kotlin.jvm.functions.Function0 access$getElapsedRealtime$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final long access$currentDurationMs(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final com.ideacode.soundly_sdk.recording.RecorderEngine access$getEngine$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final kotlin.jvm.functions.Function0 access$getClock$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final kotlinx.coroutines.flow.MutableSharedFlow access$getMutableMeter$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final com.ideacode.soundly_sdk.recording.AndroidRecordingManager$Companion access$getCompanion$p();
+  public static final kotlinx.coroutines.flow.MutableSharedFlow access$getMutableWaveform$p(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final void access$updateVisibleState(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, com.ideacode.soundly_sdk.recording.AndroidRecordingManager$PreparedRecording, long, long);
+  public static final java.lang.Object access$persistProgress(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, com.ideacode.soundly_sdk.recording.AndroidRecordingManager$PreparedRecording, java.lang.String, kotlin.coroutines.Continuation);
+  public static final java.lang.String access$statusForCurrentState(com.ideacode.soundly_sdk.recording.AndroidRecordingManager);
+  public static final java.lang.Object access$stopMonitoring(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, kotlin.coroutines.Continuation);
+  public static final java.lang.Object access$markRecoveryRequired(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, com.ideacode.soundly_sdk.recording.AndroidRecordingManager$PreparedRecording, java.lang.Exception, kotlin.coroutines.Continuation);
+  public static final java.lang.Object access$recordingFailure(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, com.ideacode.soundly_sdk.recording.AndroidRecordingManager$PreparedRecording, java.lang.Exception, kotlin.coroutines.Continuation);
+  public static final java.lang.Object access$interruptForAudioFocusLoss(com.ideacode.soundly_sdk.recording.AndroidRecordingManager, kotlin.coroutines.Continuation);
+  public static final float access$getSQRT_TWO$cp();
+  public static final java.util.Set access$getSUPPORTED_SAMPLE_RATES$cp();
+  public static final java.lang.ThreadLocal access$getTITLE_DATE_FORMAT$cp();
+}
+
+Compiled from "RecorderEngine.kt"
+public final class com.ideacode.soundly_sdk.recording.MediaRecorderEngine implements com.ideacode.soundly_sdk.recording.RecorderEngine {
+  public com.ideacode.soundly_sdk.recording.MediaRecorderEngine(android.content.Context);
+  public void prepare(com.ideacode.soundly_sdk.api.model.recording.RecordingConfig, java.io.File);
+  public void start();
+  public void pause();
+  public void resume();
+  public void stop();
+  public void release();
+  public int maxAmplitude();
+}
+
+Compiled from "RecorderEngine.kt"
+public interface com.ideacode.soundly_sdk.recording.RecorderEngine {
+  public abstract void prepare(com.ideacode.soundly_sdk.api.model.recording.RecordingConfig, java.io.File);
+  public abstract void start();
+  public abstract void pause();
+  public abstract void resume();
+  public abstract void stop();
+  public abstract void release();
+  public abstract int maxAmplitude();
+}
+
+Compiled from "RecordingFocusController.kt"
+public interface com.ideacode.soundly_sdk.recording.RecordingFocusController {
+  public abstract boolean request(kotlin.jvm.functions.Function0<kotlin.Unit>);
+  public abstract void abandon();
+}
+
+Compiled from "RecordingForegroundService.kt"
+public final class com.ideacode.soundly_sdk.recording.RecordingForegroundService extends android.app.Service {
+  public static final com.ideacode.soundly_sdk.recording.RecordingForegroundService$Companion Companion;
+  public com.ideacode.soundly_sdk.recording.RecordingForegroundService();
+  public void onCreate();
+  public int onStartCommand(android.content.Intent, int, int);
+  public android.os.IBinder onBind(android.content.Intent);
+  public void onDestroy();
+  public static final void access$notify(com.ideacode.soundly_sdk.recording.RecordingForegroundService, android.app.Notification);
+  public static final android.app.Notification access$buildNotification(com.ideacode.soundly_sdk.recording.RecordingForegroundService, com.ideacode.soundly_sdk.api.model.recording.RecordingState);
+}
+
+Compiled from "SharedPreferencesSoundlySettingsRepository.kt"
+public final class com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository implements com.ideacode.soundly_sdk.api.model.settings.SoundlySettingsRepository {
+  public static final java.lang.String PREFERENCES_NAME = "soundly_settings";
+  public static final int SETTINGS_SCHEMA_VERSION = 2;
+  public static final java.lang.String KEY_SCHEMA_VERSION = "schema_version";
+  public static final java.lang.String KEY_DEFAULT_SCENE = "default_scene";
+  public static final java.lang.String KEY_RECORDING_QUALITY = "recording_quality";
+  public static final java.lang.String KEY_OUTPUT_FORMAT = "output_format";
+  public static final java.lang.String KEY_RECORD_IN_BACKGROUND = "record_in_background";
+  public static final java.lang.String KEY_RECORDING_FORMAT = "recording_format";
+  public static final java.lang.String KEY_NAMING_STRATEGY = "naming_strategy";
+  public com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository(android.content.Context, android.content.SharedPreferences);
+  public com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository(android.content.Context, android.content.SharedPreferences, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public kotlinx.coroutines.flow.Flow<com.ideacode.soundly_sdk.api.model.settings.SoundlySettings> observe();
+  public java.lang.Object get(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<com.ideacode.soundly_sdk.api.model.settings.SoundlySettings>>);
+  public java.lang.Object update(com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public java.lang.Object reset(kotlin.coroutines.Continuation<? super com.ideacode.soundly_sdk.api.result.SoundlyResult<kotlin.Unit>>);
+  public static final java.lang.Object access$persist(com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository, com.ideacode.soundly_sdk.api.model.settings.SoundlySettings, kotlin.coroutines.Continuation);
+  public static final android.content.SharedPreferences access$getPreferences$p(com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository);
+  public static final kotlinx.coroutines.flow.MutableStateFlow access$getState$p(com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository);
+  public static final java.util.Set access$getSUPPORTED_RECORDING_FORMATS$cp();
+}
+
+Compiled from "AudioFileStore.kt"
+public interface com.ideacode.soundly_sdk.storage.AudioFileStore {
+  public abstract java.io.File getRootDirectory();
+  public abstract java.io.File projectDirectory(java.lang.String);
+  public abstract java.io.File originalFile(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public abstract java.io.File variantFile(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public abstract java.io.File waveformFile(java.lang.String, java.lang.String);
+  public abstract java.io.File projectMetadataFile(java.lang.String, java.lang.String);
+  public abstract java.io.File recoveryFile(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public abstract java.io.File exportCacheFile(java.lang.String);
+  public abstract java.io.File shareCacheFile(java.lang.String, java.lang.String);
+  public abstract java.io.File createTempFile(java.lang.String);
+  public abstract java.io.File copyAtomically(java.io.InputStream, java.io.File);
+  public abstract java.io.File moveAtomically(java.io.File, java.io.File);
+  public abstract boolean deleteFile(java.io.File);
+  public abstract boolean deleteProject(java.lang.String);
+  public abstract com.ideacode.soundly_sdk.storage.StagedFileDeletion stageDeletion(java.io.File);
+  public abstract boolean commitDeletion(com.ideacode.soundly_sdk.storage.StagedFileDeletion);
+  public abstract boolean rollbackDeletion(com.ideacode.soundly_sdk.storage.StagedFileDeletion);
+  public abstract long clearTemporaryFiles();
+  public abstract com.ideacode.soundly_sdk.storage.AudioStorageUsage storageUsage();
+  public abstract long clearAllLocalFiles();
+  public abstract boolean isManaged(java.io.File);
+  public abstract long availableBytes();
+}
+
+Compiled from "AudioFileStore.kt"
+public final class com.ideacode.soundly_sdk.storage.AudioStorageUsage {
+  public com.ideacode.soundly_sdk.storage.AudioStorageUsage(long, long, long, long, long);
+  public final long getOriginalsBytes();
+  public final long getVariantsBytes();
+  public final long getCacheBytes();
+  public final long getRecoveryBytes();
+  public final long getAuxiliaryBytes();
+  public final long component1();
+  public final long component2();
+  public final long component3();
+  public final long component4();
+  public final long component5();
+  public final com.ideacode.soundly_sdk.storage.AudioStorageUsage copy(long, long, long, long, long);
+  public static com.ideacode.soundly_sdk.storage.AudioStorageUsage copy$default(com.ideacode.soundly_sdk.storage.AudioStorageUsage, long, long, long, long, long, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "DefaultAudioFileStore.kt"
+public final class com.ideacode.soundly_sdk.storage.DefaultAudioFileStore implements com.ideacode.soundly_sdk.storage.AudioFileStore {
+  public static final java.lang.String ROOT_DIRECTORY = "soundly";
+  public static final java.lang.String PROJECTS_DIRECTORY = "projects";
+  public static final java.lang.String ORIGINAL_DIRECTORY = "original";
+  public static final java.lang.String VARIANTS_DIRECTORY = "variants";
+  public static final java.lang.String WAVEFORM_DIRECTORY = "waveform";
+  public static final java.lang.String METADATA_DIRECTORY = "metadata";
+  public static final java.lang.String TEMP_DIRECTORY = "temp";
+  public static final java.lang.String RECOVERY_DIRECTORY = "recovery";
+  public static final java.lang.String EXPORT_CACHE_DIRECTORY = "soundly-export-cache";
+  public static final java.lang.String LEGACY_AUDIO_DIRECTORY = "audio";
+  public static final int MAX_FILE_NAME_LENGTH = 120;
+  public com.ideacode.soundly_sdk.storage.DefaultAudioFileStore(java.io.File, java.io.File, kotlin.jvm.functions.Function1<? super java.io.File, java.lang.Long>);
+  public com.ideacode.soundly_sdk.storage.DefaultAudioFileStore(java.io.File, java.io.File, kotlin.jvm.functions.Function1, int, kotlin.jvm.internal.DefaultConstructorMarker);
+  public java.io.File getRootDirectory();
+  public java.io.File projectDirectory(java.lang.String);
+  public java.io.File originalFile(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public java.io.File variantFile(java.lang.String, java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public java.io.File waveformFile(java.lang.String, java.lang.String);
+  public java.io.File projectMetadataFile(java.lang.String, java.lang.String);
+  public java.io.File recoveryFile(java.lang.String, com.ideacode.soundly_sdk.api.model.domain.AudioFormat);
+  public java.io.File exportCacheFile(java.lang.String);
+  public java.io.File shareCacheFile(java.lang.String, java.lang.String);
+  public java.io.File createTempFile(java.lang.String);
+  public java.io.File copyAtomically(java.io.InputStream, java.io.File);
+  public java.io.File moveAtomically(java.io.File, java.io.File);
+  public boolean deleteFile(java.io.File);
+  public boolean deleteProject(java.lang.String);
+  public com.ideacode.soundly_sdk.storage.StagedFileDeletion stageDeletion(java.io.File);
+  public boolean commitDeletion(com.ideacode.soundly_sdk.storage.StagedFileDeletion);
+  public boolean rollbackDeletion(com.ideacode.soundly_sdk.storage.StagedFileDeletion);
+  public long clearTemporaryFiles();
+  public com.ideacode.soundly_sdk.storage.AudioStorageUsage storageUsage();
+  public long clearAllLocalFiles();
+  public boolean isManaged(java.io.File);
+  public long availableBytes();
+  public static final kotlin.text.Regex access$getSAFE_IDENTIFIER$cp();
+  public static final kotlin.text.Regex access$getSAFE_SUFFIX$cp();
+  public static final kotlin.text.Regex access$getCONTROL_FILE_NAME_CHARS$cp();
+  public static final kotlin.text.Regex access$getUNSAFE_FILE_NAME_CHARS$cp();
+}
+
+Compiled from "AudioFileStore.kt"
+public final class com.ideacode.soundly_sdk.storage.StagedFileDeletion {
+  public com.ideacode.soundly_sdk.storage.StagedFileDeletion(java.io.File, java.io.File);
+  public final java.io.File getOriginal();
+  public final java.io.File getStaged();
+  public final java.io.File component1();
+  public final java.io.File component2();
+  public final com.ideacode.soundly_sdk.storage.StagedFileDeletion copy(java.io.File, java.io.File);
+  public static com.ideacode.soundly_sdk.storage.StagedFileDeletion copy$default(com.ideacode.soundly_sdk.storage.StagedFileDeletion, java.io.File, java.io.File, int, java.lang.Object);
+  public java.lang.String toString();
+  public int hashCode();
+  public boolean equals(java.lang.Object);
+}
+
+Compiled from "CrashReportingTree.kt"
+public class com.ideacode.soundly_sdk.util.CrashReportingTree extends timber.log.Timber$Tree {
+  public static final com.ideacode.soundly_sdk.util.CrashReportingTree$Companion Companion;
+  public com.ideacode.soundly_sdk.util.CrashReportingTree();
+}
+
+Compiled from "ModuleTagTree.kt"
+public class com.ideacode.soundly_sdk.util.ModuleTagTree extends timber.log.Timber$DebugTree {
+  public com.ideacode.soundly_sdk.util.ModuleTagTree();
+}

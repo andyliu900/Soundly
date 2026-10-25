@@ -1,13 +1,13 @@
 package com.ideacode.sample_app.history
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ideacode.soundly_sdk.api.model.audio.AudioSource
-import com.ideacode.soundly_sdk.api.model.domain.AudioHistory
+import com.ideacode.soundly_sdk.api.capability.AudioPlaybackController
+import com.ideacode.soundly_sdk.api.capability.AudioProjectRepository
+import com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef
+import com.ideacode.soundly_sdk.api.model.domain.AudioProject
 import com.ideacode.soundly_sdk.api.Soundly
-import com.ideacode.soundly_sdk.history.repository.RoomAudioHistoryRepository
-import com.ideacode.soundly_sdk.player.SdkAudioPlayer
+import com.ideacode.soundly_sdk.api.result.SoundlyResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,63 +15,42 @@ import timber.log.Timber
 import java.io.File
 
 class HistoryViewModel(
-    private val repository: RoomAudioHistoryRepository
+    private val repository: AudioProjectRepository,
+    private val audioPlayer: AudioPlaybackController = Soundly.sdk().playback
 ): ViewModel() {
 
-    private val audioPlayer: SdkAudioPlayer = Soundly.container().audioPlayer
-
-    private val _history = MutableStateFlow<List<AudioHistory>>(emptyList())
-    val history: StateFlow<List<AudioHistory>> = _history
+    private val _history = MutableStateFlow<List<AudioProject>>(emptyList())
+    val history: StateFlow<List<AudioProject>> = _history
 
     fun loadHistory() {
         viewModelScope.launch {
-            _history.value = repository.loadAll()
+            repository.observeProjects().collect { projects ->
+                _history.value = projects
+            }
         }
     }
 
     fun deleteHistory(id: String) {
         viewModelScope.launch {
-            // 删除本地文件
-            val audioVariantList = repository.getVariantList(id)
-            if (audioVariantList.isNotEmpty()) {
-                val audioVariant = audioVariantList.get(0)
-                val localFilePath = audioVariant.filePath
-                Timber.i("deleteHistory: $localFilePath")
-
-                val file = File(localFilePath)
-                if (file.exists()) {
-                    val flag = file.delete()
-                    Timber.i("deleteHistoryLocalFile: $flag")
-                }
-            }
-
-            repository.delete(id)
-            loadHistory()
-
-
+            repository.deleteProject(id)
         }
     }
 
-    fun playOriginalAudio(uri: Uri) {
-        audioPlayer.prepare(
-            source = AudioSource.Original(uri),
-            onPrepared = {
-                audioPlayer.play()
-            },
-            onCompletion = null,
-            onError = null
-        )
+    fun playOriginalAudio(file: File) {
+        play(AudioSourceRef.LocalFile(file))
     }
 
     fun playProcessedAudio(wavFile: File) {
-        audioPlayer.prepare(
-            source = AudioSource.Processed(wavFile),
-            onPrepared = {
-                audioPlayer.play()
-            },
-            onCompletion = null,
-            onError = null
-        )
+        play(AudioSourceRef.LocalFile(wavFile))
+    }
+
+    private fun play(source: AudioSourceRef) {
+        viewModelScope.launch {
+            when (audioPlayer.prepare(source)) {
+                is SoundlyResult.Success -> audioPlayer.play()
+                is SoundlyResult.Failure -> Timber.w("Unable to prepare project audio")
+            }
+        }
     }
 
     override fun onCleared() {

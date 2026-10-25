@@ -3,7 +3,7 @@ package com.ideacode.soundly_sdk.core.media.player
 import com.ideacode.soundly_sdk.api.model.audio.AudioSource
 
 
-interface AudioPlayer {
+internal interface AudioPlayer {
 
     fun prepare(
         source: AudioSource,

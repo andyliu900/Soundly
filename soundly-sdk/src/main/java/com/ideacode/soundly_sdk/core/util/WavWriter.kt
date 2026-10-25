@@ -6,7 +6,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class WavWriter(
+internal class WavWriter(
     private val outputDir: File
 ) {
 

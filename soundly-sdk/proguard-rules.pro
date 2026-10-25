@@ -1,51 +1,23 @@
 
-########################################
-# 核心算法彻底混淆
-########################################
+# Apply the same stable boundary while shrinking the published release AAR.
+-include consumer-rules.pro
 
-# 允许重命名类
--allowaccessmodification
+# Internal implementation and DSP classes remain eligible for shrinking and
+# renaming. Optimization and whole-library repackaging are deferred to the host
+# application because they can change the bytecode API of a published AAR.
 
-# 删除所有日志
+# Remove Android platform logging from the minified artifact.
 -assumenosideeffects class android.util.Log {
-    *;
+    public static *** v(...);
+    public static *** d(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** e(...);
+    public static *** wtf(...);
 }
 
-# 混淆类名
--repackageclasses ''
-
-# 移除调试信息
--dontusemixedcaseclassnames
+# Keep line numbers for diagnosable host crash reports without exposing source
+# file names.
 -renamesourcefileattribute SourceFile
 -keepattributes LineNumberTable
-
-########################################
-# 不暴露内部DSP实现
-########################################
-
-# 不保留 DSP 实现类名
-# 默认情况下 R8 会重命名
-
-########################################
-# 保留 SDK 调用接口（如果有跨模块反射）
-########################################
-
-# 如果 SDK 通过接口调用，需要保留接口
--keep class androidx.room.** { *; }
--keep @androidx.room.* class * { *; }
--keepclassmembers class kotlinx.coroutines.** { *; }
--keepclassmembers class * {
-    @androidx.room.* <methods>;
-}
--keepclassmembers class * {
-    @androidx.room.* <fields>;
-}
 -dontwarn androidx.room.RoomDatabase_Impl
-
--keep class com.ideacode.soundly_sdk.api.** { *; }
--keep class com.ideacode.soundly_sdk.player.** { *; }
--keep class com.ideacode.soundly_sdk.history.** { *; }
--keep class com.ideacode.soundly_sdk.util.** { *; }
--keep class com.ideacode.soundly_sdk.processor.** { *; }
--keep class com.ideacode.soundly_sdk.core.audio.processor.state.** { *; }
--keep class kotlin.Metadata { *; }

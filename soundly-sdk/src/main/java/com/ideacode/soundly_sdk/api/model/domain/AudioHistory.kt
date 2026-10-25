@@ -1,7 +1,7 @@
 package com.ideacode.soundly_sdk.api.model.domain
 
 
-data class AudioHistory(
+internal data class AudioHistory(
 
     /**
      * 唯一ID，一次导入一条
