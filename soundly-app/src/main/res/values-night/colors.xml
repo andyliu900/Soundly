@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="soundly_primary">#C3C0FF</color>
+    <color name="soundly_on_primary">#25235C</color>
+    <color name="soundly_surface">#121212</color>
+    <color name="soundly_on_surface">#E6E1E5</color>
+</resources>

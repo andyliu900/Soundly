@@ -16,6 +16,7 @@ interface RecordingGateway {
     val markers: StateFlow<List<AudioMarker>>
 
     suspend fun prepare(config: RecordingConfig): AppResult<Unit>
+    suspend fun prepareUsingDefaults(title: String?): AppResult<Unit>
     suspend fun start(): AppResult<String>
     suspend fun pause(): AppResult<Unit>
     suspend fun resume(): AppResult<Unit>
@@ -40,6 +41,8 @@ class DefaultRecordingGateway(
 
     override suspend fun prepare(config: RecordingConfig): AppResult<Unit> =
         recorder.prepare(config).toAppResult()
+    override suspend fun prepareUsingDefaults(title: String?): AppResult<Unit> =
+        recorder.prepareUsingDefaults(title).toAppResult()
 
     override suspend fun start(): AppResult<String> = recorder.start().toAppResult().map { it.projectId }
     override suspend fun pause(): AppResult<Unit> = recorder.pause().toAppResult()

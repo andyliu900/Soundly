@@ -10,6 +10,8 @@ import com.ideacode.soundly.data.sdk.EditingGateway
 import com.ideacode.soundly.data.sdk.ProjectGateway
 import com.ideacode.soundly.data.sdk.RecordingGateway
 import com.ideacode.soundly.data.sdk.SoundlySdkProvider
+import com.ideacode.soundly.data.sdk.DefaultSettingsStorageGateway
+import com.ideacode.soundly.data.sdk.SettingsStorageGateway
 
 /**
  * Composition root for app-owned dependencies.
@@ -27,6 +29,7 @@ class AppContainer(context: Context) {
     val recordingGateway: RecordingGateway = DefaultRecordingGateway(soundlySdkProvider)
     val projectGateway: ProjectGateway = DefaultProjectGateway(soundlySdkProvider)
     val editingGateway: EditingGateway = DefaultEditingGateway(soundlySdkProvider)
+    val settingsStorageGateway: SettingsStorageGateway = DefaultSettingsStorageGateway(soundlySdkProvider)
 
     fun initializeSdk() = soundlySdkProvider.initialize()
 }

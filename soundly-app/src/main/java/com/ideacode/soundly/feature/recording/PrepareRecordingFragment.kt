@@ -18,7 +18,6 @@ import com.ideacode.soundly.R
 import com.ideacode.soundly.app.SoundlyApplication
 import com.ideacode.soundly.common.error.AppResult
 import com.ideacode.soundly.databinding.FragmentPrepareRecordingBinding
-import com.ideacode.soundly_sdk.api.model.recording.RecordingConfig
 import kotlinx.coroutines.launch
 
 /** F05/F06/F07. Runtime permission remains an App-owned responsibility. */
@@ -58,7 +57,7 @@ class PrepareRecordingFragment : Fragment(R.layout.fragment_prepare_recording) {
     private fun prepareAndStart(title: String?) {
         val container = (requireActivity().application as SoundlyApplication).appContainer
         viewLifecycleOwner.lifecycleScope.launch {
-            when (container.recordingGateway.prepare(RecordingConfig(title = title))) {
+            when (container.recordingGateway.prepareUsingDefaults(title)) {
                 is AppResult.Failure -> showOperationError()
                 is AppResult.Success -> when (container.recordingGateway.start()) {
                     is AppResult.Success -> findNavController().navigate(R.id.recordingFragment)

@@ -46,6 +46,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.homeOpenLibrary.setOnClickListener {
             findNavController().navigate(R.id.libraryFragment)
         }
+        binding.homeOpenSettings.setOnClickListener {
+            findNavController().navigate(R.id.settingsFragment)
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 gateway.observeProjects().collect { projects ->
