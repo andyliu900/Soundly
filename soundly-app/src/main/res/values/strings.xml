@@ -16,6 +16,7 @@
     <string name="onboarding_continue">开始使用</string>
     <string name="home_title">Soundly</string>
     <string name="home_new_recording">新录音</string>
+    <string name="home_import_audio">导入音频</string>
     <string name="home_recent_recordings">最近录音</string>
     <string name="home_no_recordings">还没有录音</string>
     <string name="prepare_recording_title">准备录音</string>
@@ -50,7 +51,29 @@
     <string name="preview_pause">暂停播放</string>
     <string name="preview_rename">重命名</string>
     <string name="preview_enhance">增强录音</string>
+    <string name="preview_trim">首尾裁剪</string>
+    <string name="preview_export">保存与分享</string>
     <string name="rename_title">重命名录音</string>
     <string name="save">保存</string>
     <string name="unknown">未知</string>
+    <string name="trim_title">首尾裁剪</string>
+    <string name="trim_start">开始位置</string>
+    <string name="trim_end">结束位置</string>
+    <string name="trim_apply">应用裁剪</string>
+    <string name="enhancement_title">增强方式</string>
+    <string name="enhancement_mode">增强模式</string>
+    <string name="enhancement_start">开始增强</string>
+    <string name="enhancement_progress_title">正在增强</string>
+    <string name="enhancement_progress">处理进度：%1$d%%</string>
+    <string name="enhancement_cancel">取消增强</string>
+    <string name="enhancement_cancel_title">取消增强？</string>
+    <string name="enhancement_cancel_message">将保留原始录音，未完成的增强文件会被清理。</string>
+    <string name="enhancement_result_title">增强结果</string>
+    <string name="enhancement_original">原始录音</string>
+    <string name="enhancement_version">增强版本</string>
+    <string name="enhancement_retry">重试增强</string>
+    <string name="export_title">保存与分享</string>
+    <string name="export_downloads">保存到下载目录</string>
+    <string name="export_share">系统分享</string>
+    <string name="export_success">已保存：%1$s</string>
 </resources>

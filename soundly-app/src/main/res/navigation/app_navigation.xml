@@ -31,4 +31,35 @@
         <argument android:name="projectId" app:argType="string" />
         <argument android:name="variantId" app:argType="string" android:defaultValue="" />
     </fragment>
+    <fragment android:id="@+id/trimFragment"
+        android:name="com.ideacode.soundly.feature.editing.TrimFragment"
+        android:label="@string/trim_title">
+        <argument android:name="projectId" app:argType="string" />
+        <argument android:name="variantId" app:argType="string" />
+        <argument android:name="durationMs" app:argType="long" />
+    </fragment>
+    <fragment android:id="@+id/enhancementSetupFragment"
+        android:name="com.ideacode.soundly.feature.enhancement.EnhancementSetupFragment"
+        android:label="@string/enhancement_title">
+        <argument android:name="projectId" app:argType="string" />
+        <argument android:name="variantId" app:argType="string" />
+    </fragment>
+    <fragment android:id="@+id/enhancementProgressFragment"
+        android:name="com.ideacode.soundly.feature.enhancement.EnhancementProgressFragment"
+        android:label="@string/enhancement_progress_title">
+        <argument android:name="taskId" app:argType="string" />
+    </fragment>
+    <fragment android:id="@+id/enhancementResultFragment"
+        android:name="com.ideacode.soundly.feature.enhancement.EnhancementResultFragment"
+        android:label="@string/enhancement_result_title">
+        <argument android:name="projectId" app:argType="string" />
+        <argument android:name="originalVariantId" app:argType="string" />
+        <argument android:name="enhancedVariantId" app:argType="string" />
+    </fragment>
+    <fragment android:id="@+id/exportFragment"
+        android:name="com.ideacode.soundly.feature.export.ExportFragment"
+        android:label="@string/export_title">
+        <argument android:name="projectId" app:argType="string" />
+        <argument android:name="variantId" app:argType="string" />
+    </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ideacode.soundly.R
 import com.ideacode.soundly.app.SoundlyApplication
@@ -37,8 +38,29 @@ class AudioPreviewFragment : Fragment(R.layout.fragment_audio_preview) {
             }
         }
         binding.previewRename.setOnClickListener { showRenameDialog() }
-        // M3 supplies F18; keeping this disabled prevents a non-functional route.
-        binding.previewEnhance.isEnabled = false
+        binding.previewEnhance.setOnClickListener {
+            val current = project ?: return@setOnClickListener
+            findNavController().navigate(R.id.enhancementSetupFragment, Bundle().apply {
+                putString("projectId", current.id)
+                putString("variantId", selectedVariantId(current))
+            })
+        }
+        binding.previewTrim.setOnClickListener {
+            val current = project ?: return@setOnClickListener
+            val variant = current.original
+            findNavController().navigate(R.id.trimFragment, Bundle().apply {
+                putString("projectId", current.id)
+                putString("variantId", selectedVariantId(current))
+                putLong("durationMs", variant.durationMs)
+            })
+        }
+        binding.previewExport.setOnClickListener {
+            val current = project ?: return@setOnClickListener
+            findNavController().navigate(R.id.exportFragment, Bundle().apply {
+                putString("projectId", current.id)
+                putString("variantId", selectedVariantId(current))
+            })
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -54,6 +76,9 @@ class AudioPreviewFragment : Fragment(R.layout.fragment_audio_preview) {
         previewName.text = item.title
         previewInfo.text = "${item.original.format.name} · ${formatDuration(item.original.durationMs)} · ${item.markers.size}"
     }
+
+    private fun selectedVariantId(item: AudioProject): String =
+        requireArguments().getString("variantId").takeUnless { it.isNullOrBlank() } ?: item.original.id
 
     private fun showRenameDialog() {
         val current = project ?: return

@@ -5,6 +5,8 @@ import com.ideacode.soundly.common.error.AppErrorMessageMapper
 import com.ideacode.soundly.data.sdk.DefaultSoundlySdkProvider
 import com.ideacode.soundly.data.sdk.DefaultProjectGateway
 import com.ideacode.soundly.data.sdk.DefaultRecordingGateway
+import com.ideacode.soundly.data.sdk.DefaultEditingGateway
+import com.ideacode.soundly.data.sdk.EditingGateway
 import com.ideacode.soundly.data.sdk.ProjectGateway
 import com.ideacode.soundly.data.sdk.RecordingGateway
 import com.ideacode.soundly.data.sdk.SoundlySdkProvider
@@ -24,6 +26,7 @@ class AppContainer(context: Context) {
     val appPreferences = AppPreferences(appContext)
     val recordingGateway: RecordingGateway = DefaultRecordingGateway(soundlySdkProvider)
     val projectGateway: ProjectGateway = DefaultProjectGateway(soundlySdkProvider)
+    val editingGateway: EditingGateway = DefaultEditingGateway(soundlySdkProvider)
 
     fun initializeSdk() = soundlySdkProvider.initialize()
 }

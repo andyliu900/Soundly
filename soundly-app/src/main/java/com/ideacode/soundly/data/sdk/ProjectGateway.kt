@@ -4,9 +4,12 @@ import com.ideacode.soundly.common.error.AppResult
 import com.ideacode.soundly_sdk.api.model.domain.AudioProject
 import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import com.ideacode.soundly_sdk.api.model.recording.StaticWaveform
+import com.ideacode.soundly_sdk.api.model.playback.PlaybackState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface ProjectGateway {
+    val playbackState: StateFlow<PlaybackState>
     fun observeProjects(): Flow<List<AudioProject>>
     fun observeProject(projectId: String): Flow<AudioProject?>
     suspend fun getProject(projectId: String): AppResult<AudioProject>
@@ -15,12 +18,16 @@ interface ProjectGateway {
     suspend fun preparePlayback(variant: AudioVariant): AppResult<Unit>
     fun play(): AppResult<Unit>
     fun pausePlayback(): AppResult<Unit>
+    suspend fun switchPlaybackKeepingPosition(variant: AudioVariant): AppResult<Unit>
 }
 
 class DefaultProjectGateway(
     private val provider: SoundlySdkProvider
 ) : ProjectGateway {
     private val sdk get() = provider.requireSdk()
+
+    override val playbackState: StateFlow<PlaybackState>
+        get() = sdk.playback.state
 
     override fun observeProjects(): Flow<List<AudioProject>> = sdk.projects.observeProjects()
     override fun observeProject(projectId: String): Flow<AudioProject?> = sdk.projects.observeProject(projectId)
@@ -34,4 +41,6 @@ class DefaultProjectGateway(
         sdk.playback.prepare(variant.toSourceRef()).toAppResult()
     override fun play(): AppResult<Unit> = sdk.playback.play().toAppResult()
     override fun pausePlayback(): AppResult<Unit> = sdk.playback.pause().toAppResult()
+    override suspend fun switchPlaybackKeepingPosition(variant: AudioVariant): AppResult<Unit> =
+        sdk.playback.switchSourceKeepingPosition(variant.toSourceRef()).toAppResult()
 }
