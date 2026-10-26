@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="soundly_primary">#4F46E5</color>
+    <color name="soundly_on_primary">#FFFFFFFF</color>
+    <color name="soundly_surface">#FFFBFE</color>
+    <color name="soundly_on_surface">#1C1B1F</color>
 </resources>

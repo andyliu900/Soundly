@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">SoundlyApp</string>
+    <string name="app_name">Soundly</string>
+    <string name="foundation_title">Soundly</string>
+    <string name="foundation_sdk_ready">应用基础设施已就绪</string>
+    <string name="foundation_sdk_failed">音频服务暂时不可用</string>
+    <string name="foundation_retry">重试</string>
+    <string name="error_sdk_not_initialized">音频服务尚未初始化。</string>
+    <string name="error_sdk_initialization_failed">音频服务初始化失败，请重试。</string>
+    <string name="error_permission_denied">未获得所需权限。</string>
+    <string name="error_microphone_unavailable">麦克风当前不可用。</string>
+    <string name="error_insufficient_storage">设备存储空间不足。</string>
+    <string name="error_operation_failed">操作未完成，请重试。</string>
 </resources>
