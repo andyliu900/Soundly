@@ -17,6 +17,7 @@
     <string name="home_title">Soundly</string>
     <string name="home_new_recording">新录音</string>
     <string name="home_import_audio">导入音频</string>
+    <string name="home_open_library">打开录音库</string>
     <string name="home_recent_recordings">最近录音</string>
     <string name="home_no_recordings">还没有录音</string>
     <string name="prepare_recording_title">准备录音</string>
@@ -76,4 +77,19 @@
     <string name="export_downloads">保存到下载目录</string>
     <string name="export_share">系统分享</string>
     <string name="export_success">已保存：%1$s</string>
+    <string name="library_title">录音库</string>
+    <string name="library_search_hint">搜索录音</string>
+    <string name="library_empty">录音库为空</string>
+    <string name="library_empty_action">开始新录音</string>
+    <string name="project_detail_title">录音项目</string>
+    <string name="project_versions">版本</string>
+    <string name="project_markers">录音标记</string>
+    <string name="project_no_markers">没有标记</string>
+    <string name="project_play_selected">播放所选版本</string>
+    <string name="project_delete">删除项目</string>
+    <string name="project_delete_title">删除此项目？</string>
+    <string name="project_delete_message">将删除原始录音、增强和裁剪版本，以及所有内部文件。已导出的文件不会删除。</string>
+    <string name="project_delete_confirm">删除</string>
+    <string name="project_variant_item">%1$s · %2$s</string>
+    <string name="project_duration">时长：%1$s</string>
 </resources>

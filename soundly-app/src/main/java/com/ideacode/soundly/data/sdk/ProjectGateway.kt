@@ -11,9 +11,11 @@ import kotlinx.coroutines.flow.StateFlow
 interface ProjectGateway {
     val playbackState: StateFlow<PlaybackState>
     fun observeProjects(): Flow<List<AudioProject>>
+    fun searchProjects(query: String): Flow<List<AudioProject>>
     fun observeProject(projectId: String): Flow<AudioProject?>
     suspend fun getProject(projectId: String): AppResult<AudioProject>
     suspend fun renameProject(projectId: String, title: String): AppResult<Unit>
+    suspend fun deleteProject(projectId: String): AppResult<Unit>
     suspend fun loadWaveform(projectId: String, variantId: String): AppResult<StaticWaveform>
     suspend fun preparePlayback(variant: AudioVariant): AppResult<Unit>
     fun play(): AppResult<Unit>
@@ -30,11 +32,14 @@ class DefaultProjectGateway(
         get() = sdk.playback.state
 
     override fun observeProjects(): Flow<List<AudioProject>> = sdk.projects.observeProjects()
+    override fun searchProjects(query: String): Flow<List<AudioProject>> = sdk.projects.searchProjects(query)
     override fun observeProject(projectId: String): Flow<AudioProject?> = sdk.projects.observeProject(projectId)
     override suspend fun getProject(projectId: String): AppResult<AudioProject> =
         sdk.projects.getProject(projectId).toAppResult()
     override suspend fun renameProject(projectId: String, title: String): AppResult<Unit> =
         sdk.projects.renameProject(projectId, title).toAppResult()
+    override suspend fun deleteProject(projectId: String): AppResult<Unit> =
+        sdk.projects.deleteProject(projectId).toAppResult()
     override suspend fun loadWaveform(projectId: String, variantId: String): AppResult<StaticWaveform> =
         sdk.recorder.loadStaticWaveform(projectId, variantId).toAppResult()
     override suspend fun preparePlayback(variant: AudioVariant): AppResult<Unit> =

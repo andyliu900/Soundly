@@ -43,6 +43,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.homeImportAudio.setOnClickListener {
             importAudioLauncher.launch(arrayOf("audio/*"))
         }
+        binding.homeOpenLibrary.setOnClickListener {
+            findNavController().navigate(R.id.libraryFragment)
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 gateway.observeProjects().collect { projects ->
