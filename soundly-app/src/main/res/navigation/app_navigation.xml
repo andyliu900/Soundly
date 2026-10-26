@@ -2,11 +2,33 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/foundationFragment">
+    app:startDestination="@id/startupFragment">
 
-    <!-- M1 has one boot destination. M2 adds the F01-F38 destinations here. -->
     <fragment
-        android:id="@+id/foundationFragment"
-        android:name="com.ideacode.soundly.feature.foundation.FoundationFragment"
+        android:id="@+id/startupFragment"
+        android:name="com.ideacode.soundly.feature.startup.StartupFragment"
         android:label="@string/app_name" />
+    <fragment android:id="@+id/onboardingFragment"
+        android:name="com.ideacode.soundly.feature.onboarding.OnboardingFragment"
+        android:label="@string/app_name" />
+    <fragment android:id="@+id/homeFragment"
+        android:name="com.ideacode.soundly.feature.home.HomeFragment"
+        android:label="@string/app_name" />
+    <fragment android:id="@+id/recoveryFragment"
+        android:name="com.ideacode.soundly.feature.startup.RecoveryFragment"
+        android:label="@string/recover_title">
+        <argument android:name="sessionId" app:argType="string" />
+    </fragment>
+    <fragment android:id="@+id/prepareRecordingFragment"
+        android:name="com.ideacode.soundly.feature.recording.PrepareRecordingFragment"
+        android:label="@string/prepare_recording_title" />
+    <fragment android:id="@+id/recordingFragment"
+        android:name="com.ideacode.soundly.feature.recording.RecordingFragment"
+        android:label="@string/recording_title" />
+    <fragment android:id="@+id/audioPreviewFragment"
+        android:name="com.ideacode.soundly.feature.preview.AudioPreviewFragment"
+        android:label="@string/preview_title">
+        <argument android:name="projectId" app:argType="string" />
+        <argument android:name="variantId" app:argType="string" android:defaultValue="" />
+    </fragment>
 </navigation>
