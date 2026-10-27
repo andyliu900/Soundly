@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.ideacode.soundly"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ideacode.soundly"

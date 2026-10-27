@@ -4,7 +4,7 @@ enum class PresetOption(val title: String) {
 
     RAW("原始音频"),
     DEFAULT("默认增强"),
-    AI("AI 智能增强"),
+    AI("AI增强（RNNoise）"),
 
     /*********  常规优化  *********/
     VOICE_STABLE("人声稳定"),

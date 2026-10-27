@@ -22,7 +22,7 @@ plugins {
 
 android {
     namespace = "com.ideacode.sample_app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.ideacode.sample_app"

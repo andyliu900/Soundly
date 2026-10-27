@@ -42,6 +42,13 @@ class ProjectDetailFragment : Fragment(R.layout.fragment_project_detail) {
                 }
             }
         }
+        binding.projectOpenPreview.setOnClickListener {
+            val variant = selectedVariant ?: return@setOnClickListener
+            findNavController().navigate(R.id.audioPreviewFragment, Bundle().apply {
+                putString("projectId", projectId)
+                putString("variantId", variant.id)
+            })
+        }
         binding.projectDelete.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.project_delete_title)

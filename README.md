@@ -8,6 +8,8 @@ Soundly 的设计目标是：**让复杂的音频处理流程变得简单、清�
 
 面向最终 Soundly App 的 38 个功能场景、导航、SDK 状态来源和高保真 UI 迁移边界已固化在 [M0 功能界面基线](docs/M0_FUNCTIONAL_UI_BASELINE.md)。第一阶段使用 Material XML 实现真实功能，不把临时视觉当作最终设计。
 
+第一阶段集成验收范围、自动化门禁与真机验收步骤见 [M6 集成验收记录](docs/M6_INTEGRATION_ACCEPTANCE.md)。
+
 
 一文了解 Soundly-SDK 运行机制：https://juejin.cn/post/7616666565057478671
 

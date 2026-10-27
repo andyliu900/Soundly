@@ -5,6 +5,8 @@ import com.ideacode.soundly_sdk.api.model.enhancement.EnhancementStage
 import com.ideacode.soundly_sdk.core.audio.decode.PcmChunk
 import com.ideacode.soundly_sdk.core.audio.decode.PcmStreamDecoder
 import com.ideacode.soundly_sdk.core.audio.decode.PcmStreamResult
+import com.ideacode.soundly_sdk.core.audio.denoise.NoiseSuppressorSession
+import com.ideacode.soundly_sdk.core.audio.denoise.NoiseSuppressorSessionFactory
 import com.ideacode.soundly_sdk.internal.SoundlyDispatchers
 import java.io.File
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +24,47 @@ class StreamingEnhancementProcessorTest {
     fun twoHourVirtualStreamUsesBoundedChunksAnd64BitFrameAccounting() =
         verifyVirtualDuration(minutes = 120)
 
+    @Test
+    fun nonAiPresetDoesNotCreateNoiseSuppressor() = runBlocking {
+        val processor = AndroidStreamingEnhancementProcessor(
+            decoderFactory = { VirtualDurationDecoder(minutes = 1) },
+            writerFactory = { _, _, _ -> CountingSink() },
+            noiseSuppressorFactory = NoiseSuppressorSessionFactory { _, _ ->
+                error("Noise suppressor must only be created for the AI preset")
+            },
+            dispatchers = SoundlyDispatchers(Dispatchers.Unconfined, Dispatchers.Unconfined)
+        )
+
+        processor.process(
+            source = File("virtual-default.wav"),
+            destination = File("unused-output.wav"),
+            preset = PresetOption.DEFAULT
+        )
+        Unit
+    }
+
+    @Test
+    fun aiPresetClosesItsJobLocalNoiseSuppressor() = runBlocking {
+        var session: TrackingNoiseSuppressor? = null
+        val processor = AndroidStreamingEnhancementProcessor(
+            decoderFactory = { VirtualDurationDecoder(minutes = 1) },
+            writerFactory = { _, _, _ -> CountingSink() },
+            noiseSuppressorFactory = NoiseSuppressorSessionFactory { _, _ ->
+                TrackingNoiseSuppressor().also { session = it }
+            },
+            dispatchers = SoundlyDispatchers(Dispatchers.Unconfined, Dispatchers.Unconfined)
+        )
+
+        processor.process(
+            source = File("virtual-ai.wav"),
+            destination = File("unused-output.wav"),
+            preset = PresetOption.AI
+        )
+
+        assertEquals(1, session?.processCalls)
+        assertTrue(session?.closed == true)
+    }
+
     private fun verifyVirtualDuration(minutes: Int) = runBlocking {
         val decoder = VirtualDurationDecoder(minutes)
         val sink = CountingSink()
@@ -29,6 +72,7 @@ class StreamingEnhancementProcessorTest {
         val processor = AndroidStreamingEnhancementProcessor(
             decoderFactory = { decoder },
             writerFactory = { _, _, _ -> sink },
+            noiseSuppressorFactory = passThroughNoiseSuppressorFactory,
             dispatchers = SoundlyDispatchers(Dispatchers.Unconfined, Dispatchers.Unconfined)
         )
 
@@ -102,6 +146,30 @@ class StreamingEnhancementProcessorTest {
 
         override fun finish(): Long = samplesWritten * Short.SIZE_BYTES
         override fun close() = Unit
+    }
+
+    private val passThroughNoiseSuppressorFactory = NoiseSuppressorSessionFactory { _, _ ->
+        object : NoiseSuppressorSession {
+            override fun process(input: FloatArray): FloatArray = input
+            override fun flush(): FloatArray = FloatArray(0)
+            override fun close() = Unit
+        }
+    }
+
+    private class TrackingNoiseSuppressor : NoiseSuppressorSession {
+        var processCalls = 0
+        var closed = false
+
+        override fun process(input: FloatArray): FloatArray {
+            processCalls++
+            return input
+        }
+
+        override fun flush(): FloatArray = FloatArray(0)
+
+        override fun close() {
+            closed = true
+        }
     }
 
     private companion object {

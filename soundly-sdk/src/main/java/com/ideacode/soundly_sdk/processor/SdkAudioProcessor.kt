@@ -1,13 +1,13 @@
 package com.ideacode.soundly_sdk.processor
 
 import android.content.ContentResolver
+import android.net.Uri
 import com.ideacode.soundly_sdk.api.capability.AudioEnhancer
 import com.ideacode.soundly_sdk.api.capability.AudioImporter
 import com.ideacode.soundly_sdk.api.capability.AudioProjectRepository
 import com.ideacode.soundly_sdk.api.error.SoundlyError
 import com.ideacode.soundly_sdk.api.error.SoundlyErrorMapper
 import com.ideacode.soundly_sdk.api.model.audio.AudioSourceRef
-import com.ideacode.soundly_sdk.api.model.audio.toUri
 import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
 import com.ideacode.soundly_sdk.core.audio.processor.state.ProcessingProcess
 import com.ideacode.soundly_sdk.api.model.audio.processor.ProcessingProgress
@@ -40,6 +40,11 @@ private class SdkAudioProcessor(
     private val enhancer: AudioEnhancer? = null,
     private val projects: AudioProjectRepository? = null
 ) : AudioProcessingService {
+
+    private fun AudioSourceRef.toUri(): Uri = when (this) {
+        is AudioSourceRef.ContentUri -> uri
+        is AudioSourceRef.LocalFile -> Uri.fromFile(file)
+    }
 
     override suspend fun process(
         request: ProcessingRequest,

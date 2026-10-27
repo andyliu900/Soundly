@@ -8,9 +8,3 @@ sealed interface AudioSourceRef {
     data class ContentUri(val uri: Uri) : AudioSourceRef
     data class LocalFile(val file: File) : AudioSourceRef
 }
-
-internal fun AudioSourceRef.toUri(): Uri = when (this) {
-    is AudioSourceRef.ContentUri -> uri
-    is AudioSourceRef.LocalFile -> Uri.fromFile(file)
-}
-

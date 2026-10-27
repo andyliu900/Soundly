@@ -19,6 +19,7 @@ class EnhancementSetupFragment : Fragment(R.layout.fragment_enhancement_setup) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentEnhancementSetupBinding.bind(view)
         val presets = listOf(
+            PresetOption.AI,
             PresetOption.DEFAULT,
             PresetOption.SPEECH_FOCUS,
             PresetOption.VOICE_STABLE,

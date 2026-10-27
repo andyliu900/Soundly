@@ -5,6 +5,9 @@ import com.ideacode.soundly_sdk.api.model.enhancement.EnhancementStage
 import com.ideacode.soundly_sdk.core.audio.analyze.AudioFeatureAccumulator
 import com.ideacode.soundly_sdk.core.audio.decode.PcmStreamDecoder
 import com.ideacode.soundly_sdk.core.audio.decode.StreamingPcmDecoder
+import com.ideacode.soundly_sdk.core.audio.denoise.AudxNoiseSuppressorSessionFactory
+import com.ideacode.soundly_sdk.core.audio.denoise.NoiseSuppressorSession
+import com.ideacode.soundly_sdk.core.audio.denoise.NoiseSuppressorSessionFactory
 import com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DefaultDspPipeline
 import com.ideacode.soundly_sdk.core.audio.dsp.pipeline.DspPipeline
 import com.ideacode.soundly_sdk.internal.SoundlyDispatchers
@@ -44,6 +47,8 @@ internal class AndroidStreamingEnhancementProcessor(
     private val writerFactory: (File, Int, Int) -> PcmWavSink = { file, sampleRate, channels ->
         StreamingPcmWavWriter(file, sampleRate, channels)
     },
+    private val noiseSuppressorFactory: NoiseSuppressorSessionFactory =
+        AudxNoiseSuppressorSessionFactory,
     private val dispatchers: SoundlyDispatchers = SoundlyDispatchers.Default
 ) : StreamingEnhancementProcessor {
 
@@ -72,6 +77,7 @@ internal class AndroidStreamingEnhancementProcessor(
         val pipeline = pipelineFactory().apply { configure(dspPreset) }
 
         var writer: PcmWavSink? = null
+        var noiseSuppressor: NoiseSuppressorSession? = null
         var outputSampleRate = 0
         var outputChannels = 0
         try {
@@ -80,17 +86,29 @@ internal class AndroidStreamingEnhancementProcessor(
                     outputSampleRate = chunk.sampleRate
                     outputChannels = chunk.channels
                     writer = writerFactory(destination, outputSampleRate, outputChannels)
+                    if (preset == PresetOption.AI) {
+                        noiseSuppressor = noiseSuppressorFactory.create(
+                            outputSampleRate,
+                            outputChannels
+                        )
+                    }
                 } else {
                     require(
                         chunk.sampleRate == outputSampleRate && chunk.channels == outputChannels
                     ) { "PCM format changed during decoding" }
                 }
-                val enhanced = pipeline.process(chunk.samples, chunk.sampleRate, chunk.channels)
-                writer?.write(enhanced)
+                val denoised = noiseSuppressor?.process(chunk.samples) ?: chunk.samples
+                if (denoised.isNotEmpty()) {
+                    val enhanced = pipeline.process(denoised, chunk.sampleRate, chunk.channels)
+                    writer?.write(enhanced)
+                }
                 progress.emit(
                     EnhancementStage.PROCESSING,
                     PROCESSING_START + (chunk.progress * PROCESSING_RANGE).toInt()
                 )
+            }
+            noiseSuppressor?.flush()?.takeIf { it.isNotEmpty() }?.let { tail ->
+                writer?.write(pipeline.process(tail, outputSampleRate, outputChannels))
             }
             progress.emit(EnhancementStage.WRITING, WRITING_PERCENT)
             requireNotNull(writer) { "Decoder produced no PCM audio" }.finish()
@@ -102,6 +120,7 @@ internal class AndroidStreamingEnhancementProcessor(
                 pcmFrames = processingResult.frames
             )
         } finally {
+            runCatching { noiseSuppressor?.close() }
             runCatching { writer?.close() }
         }
     }

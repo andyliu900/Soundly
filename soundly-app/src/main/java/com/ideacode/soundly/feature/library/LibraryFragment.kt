@@ -2,6 +2,7 @@ package com.ideacode.soundly.feature.library
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ideacode.soundly.R
 import com.ideacode.soundly.app.SoundlyApplication
+import com.ideacode.soundly.common.error.AppResult
 import com.ideacode.soundly.databinding.FragmentLibraryBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -23,6 +25,19 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 /** F26/F27: SDK-backed project library with live search. */
 class LibraryFragment : Fragment(R.layout.fragment_library) {
     private val query = MutableStateFlow("")
+    private val importAudioLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri == null) return@registerForActivityResult
+        val gateway = (requireActivity().application as SoundlyApplication).appContainer.editingGateway
+        viewLifecycleOwner.lifecycleScope.launch {
+            when (val result = gateway.importAudio(uri)) {
+                is AppResult.Success -> findNavController().navigate(
+                    R.id.audioPreviewFragment,
+                    Bundle().apply { putString("projectId", result.value) }
+                )
+                is AppResult.Failure -> Unit
+            }
+        }
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +56,9 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
         binding.librarySearch.doOnTextChanged { text, _, _, _ -> query.value = text?.toString().orEmpty() }
         binding.libraryEmptyAction.setOnClickListener {
             findNavController().navigate(R.id.prepareRecordingFragment)
+        }
+        binding.libraryImportAudio.setOnClickListener {
+            importAudioLauncher.launch(arrayOf("audio/*"))
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

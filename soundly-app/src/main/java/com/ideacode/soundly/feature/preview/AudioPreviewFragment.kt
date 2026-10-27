@@ -30,8 +30,9 @@ class AudioPreviewFragment : Fragment(R.layout.fragment_audio_preview) {
 
         binding.previewPlay.setOnClickListener {
             val current = project ?: return@setOnClickListener
+            val variant = selectedVariant(current) ?: return@setOnClickListener
             viewLifecycleOwner.lifecycleScope.launch {
-                when (gateway.preparePlayback(current.original)) {
+                when (gateway.preparePlayback(variant)) {
                     is AppResult.Success -> gateway.play()
                     is AppResult.Failure -> showOperationError()
                 }
@@ -47,7 +48,7 @@ class AudioPreviewFragment : Fragment(R.layout.fragment_audio_preview) {
         }
         binding.previewTrim.setOnClickListener {
             val current = project ?: return@setOnClickListener
-            val variant = current.original
+            val variant = selectedVariant(current) ?: return@setOnClickListener
             findNavController().navigate(R.id.trimFragment, Bundle().apply {
                 putString("projectId", current.id)
                 putString("variantId", selectedVariantId(current))
@@ -73,12 +74,19 @@ class AudioPreviewFragment : Fragment(R.layout.fragment_audio_preview) {
     }
 
     private fun render(binding: FragmentAudioPreviewBinding, item: AudioProject) = with(binding) {
+        val variant = selectedVariant(item) ?: item.original
         previewName.text = item.title
-        previewInfo.text = "${item.original.format.name} · ${formatDuration(item.original.durationMs)} · ${item.markers.size}"
+        previewInfo.text = "${variant.format.name} · ${formatDuration(variant.durationMs)} · ${item.markers.size}"
     }
 
     private fun selectedVariantId(item: AudioProject): String =
-        requireArguments().getString("variantId").takeUnless { it.isNullOrBlank() } ?: item.original.id
+        selectedVariant(item)?.id ?: item.original.id
+
+    private fun selectedVariant(item: AudioProject) =
+        requireArguments().getString("variantId")
+            ?.takeIf(String::isNotBlank)
+            ?.let { variantId -> (listOf(item.original) + item.variants).firstOrNull { it.id == variantId } }
+            ?: item.original
 
     private fun showRenameDialog() {
         val current = project ?: return

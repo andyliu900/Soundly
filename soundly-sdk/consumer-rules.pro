@@ -36,5 +36,8 @@
 -keep class com.ideacode.soundly_sdk.history.data.db.AppDatabase { *; }
 -keep class com.ideacode.soundly_sdk.history.data.db.AppDatabase_Impl { *; }
 
+# Audx JNI uses statically named Java_com_audx_android_Audx_* entry points.
+-keep class com.audx.android.Audx { *; }
+
 -keepattributes RuntimeVisibleAnnotations,RuntimeInvisibleAnnotations,AnnotationDefault,Signature,InnerClasses,EnclosingMethod
 -dontwarn androidx.room.RoomDatabase_Impl

@@ -29,7 +29,11 @@ internal object PresetFactory {
             PresetOption.MEETING -> DspPreset.meetingCall()
             PresetOption.MUSIC -> DspPreset.musicNoise()
             PresetOption.AI -> {
-                features?.let { decisionEngine.decide(it) } ?: DspPreset.ai()
+                // RNNoise already performs noise suppression. Keep the existing feature-driven
+                // tone/dynamics decision, but disable the legacy sample-level noise gate to avoid
+                // double attenuation and clipped word endings.
+                (features?.let { decisionEngine.decide(it) } ?: DspPreset.ai())
+                    .copy(noiseReductionPreset = null)
             }
         }
     }

@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.ideacode.soundly_sdk"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26
@@ -66,6 +66,14 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.audx) {
+        // Audx v3 is compiled with Kotlin 2.0-compatible class metadata, but its POM pins a
+        // newer stdlib/coroutines toolchain than this SDK. The synchronous API used here is
+        // binary-compatible with the versions already supplied by Soundly.
+        exclude(group = "org.jetbrains.kotlin")
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-android")
+    }
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
