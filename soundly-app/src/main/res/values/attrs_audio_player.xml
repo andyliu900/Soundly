@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="AudioPlayerView">
+        <attr name="audioPlayerCompact" format="boolean" />
+        <attr name="audioPlayerPreview" format="boolean" />
+        <attr name="audioPlayerDetail" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -27,6 +27,11 @@ import com.ideacode.soundly_sdk.editing.AndroidAudioTrimmer
 import com.ideacode.soundly_sdk.editing.DefaultStorageManager
 import com.ideacode.soundly_sdk.editing.ProjectAudioEnhancer
 import com.ideacode.soundly_sdk.editing.AndroidStreamingEnhancementProcessor
+import com.ideacode.soundly_sdk.editing.StorageOperationGate
+import com.ideacode.soundly_sdk.editing.GuardedImporter
+import com.ideacode.soundly_sdk.editing.GuardedTrimmer
+import com.ideacode.soundly_sdk.editing.GuardedExporter
+import com.ideacode.soundly_sdk.editing.GuardedEnhancer
 import java.io.File
 import com.ideacode.soundly_sdk.api.model.recording.RecordingState
 import com.ideacode.soundly_sdk.settings.SharedPreferencesSoundlySettingsRepository
@@ -166,14 +171,20 @@ private class SdkContainer(
         AndroidAudioMetadataReader(appContext, dispatchers)
     }
 
+    private val storageOperationGate = StorageOperationGate()
+
     internal val audioImporter by lazy {
-        DefaultAudioImporter(
+        val legacy = DefaultAudioImporter(
             contentResolver = appContext.contentResolver,
             metadataReader = audioMetadataReader,
             projects = projectRepository,
             fileStore = audioFileStore,
             dispatchers = dispatchers
         )
+        val importer = com.ideacode.soundly_sdk.importer.RecoverableAudioImporter(
+            legacy, appContext.contentResolver, audioMetadataReader, database.audioProjectDao(), audioFileStore
+        )
+        GuardedImporter(importer, storageOperationGate)
     }
 
     internal val recordingManager by lazy {
@@ -193,22 +204,22 @@ private class SdkContainer(
     }
 
     internal val audioTrimmer by lazy {
-        AndroidAudioTrimmer(
+        GuardedTrimmer(AndroidAudioTrimmer(
             projects = projectRepository,
             metadataReader = audioMetadataReader,
             fileStore = audioFileStore,
             dispatchers = dispatchers
-        )
+        ), storageOperationGate)
     }
 
     internal val audioExporter by lazy {
-        AndroidAudioExporter(
+        GuardedExporter(AndroidAudioExporter(
             context = appContext,
             projects = projectRepository,
             fileStore = audioFileStore,
             settings = settingsRepository,
             dispatchers = dispatchers
-        )
+        ), storageOperationGate)
     }
 
     internal val storageManager by lazy {
@@ -218,15 +229,17 @@ private class SdkContainer(
             historyDao = database.audioHistoryDao(),
             settings = settingsRepository,
             canDeleteAllData = {
-                recordingManager.state.value is RecordingState.Idle ||
-                    recordingManager.state.value is RecordingState.Ready ||
-                    recordingManager.state.value is RecordingState.Failed
+                recordingManager.state.value is RecordingState.Idle &&
+                    projectAudioEnhancer.tasks.value.values.none { it is com.ideacode.soundly_sdk.api.model.enhancement.EnhancementTaskState.Running }
             },
+            canClearCache = {
+                recordingManager.state.value !is RecordingState.Finalizing &&
+                    projectAudioEnhancer.tasks.value.values.none { it is com.ideacode.soundly_sdk.api.model.enhancement.EnhancementTaskState.Running }
+            },
+            withRecordingLock = { block -> recordingManager.withRecordingOperationLock(block) },
+            withMaintenance = { block -> storageOperationGate.maintenance(block) },
             beforeDeleteAllData = {
                 playbackController.release()
-                if (recordingManager.state.value !is RecordingState.Idle) {
-                    recordingManager.discard()
-                }
             },
             dispatchers = dispatchers
         )
@@ -237,13 +250,13 @@ private class SdkContainer(
     }
 
     internal val projectAudioEnhancer by lazy {
-        ProjectAudioEnhancer(
+        GuardedEnhancer(ProjectAudioEnhancer(
             processor = streamingEnhancementProcessor,
             projects = projectRepository,
             metadataReader = audioMetadataReader,
             fileStore = audioFileStore,
             dispatchers = dispatchers
-        )
+        ), storageOperationGate)
     }
 
     internal val settingsRepository by lazy {

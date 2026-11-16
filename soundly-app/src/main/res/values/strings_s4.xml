@@ -1,0 +1,20 @@
+<resources>
+<string name="s4_settings_subtitle">让 Soundly 更适合你的使用习惯</string><string name="s4_audio_settings">音频设置</string><string name="s4_data_privacy">数据与隐私</string><string name="s4_support">支持</string>
+<string name="s4_recording_desc">设置默认录音场景与质量</string><string name="s4_output_desc">设置导出偏好与文件命名</string><string name="s4_storage_desc">查看音频占用与管理缓存</string><string name="s4_privacy_desc">了解本地处理与数据管理</string><string name="s4_help_desc">查看常见问题或提交反馈</string><string name="s4_pro_desc">了解更多功能</string><string name="s4_theme_desc">跟随系统、浅色或深色</string>
+<string name="s4_recording_subtitle">设置新录音的默认选项</string><string name="s4_output_subtitle">设置输出偏好与自动命名方式</string><string name="s4_quality_standard">标准质量</string><string name="s4_quality_high">高质量</string><string name="s4_naming_date">日期与时间</string><string name="s4_naming_timestamp">时间戳编号</string><string name="s4_recording_notice">仅对新录音生效，已有录音不受影响</string><string name="s4_output_notice">实际可用格式取决于所选音频版本，导出时仍可调整</string><string name="s4_background_desc">关闭后，应用进入后台时会暂停录音</string>
+<string name="s4_local_title">音频默认在本机保存与处理</string><string name="s4_local_desc">录制、导入与增强在设备上进行；仅在主动导出或分享时交给你选择的位置或应用。</string><string name="s4_privacy_diagnostics">反馈诊断信息由你决定是否附带，不包含录音内容或本地文件路径。</string><string name="s4_exported_files">已导出到设备的独立文件需另行管理。</string><string name="s4_storage_entry">查看空间占用与清除缓存</string>
+<string name="s4_storage_total">Soundly 本地占用</string><string name="s4_storage_breakdown">占用明细</string><string name="s4_storage_scope">统计仅包含 Soundly 本地数据；已导出的独立文件不在此范围内。</string><string name="s4_storage_operation_done">操作已完成</string><string name="s4_storage_loading">正在计算存储空间…</string>
+<string name="s4_storage_usage">原始音频：%1$s\n派生版本：%2$s\n缓存：%3$s\n设备可用空间：%4$s\n恢复与其他数据：%5$s</string>
+<string name="s4_help_intro">先看看常见问题，也欢迎告诉我们你的建议</string><string name="s4_faq_title">常见问题</string><string name="s4_faq_local_q">录音和增强需要上传音频吗？</string><string name="s4_faq_local_a">录音和增强默认在本机完成。只有主动导出或分享时，才会将音频交给你选择的位置或应用。</string><string name="s4_faq_fail_q">增强没有完成怎么办？</string><string name="s4_faq_fail_a">请检查设备空间并重试；如果应用中断，请先在录音库检查是否已生成版本。</string><string name="s4_faq_export_q">导出的音频保存在哪里？</string><string name="s4_faq_export_a">文件保存在导出时选择的位置。分享给其他应用后的副本由对应应用管理。</string><string name="s4_feedback_title">问题反馈</string><string name="s4_feedback_hint">请描述遇到的问题和操作步骤</string><string name="s4_diagnostics_switch">附带诊断信息</string><string name="s4_diagnostics_detail">包含应用版本、系统版本和设备型号，不包含录音内容或本地文件路径。</string><string name="s4_feedback_email">通过邮件反馈</string><string name="s4_feedback_note">将打开邮件应用，由你确认后发送</string><string name="s4_feedback_no_recipient">反馈邮箱暂未配置，请在邮件草稿中填写收件人。</string><string name="s4_feedback_no_app">未找到可用的邮件应用。</string>
+<string name="s4_pro_tag">PRO · 敬请期待</string><string name="s4_pro_headline">探索更多声音可能</string><string name="s4_pro_subtitle">Soundly Pro 正在准备中\n更多体验，将在这里与你见面</string><string name="s4_pro_explore">我们正在探索</string><string name="s4_pro_features">增强体验
+探索更丰富的声音调整方式
+
+处理效率
+探索更便捷的音频处理流程
+
+输出体验
+探索更灵活的文件输出选择</string><string name="s4_pro_note">以上为规划方向，具体功能以正式发布为准。</string><string name="s4_pro_unavailable">当前暂未开放购买
+现有功能可继续使用，无需升级</string><string name="s4_pro_back">返回设置</string>
+<string name="s4_faq_expanded">%1$s，已展开</string><string name="s4_faq_collapsed">%1$s，已收起</string><string name="s4_feedback_recipient" translatable="false"></string>
+<string name="s4_name_date_desc">根据创建日期和时间生成名称</string><string name="s4_name_timestamp_desc">根据创建时间生成数字名称</string><string name="s4_scene_podcast_desc">适合播客与访谈</string><string name="s4_scene_outdoor_desc">适合户外声音记录</string>
+</resources>

@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="soundly_space_1">4dp</dimen>
+    <dimen name="soundly_space_2">8dp</dimen>
+    <dimen name="soundly_space_3">12dp</dimen>
+    <dimen name="soundly_space_4">16dp</dimen>
+    <dimen name="soundly_space_5">24dp</dimen>
+    <dimen name="soundly_space_6">32dp</dimen>
+    <dimen name="soundly_radius_card">20dp</dimen>
+    <dimen name="soundly_radius_button">24dp</dimen>
+    <dimen name="soundly_min_touch_target">48dp</dimen>
+    <dimen name="soundly_waveform_height">80dp</dimen>
+</resources>

@@ -1,9 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="24dp">
-    <com.google.android.material.textview.MaterialTextView android:id="@+id/home_title" android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/home_title" android:textAppearance="?attr/textAppearanceHeadlineMedium" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/home_new_recording" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="@string/home_new_recording" app:layout_constraintTop_toBottomOf="@id/home_title" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/home_import_audio" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/home_import_audio" app:layout_constraintTop_toBottomOf="@id/home_new_recording" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/home_open_library" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/home_open_library" app:layout_constraintTop_toBottomOf="@id/home_import_audio" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/home_open_settings" style="@style/Widget.Material3.Button.TextButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/home_open_settings" app:layout_constraintTop_toBottomOf="@id/home_open_library" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.textview.MaterialTextView android:id="@+id/home_recent" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginTop="24dp" android:text="@string/home_no_recordings" android:textAppearance="?attr/textAppearanceBodyLarge" app:layout_constraintTop_toBottomOf="@id/home_open_settings" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_soundly_wave"
+            android:contentDescription="@null" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="@string/app_name"
+            android:textColor="?attr/colorOnSurface"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:text="@string/home_local_processing"
+            android:clickable="false"
+            android:focusable="false"
+            android:importantForAccessibility="yes"
+            app:icon="@drawable/ic_shield"
+            app:iconSize="18dp"
+            app:iconTint="@color/soundly_primary"
+            android:textColor="@color/soundly_primary"
+            app:cornerRadius="20dp" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="24dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:gravity="center"
+                android:text="@string/home_tagline"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/home_subtitle"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+            <ImageButton
+                android:id="@+id/home_new_recording"
+                android:layout_width="124dp"
+                android:layout_height="124dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="42dp"
+                android:background="@drawable/bg_record_button"
+                android:contentDescription="@string/home_start_recording"
+                android:padding="46dp"
+                android:src="@drawable/ic_microphone" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/home_start_recording"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/home_scene"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                app:icon="@drawable/ic_soundly_wave"
+                app:iconSize="20dp"
+                app:iconTint="@color/soundly_primary"
+                app:iconGravity="textStart"
+                app:cornerRadius="24dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/home_import_audio"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/home_import_existing"
+                app:icon="@drawable/ic_upload_file"
+                app:iconSize="20dp"
+                app:iconTint="?attr/colorOnSurfaceVariant"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/home_import_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/home_importing"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/home_recent_recordings"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/home_view_all"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="@string/home_view_all"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/home_recent_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="?attr/colorSurface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/home_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_soundly_wave"
+                            android:alpha="0.35"
+                            android:contentDescription="@null" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center"
+                            android:text="@string/home_no_recordings"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:gravity="center"
+                            android:text="@string/home_empty_description"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textAppearance="?attr/textAppearanceBodySmall" />
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_recent_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:visibility="gone" />
+
+                    <com.ideacode.soundly.common.ui.UiStatusView
+                        android:id="@+id/home_recent_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

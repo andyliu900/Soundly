@@ -1,6 +1,3 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.Soundly" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/soundly_primary</item>
-        <item name="colorOnPrimary">@color/soundly_on_primary</item>
-    </style>
+<resources>
+    <!-- The theme in values/themes.xml uses semantic colors from values-night. -->
 </resources>

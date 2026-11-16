@@ -1,0 +1,1 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"><item android:id="@+id/storage_refresh" android:title="@string/storage_refresh" android:icon="@drawable/ic_storage_refresh" android:iconTint="@color/preview_primary" app:showAsAction="always"/></menu>

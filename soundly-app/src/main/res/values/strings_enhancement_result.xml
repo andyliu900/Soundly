@@ -1,0 +1,13 @@
+<resources>
+    <string name="enhancement_result_complete">增强完成</string>
+    <string name="enhancement_result_original">原始</string>
+    <string name="enhancement_result_enhanced">增强</string>
+    <string name="enhancement_result_original_kept">原始录音仍然保留</string>
+    <string name="enhancement_result_mode">模式</string>
+    <string name="enhancement_result_original_file">原始录音 · %1$s</string>
+    <string name="enhancement_result_input_file">输入录音 · %1$s</string>
+    <string name="enhancement_result_enhanced_file">增强录音 · %1$s</string>
+    <string name="enhancement_result_auto_volume">调整整体音量与动态</string>
+    <string name="enhancement_result_auto_voice">优化人声清晰度</string>
+    <string name="enhancement_result_auto_noise">尝试降低持续背景噪声</string>
+</resources>

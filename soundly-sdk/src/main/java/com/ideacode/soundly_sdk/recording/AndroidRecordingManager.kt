@@ -45,6 +45,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -101,12 +103,19 @@ internal class AndroidRecordingManager(
     private val mutableState = MutableStateFlow<RecordingState>(RecordingState.Idle)
     private val mutableMeter = MutableSharedFlow<AudioMeter>(extraBufferCapacity = 8)
     private val mutableWaveform = MutableSharedFlow<WaveformFrame>(extraBufferCapacity = 8)
+    private val mutableCurrentConfig = MutableStateFlow<RecordingConfig?>(null)
+    private val mutableLastSaved = MutableStateFlow<RecordingResult?>(null)
     private val mutableMarkers = MutableStateFlow<List<AudioMarker>>(emptyList())
 
     override val state: StateFlow<RecordingState> = mutableState.asStateFlow()
     override val meter: Flow<AudioMeter> = mutableMeter.asSharedFlow()
     override val waveform: Flow<WaveformFrame> = mutableWaveform.asSharedFlow()
     override val markers: StateFlow<List<AudioMarker>> = mutableMarkers.asStateFlow()
+    override val lastSaved: StateFlow<RecordingResult?> = mutableLastSaved.asStateFlow()
+    override val currentConfig: StateFlow<RecordingConfig?> = mutableCurrentConfig.asStateFlow()
+    override fun acknowledgeSaved(sessionId: String) {
+        if (mutableLastSaved.value?.sessionId == sessionId) mutableLastSaved.value = null
+    }
 
     private var prepared: PreparedRecording? = null
     private var engine: RecorderEngine? = null
@@ -116,6 +125,7 @@ internal class AndroidRecordingManager(
     private val markerBuffer = mutableListOf<AudioMarker>()
     private val signalAccumulator = RecordingSignalAccumulator()
     private val staticWaveforms = StaticWaveformFileStore(fileStore)
+    private val waveformGenerationMutex = kotlinx.coroutines.sync.Mutex()
 
     override suspend fun prepareUsingDefaults(title: String?): SoundlyResult<Unit> =
         when (val result = settings.get()) {
@@ -131,7 +141,7 @@ internal class AndroidRecordingManager(
         operationMutex.withLock {
             val validation = validateConfig(config)
             if (validation != null) return@withLock SoundlyResult.Failure(validation)
-            if (isActivelyRecording()) {
+            if (isActivelyRecording() || (mutableState.value is RecordingState.Failed && prepared != null)) {
                 return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("prepare"))
             }
             if (!hasRecordPermission()) {
@@ -141,6 +151,7 @@ internal class AndroidRecordingManager(
                 return@withLock SoundlyResult.Failure(SoundlyError.InsufficientStorage)
             }
 
+            mutableLastSaved.value = null
             mutableState.value = RecordingState.Preparing
             releasePrepared(deleteFiles = true)
             val sessionId = idGenerator()
@@ -174,6 +185,7 @@ internal class AndroidRecordingManager(
                 mutableMarkers.value = emptyList()
                 signalAccumulator.reset()
                 writeRecoveryMetadata(requireNotNull(prepared))
+                mutableCurrentConfig.value = config
                 mutableState.value = RecordingState.Ready(sessionId, projectId)
                 SoundlyResult.Success(Unit)
             } catch (error: Exception) {
@@ -237,13 +249,20 @@ internal class AndroidRecordingManager(
         }
     }
 
-    override suspend fun pause(): SoundlyResult<Unit> = operationMutex.withLock {
+    override suspend fun pause(): SoundlyResult<Unit> = operationMutex.withLock { pauseLocked() }
+
+    override suspend fun pauseSession(sessionId: String): SoundlyResult<Unit> = operationMutex.withLock {
+        if (prepared?.sessionId != sessionId) SoundlyResult.Failure(SoundlyError.InvalidState("pauseSession"))
+        else pauseLocked()
+    }
+
+    private suspend fun pauseLocked(): SoundlyResult<Unit> {
         val current = prepared
-            ?: return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("pause"))
+            ?: return SoundlyResult.Failure(SoundlyError.InvalidState("pause"))
         if (mutableState.value !is RecordingState.Recording) {
-            return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("pause"))
+            return SoundlyResult.Failure(SoundlyError.InvalidState("pause"))
         }
-        return@withLock try {
+        return try {
             val frozenDurationMs = currentDurationMs()
             requireNotNull(engine).pause()
             accumulatedDurationMs = frozenDurationMs
@@ -266,23 +285,30 @@ internal class AndroidRecordingManager(
         }
     }
 
-    override suspend fun resume(): SoundlyResult<Unit> = operationMutex.withLock {
+    override suspend fun resume(): SoundlyResult<Unit> = operationMutex.withLock { resumeLocked() }
+
+    override suspend fun resumeSession(sessionId: String): SoundlyResult<Unit> = operationMutex.withLock {
+        if (prepared?.sessionId != sessionId) SoundlyResult.Failure(SoundlyError.InvalidState("resumeSession"))
+        else resumeLocked()
+    }
+
+    private suspend fun resumeLocked(): SoundlyResult<Unit> {
         val current = prepared
-            ?: return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("resume"))
+            ?: return SoundlyResult.Failure(SoundlyError.InvalidState("resume"))
         if (mutableState.value !is RecordingState.Paused &&
             mutableState.value !is RecordingState.Interrupted
         ) {
-            return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("resume"))
+            return SoundlyResult.Failure(SoundlyError.InvalidState("resume"))
         }
-        return@withLock try {
+        return try {
             if (!hasRecordPermission()) {
-                return@withLock SoundlyResult.Failure(SoundlyError.PermissionDenied)
+                return SoundlyResult.Failure(SoundlyError.PermissionDenied)
             }
             if (fileStore.availableBytes() < MINIMUM_FREE_BYTES) {
-                return@withLock SoundlyResult.Failure(SoundlyError.InsufficientStorage)
+                return SoundlyResult.Failure(SoundlyError.InsufficientStorage)
             }
             if (!requestRecordingFocus()) {
-                return@withLock SoundlyResult.Failure(SoundlyError.MicrophoneUnavailable)
+                return SoundlyResult.Failure(SoundlyError.MicrophoneUnavailable)
             }
             requireNotNull(engine).resume()
             segmentStartedAtMs = elapsedRealtime()
@@ -355,17 +381,23 @@ internal class AndroidRecordingManager(
             SoundlyResult.Success(Unit)
         }
 
-    override suspend fun stopAndSave(): SoundlyResult<RecordingResult> =
-        operationMutex.withLock {
+    override suspend fun stopAndSave(): SoundlyResult<RecordingResult> = operationMutex.withLock { stopAndSaveLocked() }
+
+    override suspend fun stopAndSaveSession(sessionId: String): SoundlyResult<RecordingResult> = operationMutex.withLock {
+        if (prepared?.sessionId != sessionId) SoundlyResult.Failure(SoundlyError.InvalidState("stopAndSaveSession"))
+        else stopAndSaveLocked()
+    }
+
+    private suspend fun stopAndSaveLocked(): SoundlyResult<RecordingResult> {
             val current = prepared
-                ?: return@withLock SoundlyResult.Failure(
+                ?: return SoundlyResult.Failure(
                     SoundlyError.InvalidState("stopAndSave")
                 )
             if (mutableState.value !is RecordingState.Recording &&
                 mutableState.value !is RecordingState.Paused &&
                 mutableState.value !is RecordingState.Interrupted
             ) {
-                return@withLock SoundlyResult.Failure(
+                return SoundlyResult.Failure(
                     SoundlyError.InvalidState("stopAndSave")
                 )
             }
@@ -374,9 +406,8 @@ internal class AndroidRecordingManager(
             stopMonitoring()
             deviceMonitor.stop()
             flushPendingWaveform(durationBeforeStop)
-            foregroundController.stop()
             focusController.abandon()
-            return@withLock try {
+            return try {
                 requireNotNull(engine).stop()
                 engine?.release()
                 engine = null
@@ -388,11 +419,29 @@ internal class AndroidRecordingManager(
                 val mapped = SoundlyErrorMapper.recording(error)
                 mutableState.value = RecordingState.Failed(current.sessionId, mapped)
                 SoundlyResult.Failure(mapped)
+            } finally {
+                foregroundController.stop()
             }
-        }
+    }
 
-    override suspend fun discard(): SoundlyResult<Unit> = operationMutex.withLock {
+    override suspend fun discard(): SoundlyResult<Unit> = operationMutex.withLock { discardLocked() }
+
+    /** Serializes storage maintenance with prepare, start, save and discard. */
+    internal suspend fun <T> withRecordingOperationLock(block: suspend () -> T): T = operationMutex.withLock { block() }
+
+    override suspend fun discardSession(sessionId: String): SoundlyResult<Unit> = operationMutex.withLock {
+        if (prepared?.sessionId != sessionId) SoundlyResult.Failure(SoundlyError.InvalidState("discardSession"))
+        else discardLocked()
+    }
+
+    private suspend fun discardLocked(): SoundlyResult<Unit> {
         val current = prepared
+        if (current != null) {
+            val existingProject = try { dao.getProject(current.projectId) } catch (error: Exception) {
+                return SoundlyResult.Failure(SoundlyError.DatabaseFailed(error))
+            }
+            if (existingProject != null) return SoundlyResult.Failure(SoundlyError.InvalidState("discard"))
+        }
         stopMonitoring()
         deviceMonitor.stop()
         foregroundController.stop()
@@ -408,15 +457,16 @@ internal class AndroidRecordingManager(
         engine?.release()
         engine = null
         prepared = null
+        mutableCurrentConfig.value = null
         accumulatedDurationMs = 0L
         segmentStartedAtMs = null
         markerBuffer.clear()
         mutableMarkers.value = emptyList()
         signalAccumulator.reset()
-        return@withLock try {
+        return try {
             if (current != null) {
-                fileStore.deleteFile(current.recoveryFile)
-                fileStore.deleteProject(current.projectId)
+                check(fileStore.deleteFile(current.recoveryFile)) { "Could not delete recording" }
+                check(fileStore.deleteProject(current.projectId)) { "Could not delete recording metadata" }
                 dao.deleteRecoverySession(current.sessionId)
             }
             mutableState.value = RecordingState.Idle
@@ -431,7 +481,7 @@ internal class AndroidRecordingManager(
     override suspend fun getRecoverableRecordings(): SoundlyResult<List<RecoverableRecording>> =
         withContext(dispatchers.io) {
             try {
-                val activeSessionId = prepared?.sessionId
+                val activeSessionId = prepared?.sessionId.takeIf { isActivelyRecording() || mutableState.value is RecordingState.Ready }
                 val recoverable = dao.getRecoverySessions().mapNotNull { entity ->
                     if (entity.id == activeSessionId) return@mapNotNull null
                     val file = File(entity.tempFilePath)
@@ -439,12 +489,17 @@ internal class AndroidRecordingManager(
                         dao.deleteRecoverySession(entity.id)
                         null
                     } else {
+                        val metadata = readRecoveryMetadata(entity.projectId)
                         RecoverableRecording(
                             sessionId = entity.id,
                             projectId = entity.projectId,
                             recordedDurationMs = entity.recordedDurationMs,
                             recordedBytes = file.length().coerceAtLeast(entity.recordedBytes),
-                            updatedAt = entity.updatedAt
+                            updatedAt = entity.updatedAt,
+                            title = metadata?.title,
+                            scene = metadata?.scene,
+                            format = metadata?.format,
+                            markerCount = metadata?.markers?.size
                         )
                     }
                 }
@@ -454,9 +509,40 @@ internal class AndroidRecordingManager(
             }
         }
 
+    override suspend fun discardRecovery(sessionId: String): SoundlyResult<Unit> = operationMutex.withLock {
+        if (prepared?.sessionId == sessionId) {
+            return@withLock if (mutableState.value is RecordingState.Failed) discardLocked()
+            else SoundlyResult.Failure(SoundlyError.InvalidState("discardRecovery"))
+        }
+        val entity = try { dao.getRecoverySession(sessionId) } catch (error: Exception) {
+            return@withLock SoundlyResult.Failure(SoundlyError.DatabaseFailed(error))
+        } ?: return@withLock SoundlyResult.Failure(SoundlyError.InvalidRequest("sessionId"))
+        val source = File(entity.tempFilePath)
+        val safeToDelete = try {
+            fileStore.isManaged(source) && source.canonicalFile == fileStore.recoveryFile(sessionId, RECOVERY_FORMAT).canonicalFile && dao.getProject(entity.projectId) == null
+        } catch (error: Exception) {
+            return@withLock SoundlyResult.Failure(SoundlyError.FileOperationFailed(error))
+        }
+        if (!safeToDelete) return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("discardRecovery"))
+        var staged: com.ideacode.soundly_sdk.storage.StagedFileDeletion? = null
+        try {
+            staged = fileStore.stageDeletion(source)
+            dao.deleteRecoverySession(sessionId)
+        } catch (error: Exception) {
+            staged?.let { fileStore.rollbackDeletion(it) }
+            return@withLock SoundlyResult.Failure(SoundlyError.FileOperationFailed(error))
+        }
+        // A failed cleanup leaves only a staged cache file, never a live session or project.
+        staged?.let { runCatching { fileStore.commitDeletion(it) } }
+        runCatching { deleteRecoveryMetadata(entity.projectId) }
+        val state = mutableState.value
+        if (state is RecordingState.Failed && state.sessionId == sessionId) mutableState.value = RecordingState.Idle
+        SoundlyResult.Success(Unit)
+    }
+
     override suspend fun recover(sessionId: String): SoundlyResult<RecordingResult> =
         operationMutex.withLock {
-            if (isActivelyRecording()) {
+            if (isActivelyRecording() || (prepared != null && prepared?.sessionId != sessionId)) {
                 return@withLock SoundlyResult.Failure(SoundlyError.InvalidState("recover"))
             }
             val entity = try {
@@ -472,6 +558,16 @@ internal class AndroidRecordingManager(
                 return@withLock SoundlyResult.Failure(
                     SoundlyError.FileNotFound(entity.tempFilePath)
                 )
+            }
+            if (prepared?.sessionId == sessionId) {
+                // A failed live recorder may still hold the source open. Close it before recovery.
+                runCatching { engine?.stop() }
+                runCatching { engine?.release() }
+                engine = null
+                stopMonitoring()
+                deviceMonitor.stop()
+                focusController.abandon()
+                foregroundController.stop()
             }
             val saved = readRecoveryMetadata(entity.projectId)
             val format = saved?.format ?: inferRecoveryFormat(file)
@@ -514,6 +610,35 @@ internal class AndroidRecordingManager(
             SoundlyResult.Failure(SoundlyError.FileOperationFailed(error))
         }
     }
+
+    override suspend fun getOrGenerateStaticWaveform(projectId: String, variantId: String): SoundlyResult<StaticWaveform> =
+        withContext(dispatchers.io) {
+            waveformGenerationMutex.withLock {
+                try {
+                    val project = when (val result = projects.getProject(projectId)) {
+                        is SoundlyResult.Success -> result.value
+                        is SoundlyResult.Failure -> return@withLock result
+                    }
+                    val variant = (listOf(project.original) + project.variants).firstOrNull { it.id == variantId }
+                        ?: return@withLock SoundlyResult.Failure(SoundlyError.InvalidRequest("variantId"))
+                    val source = java.io.File(variant.filePath)
+                    if (!source.isFile || !source.canRead()) return@withLock SoundlyResult.Failure(SoundlyError.FileNotFound())
+                    val cached = runCatching { staticWaveforms.read(projectId, variantId) }.getOrNull()
+                    if (cached != null) return@withLock SoundlyResult.Success(cached)
+                    val generated = waveformGenerator.generate(source, variant.durationMs)
+                    currentCoroutineContext().ensureActive()
+                    val current = when (val result = projects.getProject(projectId)) {
+                        is SoundlyResult.Success -> result.value
+                        is SoundlyResult.Failure -> return@withLock result
+                    }
+                    if ((listOf(current.original) + current.variants).none { it.id == variantId && it.filePath == variant.filePath } || !source.isFile)
+                        return@withLock SoundlyResult.Failure(SoundlyError.InvalidRequest("variantId"))
+                    staticWaveforms.write(projectId, variantId, generated)
+                    SoundlyResult.Success(generated)
+                } catch (cancel: CancellationException) { throw cancel }
+                catch (error: Exception) { SoundlyResult.Failure(SoundlyError.FileOperationFailed(error)) }
+            }
+        }
 
     private suspend fun finalizeRecording(
         recording: PreparedRecording,
@@ -583,22 +708,23 @@ internal class AndroidRecordingManager(
                     dao.deleteRecoverySession(recording.sessionId)
                     deleteRecoveryMetadata(recording.projectId)
                     prepared = null
+                    mutableCurrentConfig.value = null
                     accumulatedDurationMs = 0L
                     segmentStartedAtMs = null
                     markerBuffer.clear()
                     mutableMarkers.value = emptyList()
                     signalAccumulator.reset()
-                    mutableState.value = RecordingState.Idle
-                    SoundlyResult.Success(
-                        RecordingResult(
-                            sessionId = recording.sessionId,
-                            projectId = recording.projectId,
-                            originalVariantId = recording.originalVariantId,
-                            durationMs = duration,
-                            fileSizeBytes = destination.length(),
-                            waveform = staticWaveform
-                        )
+                    val result = RecordingResult(
+                        sessionId = recording.sessionId,
+                        projectId = recording.projectId,
+                        originalVariantId = recording.originalVariantId,
+                        durationMs = duration,
+                        fileSizeBytes = destination.length(),
+                        waveform = staticWaveform
                     )
+                    mutableLastSaved.value = result
+                    mutableState.value = RecordingState.Idle
+                    SoundlyResult.Success(result)
                 }
 
                 is SoundlyResult.Failure -> {
@@ -778,6 +904,7 @@ internal class AndroidRecordingManager(
         focusController.abandon()
         engine = null
         prepared = null
+        mutableCurrentConfig.value = null
         markerBuffer.clear()
         mutableMarkers.value = emptyList()
         signalAccumulator.reset()

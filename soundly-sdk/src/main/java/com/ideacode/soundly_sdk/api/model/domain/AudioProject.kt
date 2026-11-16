@@ -10,7 +10,9 @@ data class AudioProject(
     val markers: List<AudioMarker> = emptyList(),
     val status: ProjectStatus = ProjectStatus.AVAILABLE,
     val createdAt: Long,
-    val updatedAt: Long
+    val updatedAt: Long,
+    /** Original provider-supplied display name; absent when not reliably available. */
+    val sourceDisplayName: String? = null
 )
 
 data class AudioMarker(

@@ -20,6 +20,7 @@ import com.ideacode.soundly_sdk.api.model.domain.AudioVariant
 import com.ideacode.soundly_sdk.api.model.domain.ProjectStatus
 import com.ideacode.soundly_sdk.api.model.domain.VariantType
 import com.ideacode.soundly_sdk.api.capability.TrimRange
+import com.ideacode.soundly_sdk.api.capability.AudioProjectRepository
 import com.ideacode.soundly_sdk.api.result.SoundlyResult
 import com.ideacode.soundly_sdk.core.util.WavWriter
 import com.ideacode.soundly_sdk.history.data.db.AppDatabase
@@ -31,6 +32,7 @@ import com.ideacode.soundly_sdk.storage.DefaultAudioFileStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.CancellationException
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -607,6 +609,35 @@ class AudioEditingTest {
         } finally {
             source.delete()
         }
+    }
+
+    @Test
+    fun enhancementCancellationAfterCommitKeepsVersionFile() = runBlocking {
+        val store = DefaultAudioFileStore(context.filesDir, context.cacheDir)
+        val repository = RoomAudioProjectRepository(database.audioProjectDao(), store)
+        val source = createWav("i4_commit_project", "i4-commit-source")
+        val original = createProject(repository, source, "i4_commit_project", "i4_original")
+        val interrupted = object : AudioProjectRepository by repository {
+            override suspend fun addVariant(projectId: String, variant: AudioVariant): SoundlyResult<Unit> {
+                assertTrue(repository.addVariant(projectId, variant) is SoundlyResult.Success)
+                throw CancellationException("after commit")
+            }
+        }
+        val processor = object : StreamingEnhancementProcessor {
+            override suspend fun process(source: java.io.File, destination: java.io.File, preset: PresetOption,
+                onProgress: (StreamingEnhancementProgress) -> Unit): StreamingEnhancementResult {
+                source.copyTo(destination, overwrite = true)
+                return StreamingEnhancementResult(44_100, 1, 1_000L, 44_100L)
+            }
+        }
+        val enhancer = ProjectAudioEnhancer(processor, interrupted, AndroidAudioMetadataReader(context), store,
+            taskIdGenerator = { "i4_commit_task" }, variantIdGenerator = { "i4_commit_variant" })
+        val task = enhancer.enhance(EnhancementRequest("i4_commit_project", original.id, PresetOption.DEFAULT)) as SoundlyResult.Success
+        enhancer.await(task.value.taskId)
+        val updated = (repository.getProject("i4_commit_project") as SoundlyResult.Success).value
+        assertEquals(1, updated.variants.size)
+        assertTrue(java.io.File(updated.variants.single().filePath).isFile)
+        assertEquals(original.id, updated.variants.single().sourceVariantId)
     }
 
     @Test

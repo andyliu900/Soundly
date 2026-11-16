@@ -8,6 +8,7 @@ import java.io.File
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.CancellationException
 import kotlin.coroutines.coroutineContext
 
 internal data class PcmChunk(
@@ -46,6 +47,8 @@ internal class StreamingPcmDecoder : PcmStreamDecoder {
             } else {
                 decodeCompressed(extractor, format, mime, onChunk)
             }
+        } catch (error: CancellationException) {
+            throw error
         } catch (error: SecurityException) {
             throw error
         } catch (error: java.io.FileNotFoundException) {

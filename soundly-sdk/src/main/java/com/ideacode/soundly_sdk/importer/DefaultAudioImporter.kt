@@ -17,6 +17,9 @@ import com.ideacode.soundly_sdk.api.result.SoundlyResult
 import com.ideacode.soundly_sdk.storage.AudioFileStore
 import com.ideacode.soundly_sdk.internal.SoundlyDispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import java.io.FileNotFoundException
 import java.util.UUID
 
@@ -51,10 +54,12 @@ internal class DefaultAudioImporter(
             return@withContext SoundlyResult.Failure(SoundlyError.FileOperationFailed(error))
         }
 
+        var commitStarted = false
         try {
             val input = contentResolver.openInputStream(request.source)
                 ?: throw FileNotFoundException(request.source.toString())
             fileStore.copyAtomically(input, destination)
+            currentCoroutineContext().ensureActive()
             val now = clock()
             val title = normalizeTitle(request.title ?: metadata.displayName)
             val original = AudioVariant(
@@ -80,9 +85,13 @@ internal class DefaultAudioImporter(
                 original = original,
                 status = ProjectStatus.AVAILABLE,
                 createdAt = now,
-                updatedAt = now
+                updatedAt = now,
+                sourceDisplayName = metadata.sourceDisplayName
             )
 
+            // Once the database call starts, an exception or cancellation cannot tell us
+            // whether Room committed. Preserve the file until the result can be verified.
+            commitStarted = true
             when (val saveResult = projects.saveProject(project)) {
                 is SoundlyResult.Success -> SoundlyResult.Success(
                     AudioImportResult(
@@ -92,18 +101,20 @@ internal class DefaultAudioImporter(
                 )
 
                 is SoundlyResult.Failure -> {
-                    fileStore.deleteProject(projectId)
                     saveResult
                 }
             }
+        } catch (cancel: CancellationException) {
+            if (!commitStarted) runCatching { fileStore.deleteProject(projectId) }
+            throw cancel
         } catch (error: SecurityException) {
-            fileStore.deleteProject(projectId)
+            if (!commitStarted) fileStore.deleteProject(projectId)
             SoundlyResult.Failure(SoundlyError.PermissionDenied)
         } catch (error: FileNotFoundException) {
-            fileStore.deleteProject(projectId)
+            if (!commitStarted) fileStore.deleteProject(projectId)
             SoundlyResult.Failure(SoundlyError.FileNotFound(cause = error))
         } catch (error: Exception) {
-            fileStore.deleteProject(projectId)
+            if (!commitStarted) fileStore.deleteProject(projectId)
             SoundlyResult.Failure(SoundlyError.ImportFailed(error))
         }
     }

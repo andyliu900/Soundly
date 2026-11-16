@@ -1,0 +1,23 @@
+<resources>
+    <string name="h5_saved">录音已保存</string>
+    <string name="h5_saved_description">可以随时在录音库中找到</string>
+    <string name="h5_missing">无法找到此录音或所选版本，请返回录音库重试。</string>
+    <string name="h5_waveform_unavailable">波形暂不可用，仍可尝试播放录音</string>
+    <string name="h5_markers">录音标记</string>
+    <string name="h5_no_markers">暂无录音标记</string>
+    <string name="h5_marker_number">标记 %1$d</string>
+    <string name="h5_recommended">推荐：自动增强</string>
+    <string name="h5_recommended_description">自动调整音色和动态，并尝试降低背景噪声</string>
+    <string name="h5_local">增强将在设备本地完成，不会覆盖原始录音</string>
+    <string name="h5_enhance_now">一键增强录音</string>
+    <string name="h5_adjust">调整增强方式</string>
+    <string name="h5_skip">暂不增强</string>
+    <string name="h5_more">更多选项</string>
+    <string name="h5_rename_description">为这段录音取一个容易识别的名称</string>
+    <string name="h5_name_empty">请输入名称</string>
+    <string name="h5_name_long">名称不能超过 50 个字符</string>
+    <string name="h5_rename_failed">保存失败，请重试</string>
+    <string name="h5_version_saved">当前版本已保存</string>
+    <string name="h5_info">%1$s · %2$s · %3$s</string>
+    <string name="h5_date_scene">%1$s · %2$s</string>
+</resources>

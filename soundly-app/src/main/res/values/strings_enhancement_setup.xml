@@ -1,0 +1,10 @@
+<resources>
+ <string name="setup_title">增强音频</string>
+ <string name="setup_recommendation">推荐：自动增强</string>
+ <string name="setup_recommendation_detail">适用于大多数录音\n平衡清晰度、噪声和整体音量</string>
+ <string name="setup_auto_detail">自动平衡清晰度、噪声和音量</string>
+ <string name="setup_speech_detail">突出说话声，适合会议和课程</string>
+ <string name="setup_noise_detail">优先减少持续环境底噪</string>
+ <string name="setup_natural_detail">保留更多原始声音细节</string>
+ <string name="setup_waveform_unavailable">波形暂不可用，仍可试听</string>
+</resources>

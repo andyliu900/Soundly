@@ -1,0 +1,17 @@
+<resources>
+    <string name="gallery_title">Soundly 组件预览</string>
+    <string name="gallery_subtitle">仅调试版本可见，用于检查主题、播放器和状态样式。</string>
+    <string name="gallery_player">播放器与波形示例</string>
+    <string name="gallery_input">录音名称</string>
+    <string name="gallery_show_loading">显示加载状态</string>
+    <string name="gallery_show_error">显示错误状态</string>
+    <string name="gallery_toggle_theme">切换浅色 / 深色</string>
+    <string name="gallery_loading">正在加载音频…</string>
+    <string name="gallery_error">暂时无法加载音频，请重试。</string>
+    <string name="gallery_show_dialog">显示确认弹窗</string>
+    <string name="gallery_show_sheet">显示底部弹层</string>
+    <string name="gallery_dialog_message">这是调试版的确认弹窗示例。</string>
+    <string name="gallery_sheet_title">选择录音场景</string>
+    <string name="gallery_sheet_body">场景选择弹层的公共样式示例。</string>
+    <string name="gallery_close">关闭</string>
+</resources>

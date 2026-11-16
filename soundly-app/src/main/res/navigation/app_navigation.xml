@@ -38,10 +38,14 @@
     <fragment android:id="@+id/libraryFragment"
         android:name="com.ideacode.soundly.feature.library.LibraryFragment"
         android:label="@string/library_title" />
+    <fragment android:id="@+id/importFragment"
+        android:name="com.ideacode.soundly.feature.importing.ImportFragment"
+        android:label="@string/import_title" />
     <fragment android:id="@+id/projectDetailFragment"
         android:name="com.ideacode.soundly.feature.project.ProjectDetailFragment"
         android:label="@string/project_detail_title">
         <argument android:name="projectId" app:argType="string" />
+        <argument android:name="variantId" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/recoveryFragment"
         android:name="com.ideacode.soundly.feature.startup.RecoveryFragment"
@@ -50,13 +54,15 @@
     </fragment>
     <fragment android:id="@+id/prepareRecordingFragment"
         android:name="com.ideacode.soundly.feature.recording.PrepareRecordingFragment"
-        android:label="@string/prepare_recording_title" />
+        android:label="@string/prepare_recording_title">
+        <argument android:name="homeScene" app:argType="string" app:nullable="true" android:defaultValue="@null" />
+    </fragment>
     <fragment android:id="@+id/recordingFragment"
         android:name="com.ideacode.soundly.feature.recording.RecordingFragment"
         android:label="@string/recording_title" />
     <fragment android:id="@+id/audioPreviewFragment"
         android:name="com.ideacode.soundly.feature.preview.AudioPreviewFragment"
-        android:label="@string/preview_title">
+        android:label="@string/preview_complete">
         <argument android:name="projectId" app:argType="string" />
         <argument android:name="variantId" app:argType="string" android:defaultValue="" />
     </fragment>
@@ -69,21 +75,26 @@
     </fragment>
     <fragment android:id="@+id/enhancementSetupFragment"
         android:name="com.ideacode.soundly.feature.enhancement.EnhancementSetupFragment"
-        android:label="@string/enhancement_title">
+        android:label="@string/setup_title">
         <argument android:name="projectId" app:argType="string" />
         <argument android:name="variantId" app:argType="string" />
+        <argument android:name="sourceDestination" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/enhancementProgressFragment"
         android:name="com.ideacode.soundly.feature.enhancement.EnhancementProgressFragment"
         android:label="@string/enhancement_progress_title">
         <argument android:name="taskId" app:argType="string" />
+        <argument android:name="projectId" app:argType="string" android:defaultValue="" />
+        <argument android:name="sourceVariantId" app:argType="string" android:defaultValue="" />
+        <argument android:name="sourceDestination" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/enhancementResultFragment"
         android:name="com.ideacode.soundly.feature.enhancement.EnhancementResultFragment"
-        android:label="@string/enhancement_result_title">
+        android:label="@string/enhancement_result_complete">
         <argument android:name="projectId" app:argType="string" />
         <argument android:name="originalVariantId" app:argType="string" />
         <argument android:name="enhancedVariantId" app:argType="string" />
+        <argument android:name="sourceDestination" app:argType="string" android:defaultValue="" />
     </fragment>
     <fragment android:id="@+id/exportFragment"
         android:name="com.ideacode.soundly.feature.export.ExportFragment"

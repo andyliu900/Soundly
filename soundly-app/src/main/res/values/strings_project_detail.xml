@@ -1,0 +1,9 @@
+<resources>
+    <string name="detail_versions">音频版本</string>
+    <string name="detail_marker_count">%1$d 个</string>
+    <string name="detail_variant_metadata">%1$s · %2$s</string>
+    <string name="detail_enhanced_metadata">增强版本 · %1$s</string>
+    <string name="detail_trimmed_metadata">裁剪版本 · %1$s</string>
+    <string name="detail_unknown_size">大小未知</string>
+    <string name="detail_date_separator">%1$s  |  %2$s</string>
+</resources>

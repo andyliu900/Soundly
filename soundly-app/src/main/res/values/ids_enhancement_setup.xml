@@ -1,0 +1,6 @@
+<resources>
+    <item name="setup_mode_auto" type="id" />
+    <item name="setup_mode_speech" type="id" />
+    <item name="setup_mode_noise" type="id" />
+    <item name="setup_mode_natural" type="id" />
+</resources>

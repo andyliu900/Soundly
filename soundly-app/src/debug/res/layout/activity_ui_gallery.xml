@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gallery_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/soundly_space_5">
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.Soundly.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_title" />
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.Soundly.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/soundly_space_2"
+            android:text="@string/gallery_subtitle" />
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Soundly.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/soundly_space_5">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/soundly_space_4">
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.Soundly.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gallery_player" />
+                <com.ideacode.soundly.common.ui.audio.WaveformView
+                    android:id="@+id/gallery_waveform"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/soundly_waveform_height"
+                    android:layout_marginTop="@dimen/soundly_space_2" />
+                <com.ideacode.soundly.common.ui.audio.AudioPlayerView
+                    android:id="@+id/gallery_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.ideacode.soundly.common.ui.UiStatusView
+            android:id="@+id/gallery_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/soundly_space_4" />
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Soundly.Input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/soundly_space_4"
+            android:hint="@string/gallery_input">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gallery_loading"
+            style="@style/Widget.Soundly.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/soundly_space_4"
+            android:text="@string/gallery_show_loading" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gallery_error"
+            style="@style/Widget.Soundly.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_show_error" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gallery_theme"
+            style="@style/Widget.Soundly.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_toggle_theme" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gallery_dialog"
+            style="@style/Widget.Soundly.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_show_dialog" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gallery_sheet"
+            style="@style/Widget.Soundly.Button.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_show_sheet" />
+    </LinearLayout>
+  </ScrollView>
+</FrameLayout>

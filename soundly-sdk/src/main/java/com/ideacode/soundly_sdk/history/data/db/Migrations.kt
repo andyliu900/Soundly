@@ -5,6 +5,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 internal object Migrations {
 
+    val MIGRATION_4_5 = object : Migration(4, 5) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("ALTER TABLE `audio_project` ADD COLUMN `sourceDisplayName` TEXT")
+            db.execSQL("CREATE TABLE IF NOT EXISTS `import_operation` (`id` TEXT NOT NULL, `projectId` TEXT NOT NULL, `variantId` TEXT NOT NULL, `phase` TEXT NOT NULL, PRIMARY KEY(`id`))")
+            db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_import_operation_projectId` ON `import_operation` (`projectId`)")
+        }
+    }
+
     val MIGRATION_2_3 = object : Migration(2, 3) {
         override fun migrate(db: SupportSQLiteDatabase) {
             db.execSQL(

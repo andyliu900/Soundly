@@ -17,10 +17,19 @@ data class AudioMetadata(
     val fileSizeBytes: Long,
     val sampleRate: Int,
     val channels: Int,
-    val bitRate: Int? = null
+    val bitRate: Int? = null,
+    /** Provider display name only, without URI/path-derived fallback. */
+    val sourceDisplayName: String? = null
 )
 
 data class AudioImportResult(
     val project: AudioProject,
     val copiedBytes: Long
 )
+
+/** A checked state for an explicitly identified import operation. */
+sealed interface ImportOperationStatus {
+    data object NotStarted : ImportOperationStatus
+    data object Interrupted : ImportOperationStatus
+    data class Completed(val result: AudioImportResult) : ImportOperationStatus
+}

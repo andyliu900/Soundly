@@ -1,0 +1,1 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"><solid android:color="@color/library_search_bg"/><corners android:radius="30dp"/></shape>

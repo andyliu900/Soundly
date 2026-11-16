@@ -40,7 +40,8 @@ internal fun AudioProjectAggregate.toDomain(): AudioProject {
             .sortedBy { it.positionMs },
         status = enumValueOf(project.status),
         createdAt = project.createdAt,
-        updatedAt = project.updatedAt
+        updatedAt = project.updatedAt,
+        sourceDisplayName = project.sourceDisplayName
     )
 }
 
@@ -52,7 +53,8 @@ internal fun AudioProject.toEntity(): AudioProjectEntity = AudioProjectEntity(
     status = status.name,
     originalVariantId = original.id,
     createdAt = createdAt,
-    updatedAt = updatedAt
+    updatedAt = updatedAt,
+    sourceDisplayName = sourceDisplayName
 )
 
 internal fun AudioVariant.toEntity(): ProjectAudioVariantEntity =

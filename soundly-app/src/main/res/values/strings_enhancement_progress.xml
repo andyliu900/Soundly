@@ -1,0 +1,10 @@
+<resources>
+    <string name="enhancement_progress_caption">增强进度</string>
+    <string name="enhancement_progress_subtitle">正在处理音频，请稍候</string>
+    <string name="enhancement_progress_mode_label">增强方式</string>
+    <string name="enhancement_progress_processing">处理中</string>
+    <string name="enhancement_progress_local">音频将在本机处理，输入音频不会被覆盖</string>
+    <string name="enhancement_progress_cancel_note">取消后，输入音频仍会保留</string>
+    <string name="enhancement_progress_accessibility">增强进度 %1$d%%，%2$s</string>
+    <string name="enhancement_progress_stage_wait">%1$s，请稍候</string>
+</resources>

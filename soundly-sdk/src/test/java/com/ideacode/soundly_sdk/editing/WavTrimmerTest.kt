@@ -50,4 +50,10 @@ class WavTrimmerTest {
 
         WavTrimmer.trim(source, File(directory, "out.wav"), 200L, 200L)
     }
+
+    @Test(expected = ArithmeticException::class)
+    fun trimRejectsOverflowingByteOffsets() {
+        val source = WavWriter(directory).write(FloatArray(8000), 8000, 1, "overflow-source")
+        WavTrimmer.trim(source, File(directory, "overflow.wav"), Long.MAX_VALUE - 1, Long.MAX_VALUE)
+    }
 }

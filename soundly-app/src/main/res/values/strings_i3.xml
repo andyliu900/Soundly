@@ -1,0 +1,27 @@
+<resources>
+    <string name="i3_select_title">选择保留的片段</string>
+    <string name="i3_select_hint">拖动两端手柄，调整音频的起点和终点</string>
+    <string name="i3_range_description">选择保留片段的起点和终点</string>
+    <string name="i3_source">%1$s · %2$s · %3$s</string>
+    <string name="i3_original">原始音频</string>
+    <string name="i3_trimmed">裁剪版本</string>
+    <string name="i3_enhanced">增强版本</string>
+    <string name="i3_start_value">起点\n%1$s</string>
+    <string name="i3_end_value">终点\n%1$s</string>
+    <string name="i3_retained">保留时长 · %1$s</string>
+    <string name="i3_preview">试听选中片段</string>
+    <string name="i3_pause">暂停试听</string>
+    <string name="i3_keep_original">裁剪后将保存为新版本，原始音频会保留</string>
+    <string name="i3_applying">正在应用裁剪…</string>
+    <string name="i3_wave_loading">正在生成波形…</string>
+    <string name="i3_wave_retry">波形不可用，点击重试</string>
+    <string name="i3_invalid_range">起点必须早于终点，且不能超出音频时长。</string>
+    <string name="i3_time_hint">输入时间，如 01:25 或 01:25.500</string>
+    <string name="i3_time_invalid">请输入有效时间，且保持起点早于终点。</string>
+    <string name="i3_uncertain_title">确认上次裁剪结果</string>
+    <string name="i3_uncertain_message">上次裁剪的结果暂时无法确认。请先检查录音库中的项目，避免重复创建版本。</string>
+    <string name="i3_check_library">查看录音库</string>
+    <string name="i3_continue_editing">继续编辑</string>
+    <string name="i3_continue_warning">确认已检查录音库？继续后再次应用可能创建新的裁剪版本。</string>
+    <string name="i3_continue_confirm">已检查，继续</string>
+</resources>

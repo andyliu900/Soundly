@@ -9,6 +9,8 @@ internal interface AudioFileStore {
     val rootDirectory: File
 
     fun projectDirectory(projectId: String): File
+    /** Atomically creates an unoccupied project directory. */
+    fun reserveProjectDirectory(projectId: String): Boolean
     fun originalFile(projectId: String, format: AudioFormat): File
     fun variantFile(projectId: String, variantId: String, format: AudioFormat): File
     fun waveformFile(projectId: String, variantId: String): File

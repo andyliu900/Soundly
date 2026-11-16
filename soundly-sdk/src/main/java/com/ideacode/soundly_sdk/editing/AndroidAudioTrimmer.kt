@@ -10,6 +10,7 @@ import com.ideacode.soundly_sdk.api.capability.AudioProjectRepository
 import com.ideacode.soundly_sdk.api.capability.AudioTrimmer
 import com.ideacode.soundly_sdk.api.capability.TrimPreview
 import com.ideacode.soundly_sdk.api.capability.TrimRange
+import com.ideacode.soundly_sdk.api.capability.TrimCapabilities
 import com.ideacode.soundly_sdk.api.capability.TrimResult
 import com.ideacode.soundly_sdk.api.capability.TrimmedMarker
 import com.ideacode.soundly_sdk.api.error.SoundlyError
@@ -75,16 +76,16 @@ internal class AndroidAudioTrimmer(
         val mappedMarkers = mapMarkers(project, source, range)
         val estimatedOutputBytes = source.fileSizeBytes
             .takeIf { it > 0L && source.durationMs > 0L }
-            ?.times(range.endMs - range.startMs)
-            ?.div(source.durationMs)
+            ?.let { (it.toDouble() * ((range.endMs - range.startMs).toDouble() / source.durationMs)).toLong() }
             ?: sourceFile.length()
-        if (fileStore.availableBytes() < estimatedOutputBytes + MINIMUM_FREE_BYTES) {
+        if (estimatedOutputBytes > Long.MAX_VALUE - MINIMUM_FREE_BYTES || fileStore.availableBytes() < estimatedOutputBytes + MINIMUM_FREE_BYTES) {
             return@withContext SoundlyResult.Failure(SoundlyError.InsufficientStorage)
         }
 
         val variantId = idGenerator()
         val destination = fileStore.variantFile(projectId, variantId, source.format)
         val staging = fileStore.createTempFile(".${source.format.extension()}")
+        var commitStarted = false
         try {
             when (source.format) {
                 AudioFormat.WAV -> WavTrimmer.trim(
@@ -97,8 +98,8 @@ internal class AndroidAudioTrimmer(
                 AudioFormat.M4A -> trimM4a(
                     sourceFile,
                     staging,
-                    range.startMs * 1_000L,
-                    range.endMs * 1_000L
+                    Math.multiplyExact(range.startMs, 1_000L),
+                    Math.multiplyExact(range.endMs, 1_000L)
                 )
 
                 else -> error("Unsupported trim format")
@@ -129,6 +130,9 @@ internal class AndroidAudioTrimmer(
                 trimStartMs = range.startMs,
                 trimEndMs = range.endMs
             )
+            // A cancelled or failed database call may already have committed.
+            // Never delete its output until the commit result is known.
+            commitStarted = true
             when (val result = projects.addVariant(projectId, variant)) {
                 is SoundlyResult.Success -> SoundlyResult.Success(
                     TrimResult(
@@ -140,17 +144,16 @@ internal class AndroidAudioTrimmer(
                 )
 
                 is SoundlyResult.Failure -> {
-                    fileStore.deleteFile(destination)
                     result
                 }
             }
         } catch (cancellation: CancellationException) {
             runCatching { if (staging.exists()) fileStore.deleteFile(staging) }
-            runCatching { if (destination.exists()) fileStore.deleteFile(destination) }
+            if (!commitStarted) runCatching { if (destination.exists()) fileStore.deleteFile(destination) }
             throw cancellation
         } catch (error: Exception) {
             runCatching { if (staging.exists()) fileStore.deleteFile(staging) }
-            runCatching { if (destination.exists()) fileStore.deleteFile(destination) }
+            if (!commitStarted) runCatching { if (destination.exists()) fileStore.deleteFile(destination) }
             SoundlyResult.Failure(SoundlyError.TrimFailed(error))
         }
     }
@@ -170,10 +173,10 @@ internal class AndroidAudioTrimmer(
         val source = (listOf(project.original) + project.variants)
             .firstOrNull { it.id == sourceVariantId }
             ?: return SoundlyResult.Failure(SoundlyError.InvalidRequest("sourceVariantId"))
-        if (range.startMs >= source.durationMs || range.endMs > source.durationMs) {
+        if (!TrimCapabilities.isValidRange(range, source.durationMs)) {
             return SoundlyResult.Failure(SoundlyError.InvalidRequest("range"))
         }
-        if (source.format !in SUPPORTED_FORMATS) {
+        if (!TrimCapabilities.supports(source.format)) {
             return SoundlyResult.Failure(SoundlyError.UnsupportedFormat(source.mimeType))
         }
         val sourceFile = File(source.filePath)
@@ -295,7 +298,6 @@ internal class AndroidAudioTrimmer(
     private companion object {
         const val DEFAULT_BUFFER_SIZE = 1024 * 1024
         const val MINIMUM_FREE_BYTES = 16L * 1024L * 1024L
-        val SUPPORTED_FORMATS = setOf(AudioFormat.WAV, AudioFormat.M4A)
     }
 
     private data class ResolvedTrim(

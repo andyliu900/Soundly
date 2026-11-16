@@ -11,10 +11,31 @@ import com.ideacode.soundly_sdk.project.data.entity.AudioProjectAggregate
 import com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity
 import com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity
 import com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity
+import com.ideacode.soundly_sdk.project.data.entity.ImportOperationEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 internal interface AudioProjectDao {
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun reserveImport(operation: ImportOperationEntity)
+
+    @Query("SELECT * FROM import_operation WHERE id = :id LIMIT 1")
+    suspend fun getImport(id: String): ImportOperationEntity?
+
+    @Query("UPDATE import_operation SET phase = :phase WHERE id = :id")
+    suspend fun updateImportPhase(id: String, phase: String): Int
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertProject(entity: AudioProjectEntity)
+
+    @Transaction
+    suspend fun commitImport(id: String, project: AudioProjectEntity, original: ProjectAudioVariantEntity) {
+        check(getImport(id)?.phase == "READY")
+        insertProject(project)
+        insertVariant(original)
+        check(updateImportPhase(id, "COMMITTED") == 1)
+    }
 
     @Transaction
     @Query("SELECT * FROM audio_project ORDER BY updatedAt DESC")

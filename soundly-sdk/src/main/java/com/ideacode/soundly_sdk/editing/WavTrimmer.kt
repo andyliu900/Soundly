@@ -12,9 +12,9 @@ internal object WavTrimmer {
             require(info.audioFormat == PCM_FORMAT) { "Only PCM WAV files can be trimmed" }
             require(info.blockAlign > 0 && info.byteRate > 0) { "Invalid WAV format" }
 
-            val startByte = ((startMs * info.byteRate / 1_000L) / info.blockAlign) *
+            val startByte = ((Math.multiplyExact(startMs, info.byteRate.toLong()) / 1_000L) / info.blockAlign) *
                 info.blockAlign
-            val requestedEnd = ((endMs * info.byteRate / 1_000L) / info.blockAlign) *
+            val requestedEnd = ((Math.multiplyExact(endMs, info.byteRate.toLong()) / 1_000L) / info.blockAlign) *
                 info.blockAlign
             val endByte = requestedEnd.coerceAtMost(info.dataSize)
             require(startByte in 0 until endByte) { "Trim range has no audio samples" }

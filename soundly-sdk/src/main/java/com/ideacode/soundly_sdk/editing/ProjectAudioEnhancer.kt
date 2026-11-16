@@ -61,6 +61,10 @@ internal class ProjectAudioEnhancer(
 
     override val tasks: StateFlow<Map<String, EnhancementTaskState>> = mutableTasks.asStateFlow()
 
+    internal suspend fun awaitCleanup(taskId: String) {
+        synchronized(stateLock) { jobs[taskId] }?.join()
+    }
+
     override suspend fun enhance(
         request: EnhancementRequest
     ): SoundlyResult<EnhancementTask> {
@@ -186,6 +190,7 @@ internal class ProjectAudioEnhancer(
     ) {
         var taskTemp: File? = null
         var publishedDestination: File? = null
+        var commitStarted = false
         try {
             val project = when (val result = projects.getProject(task.projectId)) {
                 is SoundlyResult.Success -> result.value
@@ -236,6 +241,9 @@ internal class ProjectAudioEnhancer(
                 variantType = VariantType.ENHANCED,
                 sourceVariantId = task.sourceVariantId
             )
+            // The database call can commit before cancellation or an error reaches us.
+            // Preserve the output once its ownership is uncertain.
+            commitStarted = true
             when (val result = projects.addVariant(task.projectId, variant)) {
                 is SoundlyResult.Success -> {
                     advance(task, EnhancementStage.SAVING, SAVING_COMPLETE_PERCENT, listener)
@@ -271,7 +279,7 @@ internal class ProjectAudioEnhancer(
             fail(task, SoundlyErrorMapper.processing(error), listener)
         } finally {
             cleanup(taskTemp)
-            cleanup(publishedDestination)
+            if (!commitStarted) cleanup(publishedDestination)
         }
     }
 

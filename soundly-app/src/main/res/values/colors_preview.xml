@@ -1,0 +1,11 @@
+<resources>
+ <color name="preview_background">#F7F7FE</color><color name="preview_surface">#FFFFFF</color>
+ <color name="preview_text">#101137</color><color name="preview_secondary">#8181A8</color>
+ <color name="preview_primary">#6750EF</color><color name="preview_wave">#C6BEFA</color>
+ <color name="preview_track">#E1DDF8</color><color name="preview_tint">#EFEDFE</color>
+ <color name="preview_border">#EBEAF8</color><color name="preview_success">#20C5B1</color>
+ <color name="preview_button_text">#FFFFFF</color>
+ <color name="preview_control">#6750EF</color>
+ <color name="imported_success_background">#E8F8F5</color>
+ <color name="imported_success_border">#C9EDE8</color>
+</resources>

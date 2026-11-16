@@ -1,0 +1,12 @@
+<resources>
+    <string name="i5_source_unavailable">来源版本不可用</string>
+    <string name="i5_original_kept">原始音频仍然保留</string>
+    <string name="i5_export_error_uncertain">%1$s\n%2$s</string>
+    <string name="i5_numbered_version">%1$s %2$d</string>
+    <string name="i5_version_from">%1$s（来源：%2$s）</string>
+    <string name="i5_version_details">%1$s · %2$s · %3$s</string>
+    <string name="i5_library_recorded">录音</string>
+    <string name="i5_library_imported">导入音频</string>
+    <string name="i5_library_versions">%1$d 个版本</string>
+    <string name="i5_library_summary">%1$s · %2$s · %3$s</string>
+</resources>

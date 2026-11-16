@@ -14,6 +14,7 @@ import com.ideacode.soundly_sdk.project.data.entity.AudioMarkerEntity
 import com.ideacode.soundly_sdk.project.data.entity.AudioProjectEntity
 import com.ideacode.soundly_sdk.project.data.entity.ProjectAudioVariantEntity
 import com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity
+import com.ideacode.soundly_sdk.project.data.entity.ImportOperationEntity
 
 @Database(
     entities = [
@@ -22,9 +23,10 @@ import com.ideacode.soundly_sdk.project.data.entity.RecoverySessionEntity
         AudioProjectEntity::class,
         ProjectAudioVariantEntity::class,
         AudioMarkerEntity::class,
-        RecoverySessionEntity::class
+        RecoverySessionEntity::class,
+        ImportOperationEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = true
 )
 @TypeConverters(PresetOptionConverter::class)
@@ -59,6 +61,7 @@ internal abstract class AppDatabase : RoomDatabase() {
             )
                 .addMigrations(Migrations.MIGRATION_2_3)
                 .addMigrations(Migrations.MIGRATION_3_4)
+                .addMigrations(Migrations.MIGRATION_4_5)
                 .fallbackToDestructiveMigrationFrom(1)
                 .build().also { INSTANCE = it }
         }

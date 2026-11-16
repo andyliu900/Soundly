@@ -17,6 +17,9 @@ import com.ideacode.soundly_sdk.project.repository.RoomAudioProjectRepository
 import com.ideacode.soundly_sdk.storage.DefaultAudioFileStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -46,6 +49,30 @@ class AudioProjectRepositoryTest {
     @After
     fun tearDown() {
         database.close()
+    }
+
+    @Test
+    fun cancellationAfterFileStagingStillFinishesDeletion() = runBlocking {
+        val project = project("project_delete_cancel_test")
+        assertTrue(repository.saveProject(project) is SoundlyResult.Success)
+        val dao = database.audioProjectDao()
+        val entered = CompletableDeferred<Unit>()
+        val proceed = CompletableDeferred<Unit>()
+        val delayedDao = object : com.ideacode.soundly_sdk.project.data.dao.AudioProjectDao by dao {
+            override suspend fun deleteProject(projectId: String): Int {
+                entered.complete(Unit)
+                proceed.await()
+                return dao.deleteProject(projectId)
+            }
+        }
+        val controlled = RoomAudioProjectRepository(delayedDao, DefaultAudioFileStore(context.filesDir, context.cacheDir))
+        val job = launch(Dispatchers.Default) { controlled.deleteProject(project.id) }
+        entered.await()
+        job.cancel()
+        proceed.complete(Unit)
+        job.join()
+        assertTrue(repository.getProject(project.id) is SoundlyResult.Failure)
+        assertTrue(!java.io.File(project.original.filePath).exists())
     }
 
     @Test

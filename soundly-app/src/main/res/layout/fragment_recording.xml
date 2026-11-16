@@ -1,11 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="24dp">
-    <com.google.android.material.textview.MaterialTextView android:id="@+id/recording_status" android:layout_width="0dp" android:layout_height="wrap_content" android:text="@string/recording_idle" android:textAppearance="?attr/textAppearanceTitleLarge" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.textview.MaterialTextView android:id="@+id/recording_duration" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:gravity="center" android:text="00:00" android:textAppearance="?attr/textAppearanceDisplayMedium" app:layout_constraintTop_toBottomOf="@id/recording_status" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/recording_waveform" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:indeterminate="true" app:layout_constraintTop_toBottomOf="@id/recording_duration" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.textview.MaterialTextView android:id="@+id/recording_metadata" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:gravity="center" app:layout_constraintTop_toBottomOf="@id/recording_waveform" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/recording_marker" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="@string/recording_marker" app:layout_constraintTop_toBottomOf="@id/recording_metadata" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/recording_pause_resume" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/recording_pause" app:layout_constraintTop_toBottomOf="@id/recording_marker" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/recording_finish" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/recording_finish" app:layout_constraintTop_toBottomOf="@id/recording_pause_resume" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/recording_discard" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/recording_discard" app:layout_constraintTop_toBottomOf="@id/recording_finish" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/soundly_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="24dp">
+
+        <TextView
+            android:id="@+id/recording_config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_h3_info"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorPrimary" />
+
+        <TextView
+            android:id="@+id/recording_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/prepare_timer"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="42sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/recording_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceTitleMedium"
+            android:textColor="#FF6168" />
+
+        <com.ideacode.soundly.feature.recording.LiveWaveformView
+            android:id="@+id/recording_waveform"
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:layout_marginTop="30dp"
+            android:importantForAccessibility="no" />
+
+        <TextView
+            android:id="@+id/recording_latest_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_h3_info"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="5dp"
+            android:textColor="?attr/colorPrimary"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/recording_metadata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:id="@+id/recording_markers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:textColor="?attr/colorPrimary"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/recording_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_h3_info"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/recording_problem_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+            <TextView
+                android:id="@+id/recording_problem_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/recording_problem_space"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/recording_problem_retained"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorPrimary" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/recording_problem_retry"
+                style="@style/Widget.Soundly.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/h4_retry" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/recording_storage"
+                style="@style/Widget.Soundly.Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/h4_storage"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/recording_problem_save"
+                style="@style/Widget.Soundly.Button.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/h4_save_current" />
+        </LinearLayout>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/recording_progress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/recording_controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/recording_marker"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_icon_circle"
+                    android:contentDescription="@string/h4_marker"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_h4_marker"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/h4_marker"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/recording_pause_resume"
+                    android:layout_width="76dp"
+                    android:layout_height="76dp"
+                    android:background="@drawable/bg_h4_primary"
+                    android:contentDescription="@string/h4_pause"
+                    android:padding="22dp"
+                    android:src="@drawable/ic_h4_pause" />
+
+                <TextView
+                    android:id="@+id/recording_pause_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/h4_pause"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/recording_finish"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_h4_stop"
+                    android:contentDescription="@string/h4_finish"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_h4_stop" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/h4_finish"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

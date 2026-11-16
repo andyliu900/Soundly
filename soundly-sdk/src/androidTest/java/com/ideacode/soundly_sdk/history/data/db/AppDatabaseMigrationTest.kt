@@ -97,6 +97,22 @@ class AppDatabaseMigrationTest {
         }
     }
 
+    @Test
+    fun migrate4To5PreservesProjectsAndAddsImportJournal() {
+        val name = "soundly-migration-v4-test"
+        helper.createDatabase(name, 4).apply {
+            execSQL("INSERT INTO audio_project (id,title,sourceType,recordingScene,status,originalVariantId,createdAt,updatedAt) VALUES ('p','Old','IMPORTED',NULL,'AVAILABLE','v',1,1)")
+            close()
+        }
+        helper.runMigrationsAndValidate(name, 5, true, Migrations.MIGRATION_4_5).use { database ->
+            database.query("SELECT title,sourceDisplayName FROM audio_project WHERE id='p'").use {
+                it.moveToFirst(); assertEquals("Old", it.getString(0)); assertEquals(true, it.isNull(1))
+            }
+            database.execSQL("INSERT INTO import_operation (id,projectId,variantId,phase) VALUES ('o','p2','v2','RESERVED')")
+            database.query("SELECT phase FROM import_operation WHERE id='o'").use { it.moveToFirst(); assertEquals("RESERVED", it.getString(0)) }
+        }
+    }
+
     private companion object {
         const val TEST_DATABASE = "soundly-migration-test"
         const val TEST_DATABASE_V3 = "soundly-migration-v3-test"

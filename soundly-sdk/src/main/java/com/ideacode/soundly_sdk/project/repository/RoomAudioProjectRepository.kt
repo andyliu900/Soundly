@@ -13,6 +13,8 @@ import com.ideacode.soundly_sdk.storage.AudioFileStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import java.io.File
 
 internal class RoomAudioProjectRepository(
@@ -194,7 +196,13 @@ internal class RoomAudioProjectRepository(
         SoundlyResult.Failure(SoundlyError.DatabaseFailed(error))
     }
 
-    override suspend fun deleteProject(projectId: String): SoundlyResult<Unit> {
+    // Once deletion starts, complete the file staging/DB/cleanup sequence even if the caller
+    // leaves the screen; cancellation between those steps could strand a project's files.
+    override suspend fun deleteProject(projectId: String): SoundlyResult<Unit> = withContext(NonCancellable) {
+        deleteProjectConsistently(projectId)
+    }
+
+    private suspend fun deleteProjectConsistently(projectId: String): SoundlyResult<Unit> {
         try {
             if (dao.getProject(projectId) == null) {
                 return SoundlyResult.Failure(SoundlyError.ProjectNotFound(projectId))

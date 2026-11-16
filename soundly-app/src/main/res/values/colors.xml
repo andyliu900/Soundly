@@ -2,8 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="soundly_primary">#4F46E5</color>
+    <color name="soundly_primary">#5544E9</color>
     <color name="soundly_on_primary">#FFFFFFFF</color>
-    <color name="soundly_surface">#FFFBFE</color>
-    <color name="soundly_on_surface">#1C1B1F</color>
+    <color name="soundly_primary_container">#EAE7FF</color>
+    <color name="soundly_on_primary_container">#241D70</color>
+    <color name="soundly_background">#F7F7FE</color>
+    <color name="soundly_surface">#FFFFFF</color>
+    <color name="soundly_on_surface">#171A51</color>
+    <color name="soundly_on_surface_variant">#595A75</color>
+    <color name="soundly_outline">#76758F</color>
+    <color name="soundly_outline_variant">#E1E0EE</color>
+    <color name="soundly_error">#B3261E</color>
+    <color name="soundly_on_error">#FFFFFF</color>
+    <color name="soundly_success">#087F70</color>
+    <color name="soundly_waveform_inactive">#827AAC</color>
+    <color name="startup_background">#F7F7FE</color>
+    <color name="startup_error_text">#171A51</color>
+    <color name="startup_logo_background">#EBE8FC</color>
+    <color name="startup_logo_foreground">#5840FF</color>
 </resources>

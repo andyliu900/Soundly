@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <provider
+            android:name=".debug.I6DocumentsProvider"
+            android:authorities="${applicationId}.i6.documents"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter><action android:name="android.content.action.DOCUMENTS_PROVIDER" /></intent-filter>
+        </provider>
+        <!-- Debug-only manual component verification, absent from release builds. -->
+        <activity
+            android:name=".debug.UiGalleryActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".debug.EnhancementProgressPreviewActivity" android:exported="true" />
+        <activity android:name=".debug.EnhancementResultPreviewActivity" android:exported="true" />
+        <activity android:name=".debug.AudioPreviewFixtureActivity" android:exported="true" />
+        <activity android:name=".debug.EnhancementSetupFixtureActivity" android:exported="true" />
+    </application>
+</manifest>

@@ -1,0 +1,6 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal" android:background="?attr/selectableItemBackground" android:focusable="true" android:clickable="true">
+    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_h4_marker" app:tint="@color/preview_primary" android:importantForAccessibility="no" />
+    <TextView android:id="@+id/marker_name" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="16dp" android:textColor="@color/preview_text" android:textSize="15sp" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" />
+    <TextView android:id="@+id/marker_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:textColor="@color/preview_secondary" android:textSize="14sp" />
+    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_marginStart="8dp" android:src="@drawable/ic_preview_chevron" app:tint="@color/preview_secondary" android:importantForAccessibility="no" />
+</LinearLayout>

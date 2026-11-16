@@ -55,6 +55,17 @@ class StorageManagerTest {
         preferences.edit().clear().commit()
     }
 
+    @Test fun busyMaintenanceDoesNotDeleteFiles() = runBlocking {
+        val store = DefaultAudioFileStore(context.filesDir, context.cacheDir)
+        val original = store.originalFile("s1_protected", AudioFormat.WAV).apply { writeText("protected") }
+        val cache = store.createTempFile(".wav").apply { writeText("in progress") }
+        val manager = DefaultStorageManager(store, database.audioProjectDao(), database.audioHistoryDao(),
+            SharedPreferencesSoundlySettingsRepository(context, preferences), canDeleteAllData = { false }, canClearCache = { false })
+        assertTrue(manager.deleteAllLocalData() is SoundlyResult.Failure)
+        assertTrue(manager.clearCache() is SoundlyResult.Failure)
+        assertTrue(original.exists()); assertTrue(cache.exists())
+    }
+
     @Test
     fun deleteAllLocalDataClearsProjectsRecoveryHistoryFilesAndSettings() = runBlocking {
         val store = DefaultAudioFileStore(context.filesDir, context.cacheDir)

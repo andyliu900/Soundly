@@ -1,0 +1,5 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="90dp" android:height="32dp" android:viewportWidth="90" android:viewportHeight="32">
+    <!-- Decorative audio symbol; this is not a sampled waveform. -->
+    <path android:fillColor="@android:color/transparent" android:strokeColor="#CFC4FF" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M2,15 L2,18 M12,11 L12,22 M22,13 L22,20 M32,10 L32,23 M42,14 L42,19 M52,9 L52,24 M62,13 L62,20 M72,12 L72,21 M82,14 L82,19 M88,15 L88,18" />
+    <path android:fillColor="@android:color/transparent" android:strokeColor="#8063FF" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M7,9 L7,24 M17,5 L17,28 M27,9 L27,24 M37,6 L37,27 M47,12 L47,21 M57,7 L57,26 M67,4 L67,29 M77,11 L77,22" />
+</vector>

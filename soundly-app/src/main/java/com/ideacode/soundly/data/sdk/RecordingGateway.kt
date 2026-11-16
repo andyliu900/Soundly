@@ -14,17 +14,23 @@ interface RecordingGateway {
     val state: StateFlow<RecordingState>
     val waveform: Flow<WaveformFrame>
     val markers: StateFlow<List<AudioMarker>>
+    val lastSaved: StateFlow<RecordingResult?>
+    val currentConfig: StateFlow<RecordingConfig?>
+    fun acknowledgeSaved(sessionId: String)
 
     suspend fun prepare(config: RecordingConfig): AppResult<Unit>
     suspend fun prepareUsingDefaults(title: String?): AppResult<Unit>
     suspend fun start(): AppResult<String>
     suspend fun pause(): AppResult<Unit>
+    suspend fun pauseSession(sessionId: String): AppResult<Unit> = AppResult.Failure(com.ideacode.soundly.common.error.AppError("invalid_state", false))
     suspend fun resume(): AppResult<Unit>
     suspend fun addMarker(): AppResult<Unit>
     suspend fun stopAndSave(): AppResult<RecordingResult>
     suspend fun discard(): AppResult<Unit>
+    suspend fun discardSession(sessionId: String): AppResult<Unit> = AppResult.Failure(com.ideacode.soundly.common.error.AppError("invalid_state", false))
     suspend fun recoverable(): AppResult<List<RecoverableRecording>>
     suspend fun recover(sessionId: String): AppResult<RecordingResult>
+    suspend fun discardRecovery(sessionId: String): AppResult<Unit>
 }
 
 class DefaultRecordingGateway(
@@ -34,6 +40,11 @@ class DefaultRecordingGateway(
 
     override val state: StateFlow<RecordingState>
         get() = recorder.state
+    override val currentConfig: StateFlow<RecordingConfig?>
+        get() = recorder.currentConfig
+    override fun acknowledgeSaved(sessionId: String) = recorder.acknowledgeSaved(sessionId)
+    override val lastSaved: StateFlow<RecordingResult?>
+        get() = recorder.lastSaved
     override val waveform: Flow<WaveformFrame>
         get() = recorder.waveform
     override val markers: StateFlow<List<AudioMarker>>
@@ -46,12 +57,16 @@ class DefaultRecordingGateway(
 
     override suspend fun start(): AppResult<String> = recorder.start().toAppResult().map { it.projectId }
     override suspend fun pause(): AppResult<Unit> = recorder.pause().toAppResult()
+    override suspend fun pauseSession(sessionId: String): AppResult<Unit> = recorder.pauseSession(sessionId).toAppResult()
     override suspend fun resume(): AppResult<Unit> = recorder.resume().toAppResult()
     override suspend fun addMarker(): AppResult<Unit> = recorder.addMarker().toAppResult().map { Unit }
     override suspend fun stopAndSave(): AppResult<RecordingResult> = recorder.stopAndSave().toAppResult()
     override suspend fun discard(): AppResult<Unit> = recorder.discard().toAppResult()
+    override suspend fun discardSession(sessionId: String): AppResult<Unit> = recorder.discardSession(sessionId).toAppResult()
     override suspend fun recoverable(): AppResult<List<RecoverableRecording>> =
         recorder.getRecoverableRecordings().toAppResult()
+    override suspend fun discardRecovery(sessionId: String): AppResult<Unit> =
+        recorder.discardRecovery(sessionId).toAppResult()
     override suspend fun recover(sessionId: String): AppResult<RecordingResult> =
         recorder.recover(sessionId).toAppResult()
 }

@@ -1,0 +1,87 @@
+<resources>
+    <style name="Widget.Soundly.H7.Info" parent="">
+        <item name="android:minHeight">28dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/preview_secondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="Widget.Soundly.Preview.Metadata" parent="">
+        <item name="android:textColor">@color/preview_secondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="drawableTint">@color/preview_secondary</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="Widget.Soundly.EnhancementResult.Tab" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="buttonCompat">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/enhancement_result_tab_text</item>
+    </style>
+    <style name="Widget.Soundly.EnhancementResult.Effect" parent="">
+        <item name="android:minHeight">24dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="lineHeight">20sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/enhancement_progress_secondary</item>
+        <item name="drawableStartCompat">@drawable/ic_enhancement_result_check_small</item>
+        <item name="android:drawablePadding">12dp</item>
+    </style>
+
+    <style name="TextAppearance.Soundly.Title" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.Soundly.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.Soundly.Secondary" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+
+    <style name="Widget.Soundly.Button.Primary" parent="Widget.Material3.Button">
+        <item name="cornerRadius">@dimen/soundly_radius_button</item>
+        <item name="android:minHeight">@dimen/soundly_min_touch_target</item>
+    </style>
+
+    <style name="Widget.Soundly.Button.Secondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">@dimen/soundly_radius_button</item>
+        <item name="android:minHeight">@dimen/soundly_min_touch_target</item>
+    </style>
+
+    <style name="Widget.Soundly.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/soundly_radius_card</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="Widget.Soundly.Input" parent="Widget.Material3.TextInputLayout.OutlinedBox" />
+
+    <style name="ThemeOverlay.Soundly.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog" />
+
+    <style name="ThemeOverlay.Soundly.BottomSheet" parent="ThemeOverlay.Material3.BottomSheetDialog" />
+
+    <style name="TextAppearance.Soundly.TopAppBar" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Widget.Soundly.EnhancementProgress.OutlineButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/enhancement_progress_primary</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="strokeColor">@color/enhancement_progress_primary</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">26dp</item>
+        <item name="rippleColor">#167052FF</item>
+    </style>
+</resources>

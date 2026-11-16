@@ -41,7 +41,11 @@ data class RecoverableRecording(
     val projectId: String,
     val recordedDurationMs: Long,
     val recordedBytes: Long,
-    val updatedAt: Long
+    val updatedAt: Long,
+    val title: String? = null,
+    val scene: RecordingScene? = null,
+    val format: AudioFormat? = null,
+    val markerCount: Int? = null
 )
 
 sealed interface RecordingState {

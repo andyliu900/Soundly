@@ -1,0 +1,13 @@
+<resources>
+    <string name="library_importing">正在导入…</string>
+    <string name="library_import_interrupted">上次导入的结果暂时无法确认。请先检查录音库，确认没有生成项目后再重新选择文件。</string>
+    <string name="library_import_failed_check">%1$s\n\n如果导入已经开始，请先检查录音库，再决定是否重新选择文件。</string>
+    <string name="import_title">导入音频</string>
+    <string name="import_select_message">选择要导入的音频文件</string>
+    <string name="import_select">选择音频</string>
+    <string name="import_working">正在导入音频，请稍候</string>
+    <string name="import_interrupted">上次导入未完成，请重新选择音频。</string>
+    <string name="import_uncertain">暂时无法确认上次导入的结果，请重试核验。</string>
+    <string name="import_check_again">重新核验</string>
+    <string name="import_journal_failed">无法保存导入状态，请检查设备存储后重试。</string>
+</resources>

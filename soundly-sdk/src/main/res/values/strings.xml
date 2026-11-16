@@ -6,4 +6,7 @@
     <string name="soundly_recording_pause">Pause</string>
     <string name="soundly_recording_resume">Resume</string>
     <string name="soundly_recording_stop">Stop</string>
+    <string name="soundly_recording_finalizing">Saving recording…</string>
+    <string name="soundly_recording_paused">Recording paused</string>
+    <string name="soundly_recording_interrupted">Recording interrupted</string>
 </resources>

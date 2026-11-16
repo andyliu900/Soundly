@@ -12,5 +12,6 @@ internal data class AudioProjectEntity(
     val status: String,
     val originalVariantId: String,
     val createdAt: Long,
-    val updatedAt: Long
+    val updatedAt: Long,
+    val sourceDisplayName: String? = null
 )

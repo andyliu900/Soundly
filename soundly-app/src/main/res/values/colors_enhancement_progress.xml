@@ -1,0 +1,13 @@
+<resources>
+    <color name="enhancement_progress_background">#F7F7FE</color>
+    <color name="enhancement_progress_surface">#FFFFFF</color>
+    <color name="enhancement_progress_text">#101137</color>
+    <color name="enhancement_progress_secondary">#807FA5</color>
+    <color name="enhancement_progress_primary">#7052FF</color>
+    <color name="enhancement_progress_gradient_start">#9984FF</color>
+    <color name="enhancement_progress_gradient_end">#6344FF</color>
+    <color name="enhancement_progress_track">#EBE6FF</color>
+    <color name="enhancement_progress_container">#EFEBFF</color>
+    <color name="enhancement_progress_badge">#DED6FF</color>
+    <color name="enhancement_progress_divider">#E0DAFA</color>
+</resources>

@@ -11,12 +11,22 @@ class AppPreferences(context: Context) {
         get() = preferences.getBoolean(KEY_ONBOARDING_COMPLETED, false)
         set(value) = preferences.edit().putBoolean(KEY_ONBOARDING_COMPLETED, value).apply()
 
+    var microphoneRequestCount: Int
+        get() = preferences.getInt(KEY_MICROPHONE_REQUESTS, 0)
+        set(value) = preferences.edit().putInt(KEY_MICROPHONE_REQUESTS, value).apply()
+
+    var hasAskedNotificationPermission: Boolean
+        get() = preferences.getBoolean(KEY_NOTIFICATION_REQUESTED, false)
+        set(value) = preferences.edit().putBoolean(KEY_NOTIFICATION_REQUESTED, value).apply()
+
     var nightMode: Int
         get() = preferences.getInt(KEY_NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         set(value) = preferences.edit().putInt(KEY_NIGHT_MODE, value).apply()
 
     private companion object {
         const val KEY_ONBOARDING_COMPLETED = "onboarding_completed"
+        const val KEY_MICROPHONE_REQUESTS = "microphone_requests"
+        const val KEY_NOTIFICATION_REQUESTED = "notification_requested"
         const val KEY_NIGHT_MODE = "night_mode"
     }
 }

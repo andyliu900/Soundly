@@ -88,7 +88,8 @@ internal class AndroidAudioMetadataReader(
                     fileSizeBytes = size.coerceAtLeast(0L),
                     sampleRate = sampleRate,
                     channels = channels,
-                    bitRate = trackFormat.intOrNull(MediaFormat.KEY_BIT_RATE)
+                    bitRate = trackFormat.intOrNull(MediaFormat.KEY_BIT_RATE),
+                    sourceDisplayName = document.displayName?.takeIf { it.isNotBlank() }
                 )
             )
         } catch (error: SecurityException) {

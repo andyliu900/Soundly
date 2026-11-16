@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+ <item android:state_checked="true" android:color="@color/soundly_primary" />
+ <item android:color="@color/soundly_on_surface_variant" />
+</selector>

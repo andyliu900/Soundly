@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/enhancement_progress_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="36dp">
+
+        <LinearLayout
+            android:id="@+id/progress_source_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="70dp"
+            android:background="@drawable/bg_enhancement_progress_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="7dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/progress_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/enhancement_progress_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/progress_source_scene"
+                        android:includeFontPadding="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_enhancement_progress_scene"
+                        android:drawablePadding="4dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/enhancement_progress_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:drawableStartCompat="@drawable/ic_enhancement_scene" />
+
+                    <View
+                        android:id="@+id/progress_source_divider"
+                        android:layout_width="1dp"
+                        android:layout_height="13dp"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@color/enhancement_progress_divider"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/progress_source_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="6dp"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/enhancement_progress_secondary"
+                        android:textSize="13sp"
+                        app:drawableStartCompat="@drawable/ic_enhancement_clock" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="90dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:importantForAccessibility="noHideDescendants">
+                <ImageView
+                    android:id="@+id/progress_source_audio_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_enhancement_audio"
+                    android:contentDescription="@null" />
+                <com.ideacode.soundly.common.ui.audio.WaveformView
+                    android:id="@+id/progress_source_waveform"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/progress_circle"
+            android:layout_width="198dp"
+            android:layout_height="198dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp">
+
+            <com.ideacode.soundly.feature.enhancement.EnhancementProgressRingView
+                android:id="@+id/enhancement_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/progress_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/enhancement_progress_text"
+                    android:textSize="52sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/enhancement_progress_caption"
+                    android:textColor="@color/enhancement_progress_secondary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/progress_failure_icon"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:padding="32dp"
+            android:background="@drawable/bg_s1_warning_circle"
+            android:src="@drawable/ic_enhancement_audio"
+            app:tint="#FF6B6B"
+            android:importantForAccessibility="no"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/progress_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/h6_running"
+            android:textColor="@color/enhancement_progress_text"
+            android:textSize="23sp"
+            android:lineHeight="28dp"
+            android:fallbackLineSpacing="false"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/enhancement_stage"
+            android:lineHeight="24dp"
+            android:fallbackLineSpacing="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/enhancement_progress_secondary"
+            android:textSize="17sp" />
+
+        <LinearLayout
+            android:id="@+id/progress_mode_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:minHeight="72dp"
+            android:background="@drawable/bg_enhancement_progress_mode"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_enhancement_sparkle" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/enhancement_progress_mode_label"
+                    android:textColor="@color/enhancement_progress_secondary"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/progress_mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/enhancement_progress_text"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/progress_mode_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="34dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_enhancement_progress_badge"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="@string/enhancement_progress_processing"
+                android:textColor="@color/enhancement_progress_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_shield"
+                android:contentDescription="@null"
+                app:tint="@color/enhancement_progress_secondary" />
+            <TextView
+                android:id="@+id/progress_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/enhancement_progress_local"
+                android:textColor="@color/enhancement_progress_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/enhancement_cancel"
+            style="@style/Widget.Soundly.EnhancementProgress.OutlineButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="46dp"
+            android:text="@string/enhancement_cancel" />
+        <TextView
+            android:id="@+id/progress_cancel_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/enhancement_progress_cancel_note"
+            android:textColor="@color/enhancement_progress_secondary"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/progress_retry"
+            style="@style/Widget.Soundly.EnhancementProgress.OutlineButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/enhancement_retry"
+            android:visibility="gone" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/progress_change"
+            style="@style/Widget.Soundly.EnhancementProgress.OutlineButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/h6_change_mode"
+            android:visibility="gone" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/progress_original"
+            style="@style/Widget.Soundly.EnhancementProgress.OutlineButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/h6_original"
+            android:visibility="gone" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

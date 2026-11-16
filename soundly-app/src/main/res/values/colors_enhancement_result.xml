@@ -1,0 +1,8 @@
+<resources>
+    <color name="enhancement_result_teal">#14C5B3</color>
+    <color name="enhancement_result_teal_dark">#08B4A4</color>
+    <color name="enhancement_result_teal_pale">#B5EEE6</color>
+    <color name="enhancement_result_success">#EBF9F7</color>
+    <color name="enhancement_result_success_border">#C8EFEB</color>
+    <color name="enhancement_result_mode">#E4F7F4</color>
+</resources>

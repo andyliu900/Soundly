@@ -1,0 +1,11 @@
+<resources>
+    <string name="soundly_recording_channel_name">Soundly 录音</string>
+    <string name="soundly_recording_channel_description">录音期间显示控制按钮</string>
+    <string name="soundly_recording_notification_title">正在录音</string>
+    <string name="soundly_recording_paused">录音已暂停</string>
+    <string name="soundly_recording_interrupted">录音已中断</string>
+    <string name="soundly_recording_pause">暂停</string>
+    <string name="soundly_recording_resume">继续</string>
+    <string name="soundly_recording_stop">停止并保存</string>
+    <string name="soundly_recording_finalizing">正在保存录音…</string>
+</resources>

@@ -1,11 +1,25 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <style name="Base.Theme.Soundly" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/soundly_primary</item>
         <item name="colorOnPrimary">@color/soundly_on_primary</item>
+        <item name="colorPrimaryContainer">@color/soundly_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/soundly_on_primary_container</item>
+        <item name="android:colorBackground">@color/soundly_background</item>
         <item name="colorSurface">@color/soundly_surface</item>
         <item name="colorOnSurface">@color/soundly_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/soundly_on_surface_variant</item>
+        <item name="colorOutline">@color/soundly_outline</item>
+        <item name="colorOutlineVariant">@color/soundly_outline_variant</item>
+        <item name="colorError">@color/soundly_error</item>
+        <item name="colorOnError">@color/soundly_on_error</item>
         <item name="android:windowActionModeOverlay">true</item>
     </style>
-
     <style name="Theme.Soundly" parent="Base.Theme.Soundly" />
+    <style name="Theme.Soundly.EnhancementProgress" parent="Theme.Soundly">
+        <item name="colorPrimary">@color/enhancement_progress_primary</item>
+        <item name="colorOnSurface">@color/enhancement_progress_text</item>
+        <item name="colorOnSurfaceVariant">@color/enhancement_progress_secondary</item>
+        <item name="colorSurface">@color/enhancement_progress_surface</item>
+        <item name="android:colorBackground">@color/enhancement_progress_background</item>
+    </style>
 </resources>

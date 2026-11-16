@@ -1,0 +1,23 @@
+<resources>
+    <string name="imported_preview_title">导入音频预览</string>
+    <string name="imported_saved_title">音频已导入</string>
+    <string name="imported_saved_detail">已保存到录音库，可随时查看</string>
+    <string name="imported_badge">已导入</string>
+    <string name="imported_source_name">来源文件：%1$s</string>
+    <string name="imported_source_unknown">来源文件名不可用</string>
+    <string name="imported_original_title">原始音频 · 尚未增强</string>
+    <string name="imported_original_detail">导入文件已作为项目原始版本保留</string>
+    <string name="imported_other_title">当前选中版本</string>
+    <string name="imported_trimmed_title">裁剪版本</string>
+    <string name="imported_enhanced_title">增强版本</string>
+    <string name="imported_other_detail">操作将应用于当前版本，原始音频仍保留</string>
+    <string name="imported_recommend_title">让声音更清晰</string>
+    <string name="imported_recommend_detail">可选择增强方式，改善人声清晰度与背景噪声</string>
+    <string name="imported_enhance">增强音频</string>
+    <string name="imported_trim">首尾裁剪</string>
+    <string name="imported_export">保存与分享</string>
+    <string name="imported_library">返回录音库</string>
+    <string name="imported_wave_loading">正在生成波形…</string>
+    <string name="imported_wave_retry">波形不可用，点击重试</string>
+    <string name="imported_trim_unsupported">当前音频格式暂不支持裁剪，可继续增强或保存。</string>
+</resources>

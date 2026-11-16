@@ -1,0 +1,4 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/preview_menu_trim" android:title="@string/preview_trim" app:showAsAction="never" />
+    <item android:id="@+id/preview_menu_export" android:title="@string/preview_export" app:showAsAction="never" />
+</menu>

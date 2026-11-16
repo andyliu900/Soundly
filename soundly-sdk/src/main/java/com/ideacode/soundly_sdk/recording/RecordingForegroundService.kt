@@ -23,6 +23,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -37,6 +38,7 @@ internal class RecordingForegroundService : Service() {
         SupervisorJob() + SoundlyDispatchers.Default.computation
     )
     private var stateJob: Job? = null
+    private var foregroundStarted = false
 
     override fun onCreate() {
         super.onCreate()
@@ -49,15 +51,16 @@ internal class RecordingForegroundService : Service() {
             stopSelf()
             return START_NOT_STICKY
         }
-        startInForeground(buildNotification(recorder.state.value))
+        if (!foregroundStarted) {
+            startInForeground(buildNotification(recorder.state.value))
+            foregroundStarted = true
+        }
         observe(recorder)
+        val sessionId = intent?.getStringExtra(EXTRA_SESSION)
         when (intent?.action) {
-            ACTION_PAUSE -> scope.launch { recorder.pause() }
-            ACTION_RESUME -> scope.launch { recorder.resume() }
-            ACTION_STOP -> scope.launch {
-                recorder.stopAndSave()
-                stopSelf()
-            }
+            ACTION_PAUSE -> if (sessionId != null) commandScope.launch { recorder.pauseSession(sessionId) }
+            ACTION_RESUME -> if (sessionId != null) commandScope.launch { recorder.resumeSession(sessionId) }
+            ACTION_STOP -> if (sessionId != null) commandScope.launch { recorder.stopAndSaveSession(sessionId) }
         }
         return START_NOT_STICKY
     }
@@ -73,7 +76,15 @@ internal class RecordingForegroundService : Service() {
     private fun observe(recorder: RecordingManager) {
         if (stateJob != null) return
         stateJob = scope.launch {
-            recorder.state.collectLatest { state ->
+            recorder.state.distinctUntilChangedBy { state ->
+                when (state) {
+                    is RecordingState.Recording -> "recording:${state.durationMs / 1000}"
+                    is RecordingState.Paused -> "paused:${state.durationMs / 1000}"
+                    is RecordingState.Interrupted -> "interrupted:${state.reason}:${state.durationMs / 1000}"
+                    is RecordingState.Finalizing -> "finalizing"
+                    else -> "inactive"
+                }
+            }.collectLatest { state ->
                 when (state) {
                     is RecordingState.Recording,
                     is RecordingState.Paused,
@@ -117,6 +128,12 @@ internal class RecordingForegroundService : Service() {
             R.string.soundly_recording_pause
         val toggleIcon = if (paused) android.R.drawable.ic_media_play else
             android.R.drawable.ic_media_pause
+        val sessionId = when (state) {
+            is RecordingState.Recording -> state.sessionId
+            is RecordingState.Paused -> state.sessionId
+            is RecordingState.Interrupted -> state.sessionId
+            else -> null
+        }
 
         val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
         val contentIntent = launchIntent?.let {
@@ -127,34 +144,40 @@ internal class RecordingForegroundService : Service() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
         }
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(android.R.drawable.ic_btn_speak_now)
-            .setContentTitle(getString(R.string.soundly_recording_notification_title))
-            .setContentText(formatDuration(durationMs))
+            .setContentTitle(getString(when (state) {
+                is RecordingState.Paused -> R.string.soundly_recording_paused
+                is RecordingState.Interrupted -> R.string.soundly_recording_interrupted
+                else -> R.string.soundly_recording_notification_title
+            }))
+            .setContentText(if (state is RecordingState.Finalizing) getString(R.string.soundly_recording_finalizing) else formatDuration(durationMs))
             .setOnlyAlertOnce(true)
             .setOngoing(true)
             .setSilent(true)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setContentIntent(contentIntent)
-            .addAction(
+        if (sessionId != null) builder.addAction(
                 toggleIcon,
                 getString(toggleLabel),
-                serviceAction(toggleAction, if (paused) 2 else 1)
+                serviceAction(toggleAction, if (paused) 2 else 1, sessionId)
             )
             .addAction(
                 android.R.drawable.ic_menu_close_clear_cancel,
                 getString(R.string.soundly_recording_stop),
-                serviceAction(ACTION_STOP, 3)
+                serviceAction(ACTION_STOP, 3, sessionId)
             )
-            .build()
+        return builder.build()
     }
 
-    private fun serviceAction(action: String, requestCode: Int): PendingIntent =
+    private fun serviceAction(action: String, requestCode: Int, sessionId: String): PendingIntent =
         PendingIntent.getService(
             this,
             requestCode,
-            Intent(this, RecordingForegroundService::class.java).setAction(action),
+            Intent(this, RecordingForegroundService::class.java).setAction(action)
+                .setData(android.net.Uri.Builder().scheme("soundly-recording").authority("session").appendPath(sessionId).appendPath(action).build())
+                .putExtra(EXTRA_SESSION, sessionId),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
@@ -185,6 +208,7 @@ internal class RecordingForegroundService : Service() {
     }
 
     companion object {
+        private val commandScope = CoroutineScope(SupervisorJob() + SoundlyDispatchers.Default.computation)
         private const val CHANNEL_ID = "soundly_recording"
         private const val NOTIFICATION_ID = 0x534F
         private const val ACTION_START = "com.ideacode.soundly.action.RECORDING_START"
@@ -192,6 +216,7 @@ internal class RecordingForegroundService : Service() {
         private const val ACTION_PAUSE = "com.ideacode.soundly.action.RECORDING_PAUSE"
         private const val ACTION_RESUME = "com.ideacode.soundly.action.RECORDING_RESUME"
         private const val ACTION_STOP = "com.ideacode.soundly.action.RECORDING_STOP"
+        private const val EXTRA_SESSION = "recording_session_id"
 
         fun start(context: Context) {
             ContextCompat.startForegroundService(

@@ -1,0 +1,3 @@
+<resources>
+ <color name="library_search_bg">#27283D</color><color name="library_filter_border">#48465F</color><color name="library_filter_selected">#705BE9</color><color name="library_filter_text">#D5D2EA</color><color name="library_icon_bg">#302C49</color><color name="library_icon_enhanced_bg">#183E3A</color><color name="library_icon_enhanced">#56DBC7</color><color name="library_badge_text">#C4BFE4</color><color name="library_badge_enhanced_text">#64DDCA</color><color name="library_fab">#725CEB</color>
+</resources>

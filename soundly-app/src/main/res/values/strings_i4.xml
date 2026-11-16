@@ -1,0 +1,9 @@
+<resources>
+    <string name="i4_before">处理前</string>
+    <string name="i4_input_kept">本次输入音频仍然保留</string>
+    <string name="i4_trimmed_file">裁剪音频 · %1$s</string>
+    <string name="i4_original_audio_file">原始音频 · %1$s</string>
+    <string name="i4_input_audio_file">输入音频 · %1$s</string>
+    <string name="i4_enhanced_audio_file">增强音频 · %1$s</string>
+    <string name="i4_version_duration">%1$s · %2$s</string>
+</resources>

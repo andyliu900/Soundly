@@ -1,0 +1,1 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"><item android:id="@+id/project_menu_open_preview" android:title="@string/project_open_preview" app:showAsAction="never"/><item android:id="@+id/project_menu_delete" android:title="@string/project_delete" app:showAsAction="never"/></menu>

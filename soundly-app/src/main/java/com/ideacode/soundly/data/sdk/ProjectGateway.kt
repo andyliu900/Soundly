@@ -7,6 +7,8 @@ import com.ideacode.soundly_sdk.api.model.recording.StaticWaveform
 import com.ideacode.soundly_sdk.api.model.playback.PlaybackState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 interface ProjectGateway {
     val playbackState: StateFlow<PlaybackState>
@@ -14,12 +16,18 @@ interface ProjectGateway {
     fun searchProjects(query: String): Flow<List<AudioProject>>
     fun observeProject(projectId: String): Flow<AudioProject?>
     suspend fun getProject(projectId: String): AppResult<AudioProject>
+    suspend fun isVariantReadable(variant: AudioVariant): AppResult<Boolean> = withContext(Dispatchers.IO) {
+        val file = java.io.File(variant.filePath)
+        AppResult.Success(file.isFile && file.canRead() && file.length() > 0L)
+    }
     suspend fun renameProject(projectId: String, title: String): AppResult<Unit>
     suspend fun deleteProject(projectId: String): AppResult<Unit>
     suspend fun loadWaveform(projectId: String, variantId: String): AppResult<StaticWaveform>
+    suspend fun getOrGenerateWaveform(projectId: String, variantId: String): AppResult<StaticWaveform> = loadWaveform(projectId, variantId)
     suspend fun preparePlayback(variant: AudioVariant): AppResult<Unit>
     fun play(): AppResult<Unit>
     fun pausePlayback(): AppResult<Unit>
+    fun seekTo(positionMs: Long): AppResult<Unit>
     suspend fun switchPlaybackKeepingPosition(variant: AudioVariant): AppResult<Unit>
 }
 
@@ -42,10 +50,13 @@ class DefaultProjectGateway(
         sdk.projects.deleteProject(projectId).toAppResult()
     override suspend fun loadWaveform(projectId: String, variantId: String): AppResult<StaticWaveform> =
         sdk.recorder.loadStaticWaveform(projectId, variantId).toAppResult()
+    override suspend fun getOrGenerateWaveform(projectId: String, variantId: String): AppResult<StaticWaveform> =
+        sdk.recorder.getOrGenerateStaticWaveform(projectId, variantId).toAppResult()
     override suspend fun preparePlayback(variant: AudioVariant): AppResult<Unit> =
         sdk.playback.prepare(variant.toSourceRef()).toAppResult()
     override fun play(): AppResult<Unit> = sdk.playback.play().toAppResult()
     override fun pausePlayback(): AppResult<Unit> = sdk.playback.pause().toAppResult()
+    override fun seekTo(positionMs: Long): AppResult<Unit> = sdk.playback.seekTo(positionMs).toAppResult()
     override suspend fun switchPlaybackKeepingPosition(variant: AudioVariant): AppResult<Unit> =
         sdk.playback.switchSourceKeepingPosition(variant.toSourceRef()).toAppResult()
 }

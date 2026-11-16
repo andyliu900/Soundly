@@ -29,6 +29,9 @@ internal class DefaultAudioFileStore(
     override fun projectDirectory(projectId: String): File =
         safeChild(projectsDirectory, requireIdentifier(projectId)).ensureDirectory()
 
+    override fun reserveProjectDirectory(projectId: String): Boolean =
+        safeChild(projectsDirectory, requireIdentifier(projectId)).mkdir()
+
     override fun originalFile(projectId: String, format: AudioFormat): File =
         safeChild(
             safeChild(projectDirectory(projectId), ORIGINAL_DIRECTORY).ensureDirectory(),

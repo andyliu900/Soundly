@@ -36,10 +36,10 @@ internal class MediaCodecStaticWaveformGenerator(
     }
 
     override suspend fun generate(source: File, durationMs: Long): StaticWaveform {
-        val effectiveSampleIntervalMs = maxOf(
+        var effectiveSampleIntervalMs = maxOf(
             sampleIntervalMs,
             if (durationMs > 0L) {
-                ((durationMs + MAX_GENERATED_SAMPLES - 1L) / MAX_GENERATED_SAMPLES)
+                (durationMs / MAX_GENERATED_SAMPLES + if (durationMs % MAX_GENERATED_SAMPLES == 0L) 0L else 1L)
                     .coerceAtMost(Int.MAX_VALUE.toLong())
                     .toInt()
             } else {
@@ -68,7 +68,7 @@ internal class MediaCodecStaticWaveformGenerator(
             codecStarted = true
 
             val peaks = ArrayList<Float>()
-            var samplesInBucket = 0
+            var samplesInBucket = 0L
             var bucketPeak = 0f
             var decodedSamples = 0L
             val bufferInfo = MediaCodec.BufferInfo()
@@ -77,16 +77,25 @@ internal class MediaCodecStaticWaveformGenerator(
 
             fun acceptSample(sample: Float) {
                 bucketPeak = maxOf(bucketPeak, abs(sample).coerceIn(0f, 1f))
-                samplesInBucket += 1
+                samplesInBucket += 1L
                 decodedSamples += 1L
                 val samplesPerBucket = (
                     sampleRate.toLong() * channels.coerceAtLeast(1) *
                         effectiveSampleIntervalMs / 1_000L
                 ).coerceAtLeast(channels.coerceAtLeast(1).toLong())
-                if (samplesInBucket.toLong() >= samplesPerBucket) {
+                if (samplesInBucket >= samplesPerBucket) {
                     peaks += bucketPeak
-                    samplesInBucket = 0
+                    samplesInBucket = 0L
                     bucketPeak = 0f
+                    // Container durations can be inaccurate. Keep memory bounded even if
+                    // decoding runs much longer than the metadata predicted.
+                    if (peaks.size >= MAX_GENERATED_SAMPLES.toInt()) {
+                        require(effectiveSampleIntervalMs <= Int.MAX_VALUE / 2) { "Waveform duration is too large" }
+                        val reduced = peaks.size / 2
+                        for (i in 0 until reduced) peaks[i] = maxOf(peaks[i * 2], peaks[i * 2 + 1])
+                        peaks.subList(reduced, peaks.size).clear()
+                        effectiveSampleIntervalMs *= 2
+                    }
                 }
             }
 
@@ -156,7 +165,7 @@ internal class MediaCodecStaticWaveformGenerator(
                     }
                 }
             }
-            if (samplesInBucket > 0) peaks += bucketPeak
+            if (samplesInBucket > 0L) peaks += bucketPeak
             require(peaks.isNotEmpty()) { "Decoder produced no waveform samples" }
             val decodedDurationMs = if (sampleRate > 0 && channels > 0) {
                 decodedSamples * 1_000L / (sampleRate.toLong() * channels)

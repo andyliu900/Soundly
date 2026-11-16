@@ -1,0 +1,8 @@
+<resources>
+ <string name="preview_complete">录音完成</string>
+ <string name="preview_original_saved">原始录音已保存</string>
+ <string name="preview_recommend_title">推荐：自动增强</string>
+ <string name="preview_recommend_detail">平衡人声清晰度、背景噪声和整体音量</string>
+ <string name="preview_timeline_marker">%1$s · %2$s</string>
+ <string name="preview_today_time">今天 %1$s</string>
+</resources>

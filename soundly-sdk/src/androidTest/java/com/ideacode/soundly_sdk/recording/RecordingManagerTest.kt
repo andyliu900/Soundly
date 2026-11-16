@@ -99,6 +99,10 @@ class RecordingManagerTest {
         assertTrue(recorderEngine.outputFile.name.endsWith(".aac.partial"))
         assertTrue(manager.state.value is RecordingState.Ready)
         assertTrue(manager.start() is SoundlyResult.Success)
+        assertTrue(manager.pauseSession("stale") is SoundlyResult.Failure)
+        assertTrue(manager.stopAndSaveSession("stale") is SoundlyResult.Failure)
+        assertTrue(manager.discardSession("stale") is SoundlyResult.Failure)
+        assertTrue(manager.state.value is RecordingState.Recording)
         elapsed = 2_500L
         val markerResult = manager.addMarker("Decision")
         assertTrue(markerResult is SoundlyResult.Success)
@@ -107,11 +111,12 @@ class RecordingManagerTest {
         assertEquals(2, manager.markers.value.size)
         assertTrue(manager.deleteMarker(removableMarker.value.id) is SoundlyResult.Success)
         assertEquals(listOf("marker_1"), manager.markers.value.map { it.id })
-        assertTrue(manager.pause() is SoundlyResult.Success)
+        assertTrue(manager.pauseSession("session_1") is SoundlyResult.Success)
         assertTrue(manager.state.value is RecordingState.Paused)
+        assertTrue(manager.resumeSession("stale") is SoundlyResult.Failure)
         elapsed = 9_000L
         assertEquals(1_500L, (manager.state.value as RecordingState.Paused).durationMs)
-        assertTrue(manager.resume() is SoundlyResult.Success)
+        assertTrue(manager.resumeSession("session_1") is SoundlyResult.Success)
         elapsed = 9_500L
         focus.interrupt(RecordingInterruptionReason.PHONE_CALL)
         val interrupted = withTimeout(2_000L) {
@@ -142,6 +147,37 @@ class RecordingManagerTest {
         assertEquals(result.waveform, (persistedWaveform as SoundlyResult.Success).value)
         assertTrue(manager.markers.value.isEmpty())
         assertEquals(RecordingState.Idle, manager.state.value)
+        assertEquals(result, manager.lastSaved.value)
+        manager.acknowledgeSaved("wrong_session")
+        assertEquals(result, manager.lastSaved.value)
+        manager.acknowledgeSaved(result.sessionId)
+        assertEquals(null, manager.lastSaved.value)
+    }
+
+    @Test
+    fun discardRecoveryTargetsOnlyRequestedInactiveSession() = runBlocking {
+        val store = DefaultAudioFileStore(context.filesDir, context.cacheDir)
+        val dao = database.audioProjectDao()
+        val repository = RoomAudioProjectRepository(dao, store)
+        val first = store.recoveryFile("old_1", AudioFormat.AAC).apply { parentFile?.mkdirs(); writeBytes(byteArrayOf(1, 2, 3)) }
+        val second = store.recoveryFile("old_2", AudioFormat.AAC).apply { parentFile?.mkdirs(); writeBytes(byteArrayOf(4, 5, 6)) }
+        dao.upsertRecoverySession(RecoverySessionEntity("old_1", "project_old_1", first.absolutePath, 1000, 3, "RECOVERY_REQUIRED", 1))
+        dao.upsertRecoverySession(RecoverySessionEntity("old_2", "project_old_2", second.absolutePath, 2000, 3, "RECOVERY_REQUIRED", 2))
+        val ids = ArrayDeque(listOf("active", "active_project", "active_original"))
+        val manager = AndroidRecordingManager(context, repository, FixedMetadataReader(), store, dao,
+            engineFactory = { FakeRecorderEngine() }, recordPermissionChecker = { true },
+            focusController = FakeFocusController(), deviceMonitor = FakeDeviceMonitor(), idGenerator = { ids.removeFirst() })
+        assertTrue(manager.prepare(RecordingConfig(enableBackgroundNotification = false)) is SoundlyResult.Success)
+        assertTrue(manager.start() is SoundlyResult.Success)
+        assertTrue(manager.discardRecovery("active") is SoundlyResult.Failure)
+        assertTrue(manager.recover("old_2") is SoundlyResult.Failure)
+        assertTrue(manager.discardRecovery("old_1") is SoundlyResult.Success)
+        assertTrue(!first.exists())
+        assertTrue(second.exists())
+        assertEquals(null, dao.getRecoverySession("old_1"))
+        assertTrue(dao.getRecoverySession("old_2") != null)
+        assertTrue(manager.state.value is RecordingState.Recording)
+        assertTrue(manager.discard() is SoundlyResult.Success)
     }
 
     @Test

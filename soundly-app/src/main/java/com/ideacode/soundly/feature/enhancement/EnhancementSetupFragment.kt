@@ -2,46 +2,75 @@ package com.ideacode.soundly.feature.enhancement
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ideacode.soundly.R
 import com.ideacode.soundly.app.SoundlyApplication
-import com.ideacode.soundly.common.error.AppResult
-import com.ideacode.soundly.databinding.FragmentEnhancementSetupBinding
-import com.ideacode.soundly_sdk.api.model.audio.dsp.PresetOption
+import com.ideacode.soundly.databinding.FragmentH6EnhancementSetupBinding
+import com.ideacode.soundly.feature.preview.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
 
-/** F18: select a stable SDK preset before starting an asynchronous task. */
-class EnhancementSetupFragment : Fragment(R.layout.fragment_enhancement_setup) {
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentEnhancementSetupBinding.bind(view)
-        val presets = listOf(
-            PresetOption.AI,
-            PresetOption.DEFAULT,
-            PresetOption.SPEECH_FOCUS,
-            PresetOption.VOICE_STABLE,
-            PresetOption.NATURAL_SMOOTH
-        )
-        binding.enhancementMode.adapter = ArrayAdapter(
-            requireContext(), android.R.layout.simple_spinner_dropdown_item, presets.map { it.title }
-        )
-        binding.enhancementStart.setOnClickListener {
-            val projectId = requireArguments().getString("projectId").orEmpty()
-            val variantId = requireArguments().getString("variantId").orEmpty()
-            val preset = presets[binding.enhancementMode.selectedItemPosition]
-            val gateway = (requireActivity().application as SoundlyApplication).appContainer.editingGateway
-            viewLifecycleOwner.lifecycleScope.launch {
-                when (val result = gateway.startEnhancement(projectId, variantId, preset)) {
-                    is AppResult.Success -> findNavController().navigate(
-                        R.id.enhancementProgressFragment,
-                        Bundle().apply { putString("taskId", result.value.taskId) }
-                    )
-                    is AppResult.Failure -> binding.enhancementStart.error = getString(R.string.error_operation_failed)
-                }
-            }
+class EnhancementSetupFragment : Fragment(R.layout.fragment_h6_enhancement_setup) {
+    private val container get() = (requireActivity().application as SoundlyApplication).appContainer
+    private val model: EnhancementStartViewModel by viewModels {
+        object : AbstractSavedStateViewModelFactory(this, arguments) {
+            @Suppress("UNCHECKED_CAST") override fun <T : ViewModel> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T =
+                EnhancementStartViewModel(handle, StartEnhancementUseCase(container.editingGateway)) as T
         }
     }
+    private val source: AudioPreviewViewModel by viewModels {
+        object : AbstractSavedStateViewModelFactory(this, arguments) {
+            @Suppress("UNCHECKED_CAST") override fun <T : ViewModel> create(key: String, modelClass: Class<T>, handle: SavedStateHandle): T =
+                AudioPreviewViewModel(handle, container.projectGateway, StartEnhancementUseCase(container.editingGateway)) as T
+        }
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val b = FragmentH6EnhancementSetupBinding.bind(view)
+        val renderer = EnhancementSetupRenderer(b,
+            onSelect = { model.dispatch(EnhancementStartAction.Select(it)) },
+            onSeek = { if (!model.uiState.value.busy) source.dispatch(PreviewAction.Seek(it)) })
+        b.enhancementStart.setOnClickListener {
+            if (source.uiState.value.variant != null) model.dispatch(EnhancementStartAction.Start(model.uiState.value.selected))
+        }
+        b.setupPlay.setOnClickListener { if (!model.uiState.value.busy) source.dispatch(PreviewAction.Toggle) }
+        val guard = object : OnBackPressedCallback(false) { override fun handleOnBackPressed() = Unit }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, guard)
+        viewLifecycleOwner.lifecycleScope.launch { viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            combine(model.uiState, source.uiState) { start, recording -> start to recording }.collect { (start, recording) ->
+                guard.isEnabled = start.busy
+                renderer.render(start, recording)
+            }
+        } }
+        viewLifecycleOwner.lifecycleScope.launch { viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            model.effects.collect { effects ->
+                val entry = effects.firstOrNull() ?: return@collect
+                if (findNavController().currentDestination?.id != R.id.enhancementSetupFragment) return@collect
+                when (val effect = entry.value) {
+                    is EnhancementStartEffect.Started -> {
+                        findNavController().navigate(R.id.enhancementProgressFragment, bundleOf("taskId" to effect.taskId, "projectId" to requireArguments().getString("projectId").orEmpty(), "sourceVariantId" to requireArguments().getString("variantId").orEmpty(), "sourceDestination" to requireArguments().getString("sourceDestination").orEmpty()))
+                        model.navigationHandled()
+                    }
+                    is EnhancementStartEffect.Error -> MaterialAlertDialogBuilder(requireContext()).setMessage(container.errorMessageMapper.messageRes(effect.error)).setPositiveButton(android.R.string.ok, null).show()
+                }
+                model.acknowledgeEffect(entry.id)
+            }
+        } }
+        viewLifecycleOwner.lifecycleScope.launch { viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            source.effects.collect { entries ->
+                val entry = entries.firstOrNull() ?: return@collect
+                if (findNavController().currentDestination?.id != R.id.enhancementSetupFragment) return@collect
+                (entry.value as? PreviewEffect.Error)?.let { MaterialAlertDialogBuilder(requireContext()).setMessage(container.errorMessageMapper.messageRes(it.error)).setPositiveButton(android.R.string.ok, null).show() }
+                source.acknowledgeEffect(entry.id)
+            }
+        } }
+    }
+    override fun onStart() { super.onStart(); source.setActive(true) }
+    override fun onStop() { source.setActive(false); super.onStop() }
 }
